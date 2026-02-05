@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email in [
+          // TODO: remplace par ton email admin
+          "TON_EMAIL_ADMIN@domaine.com"
+        ];
+    }
+
+    match /devis/{docId} {
+      allow get, list, read: if isAdmin();
+
+      allow create: if
+        request.resource.data.type == "devis"
+        && request.resource.data.website == ""
+        && request.resource.data.email is string
+        && request.resource.data.email.size() >= 5
+        && request.resource.data.email.size() <= 200
+        && request.resource.data.message is string
+        && request.resource.data.message.size() >= 5
+        && request.resource.data.message.size() <= 3000
+        && request.resource.data.statut == "nouveau";
+
+      allow update, delete: if isAdmin();
+    }
+  }
+}

@@ -19,28 +19,6 @@
     <meta name="theme-color" content="#0B1F2A" />
   </head>
   <body>
-    <form
-      name="contact"
-      method="POST"
-      data-netlify="true"
-      data-netlify-honeypot="bot-field"
-      action="/merci"
-      hidden
-    >
-      <input type="hidden" name="form-name" value="contact" />
-      <p hidden>
-        <label>Don’t fill this out: <input name="bot-field" /></label>
-      </p>
-      <input type="text" name="profil" />
-      <input type="text" name="service" />
-      <input type="text" name="objet" />
-      <input type="text" name="nom" />
-      <input type="text" name="prenom" />
-      <input type="email" name="email" />
-      <input type="tel" name="telephone" />
-      <textarea name="message"></textarea>
-      <input type="checkbox" name="consentement" />
-    </form>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

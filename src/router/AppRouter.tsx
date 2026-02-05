@@ -5,6 +5,7 @@ import Particulier from '../pages/Particulier'
 import Entreprise from '../pages/Entreprise'
 import About from '../pages/About'
 import Contact from '../pages/Contact'
+import Admin from '../pages/Admin'
 import Merci from '../pages/Merci'
 import MentionsLegales from '../pages/MentionsLegales'
 import Confidentialite from '../pages/Confidentialite'
@@ -34,6 +35,7 @@ const AppRouter = () => {
         <Route path="/entreprise" element={<Entreprise />} />
         <Route path="/a-propos" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/admin-cagnat" element={<Admin />} />
         <Route path="/merci" element={<Merci />} />
         <Route path="/mentions-legales" element={<MentionsLegales />} />
         <Route path="/confidentialite" element={<Confidentialite />} />

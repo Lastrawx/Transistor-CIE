@@ -1,5 +1,7 @@
 import { type FormEvent, useEffect, useMemo, useState } from 'react'
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
+import { db } from '../firebase'
 import { buildSubject, profileLabel } from '../utils/format'
 import { useProfile } from '../utils/profile'
 import type { UserProfile } from '../utils/storage'
@@ -16,15 +18,10 @@ type ContactFormProps = {
   compact?: boolean
 }
 
-const encodeFormData = (data: FormData) => {
-  const params = new URLSearchParams()
-  data.forEach((value, key) => {
-    if (typeof value === 'string') {
-      params.append(key, value)
-    }
-  })
-  return params.toString()
-}
+const MIN_EMAIL_LENGTH = 5
+const MAX_EMAIL_LENGTH = 200
+const MIN_MESSAGE_LENGTH = 5
+const MAX_MESSAGE_LENGTH = 3000
 
 const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }: ContactFormProps) => {
   const navigate = useNavigate()
@@ -38,6 +35,7 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
   const [subjectTouched, setSubjectTouched] = useState(false)
   const [ready, setReady] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
   const profileLocked = Boolean(prefillProfile)
   const serviceLocked = Boolean(prefillService)
@@ -71,19 +69,56 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
     event.preventDefault()
     if (isSubmitting) return
     setIsSubmitting(true)
+    setSubmitError(null)
 
     const form = event.currentTarget
     const formData = new FormData(form)
+    const honeypot = (formData.get('website') ?? '').toString().trim()
+
+    if (honeypot) {
+      setIsSubmitting(false)
+      return
+    }
+
+    const email = (formData.get('email') ?? '').toString().trim()
+    const message = (formData.get('message') ?? '').toString().trim()
+
+    if (email.length < MIN_EMAIL_LENGTH || email.length > MAX_EMAIL_LENGTH) {
+      setSubmitError('Merci de renseigner un email valide.')
+      setIsSubmitting(false)
+      return
+    }
+
+    if (message.length < MIN_MESSAGE_LENGTH || message.length > MAX_MESSAGE_LENGTH) {
+      setSubmitError('Merci de renseigner un message entre 5 et 3000 caractères.')
+      setIsSubmitting(false)
+      return
+    }
+
+    const payload = {
+      type: 'devis',
+      createdAt: serverTimestamp(),
+      source: 'site-netlify',
+      profil: (formData.get('profil') ?? '').toString().trim(),
+      service: (formData.get('service') ?? '').toString().trim(),
+      objet: (formData.get('objet') ?? '').toString().trim(),
+      nom: (formData.get('nom') ?? '').toString().trim(),
+      prenom: (formData.get('prenom') ?? '').toString().trim(),
+      email,
+      telephone: (formData.get('telephone') ?? '').toString().trim(),
+      message,
+      statut: 'nouveau',
+      consentement: Boolean(formData.get('consentement')),
+      website: '',
+    }
 
     try {
-      await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encodeFormData(formData),
-      })
+      await addDoc(collection(db, 'devis'), payload)
+      form.reset()
       navigate('/merci')
     } catch (error) {
-      console.error('Netlify form submission failed', error)
+      console.error('Firestore submission failed', error)
+      setSubmitError('Erreur lors de l’envoi. Merci de réessayer.')
       setIsSubmitting(false)
     }
   }
@@ -97,20 +132,21 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
 
   return (
     <form
+      id="devis-form"
       name="contact"
       method="POST"
-      data-netlify="true"
-      data-netlify-honeypot="bot-field"
       action="/merci"
       onSubmit={handleSubmit}
       className={`grid gap-4 ${compact ? 'text-sm' : 'text-base'}`}
     >
-      <input type="hidden" name="form-name" value="contact" />
-      <p className="hidden">
-        <label>
-          Don’t fill this out: <input name="bot-field" />
-        </label>
-      </p>
+      <input
+        type="text"
+        name="website"
+        autoComplete="off"
+        tabIndex={-1}
+        aria-hidden="true"
+        style={{ display: 'none' }}
+      />
 
       {profileLocked ? (
         <div className="rounded-xl bg-slate-100 px-4 py-3 text-sm font-semibold text-slate-700">
@@ -226,6 +262,7 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
       <button type="submit" className="btn-primary" disabled={!ready || isSubmitting}>
         {ready ? (isSubmitting ? 'Envoi en cours...' : 'Envoyer ma demande') : 'Préparation...'}
       </button>
+      {submitError && <p className="text-sm text-rose-600">{submitError}</p>}
     </form>
   )
 }

@@ -15,10 +15,12 @@
 4. Publish directory : `dist`
 5. Le fichier `netlify.toml` gère le redirect SPA.
 
-## Activer la notification email Netlify Forms
-1. Une fois le site déployé, ouvrez **Netlify > Forms > contact**.
-2. Ajoutez une notification email vers : `quentin-cagnat@live.fr`.
-3. (Optionnel) Ajoutez un auto-répondeur pour l’utilisateur.
+## Configuration Firebase (formulaire + admin)
+1. Créez un projet Firebase avec **Firestore** et **Authentication (Email/Password)** activés.
+2. Collez les règles depuis `firestore.rules` dans **Firestore > Rules** (remplacez l’email admin).
+3. Collez la configuration Firebase dans `src/firebase.ts`.
+4. Créez un utilisateur admin dans **Firebase Auth** (email/mot de passe).
+5. Le formulaire écrit dans la collection `devis` et la page `/admin-cagnat` affiche les demandes.
 
 ## Domaine personnalisé
 1. Dans Netlify : **Domain settings** > **Add domain**.
