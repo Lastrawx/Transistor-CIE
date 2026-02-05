@@ -108,17 +108,137 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="container-page">
-        <div className="rounded-3xl bg-brand-ink px-8 py-6 text-white shadow-lift md:flex md:items-center md:justify-between">
-          <div className="space-y-2">
-            <p className="text-sm uppercase text-white/70">Bénéfice clé</p>
-            <h2 className="text-2xl font-semibold">100% à distance — Devis gratuit</h2>
-            <p className="text-sm text-white/70">Un accompagnement flexible, transparent et sans déplacement.</p>
+      <section className="container-page space-y-8">
+        <div className="section-card space-y-8 p-8">
+          <div className="space-y-3">
+            <p className="text-xs font-semibold uppercase text-slate-500">Notre expertise</p>
+            <h2 className="text-3xl font-semibold text-slate-900">Technique, méthode, transition responsable</h2>
+            <p className="text-sm text-slate-600">
+              Transistor&CIE s’appuie sur des intervenants expérimentés en systèmes & réseaux, sécurité & sauvegarde, et
+              pilotage opérationnel. L’entreprise intervient avec une approche simple : diagnostic clair → actions
+              prioritaires → stabilisation → prévention, pour des résultats concrets et durables.
+            </p>
           </div>
-          <div className="mt-4 md:mt-0">
-            <Link to={ctaLink} className="btn-secondary">
-              {ctaLabel}
+
+          <div className="grid gap-6 lg:grid-cols-3">
+            {[
+              {
+                title: 'Systèmes & Réseaux',
+                text: "Administration, sécurisation et maintenance de réseaux, conception d’infrastructures, déploiements et évolution d’environnements.",
+                source: 'Quentin_CV',
+              },
+              {
+                title: 'Sécurité & Continuité',
+                text: "Sécurisation, sauvegarde des données, optimisation des systèmes, maintien d’un environnement fiable au quotidien.",
+                source: 'Quentin_CV',
+              },
+              {
+                title: 'Transition verte (IT + Énergie)',
+                text: 'Green IT et accompagnement des organisations vers des plans complets de transition aux énergies renouvelables (cadrage, étapes, priorisation, accompagnement).',
+                source: 'Quentin_CV',
+              },
+            ].map((item) => (
+              <article key={item.title} className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+                <h3 className="text-lg font-semibold text-slate-900">{item.title}</h3>
+                <p className="mt-2 text-sm text-slate-600">{item.text}</p>
+                <p className="mt-3 text-xs font-semibold uppercase text-slate-400">{item.source}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="flex flex-col gap-4 rounded-2xl border border-slate-100 bg-white p-5 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm text-slate-600">Un besoin précis ? Parlons-en.</p>
+            <Link to="/contact" className="btn-primary">
+              Demander un devis gratuit
             </Link>
+          </div>
+        </div>
+
+        <div className="section-card space-y-6 p-8">
+          <div>
+            <p className="text-xs font-semibold uppercase text-slate-500">Preuve & crédibilité</p>
+            <h3 className="text-2xl font-semibold text-slate-900">Détails & références</h3>
+          </div>
+
+          <div className="grid gap-4">
+            <details className="group rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+              <summary className="flex cursor-pointer items-center justify-between text-sm font-semibold text-slate-800">
+                Diplômes & formation
+                <span className="text-brand-cyan transition group-open:rotate-180">▾</span>
+              </summary>
+              <div className="mt-4 grid gap-3 text-sm text-slate-600">
+                <div className="rounded-xl border border-slate-100 bg-white p-4">
+                  <p className="font-medium text-slate-800">
+                    Licence sciences et technologies de la défense — Saint-Cyr Coëtquidan, Guer (2021–2023).
+                  </p>
+                  <p className="mt-2 text-xs font-semibold uppercase text-slate-400">Quentin_CV</p>
+                </div>
+                <div className="rounded-xl border border-slate-100 bg-white p-4">
+                  <p className="font-medium text-slate-800">
+                    Diplôme militaire de spécialité – Emplois des réseaux — École nationale des transmissions, Rennes
+                    (2018).
+                  </p>
+                  <p className="mt-2 text-xs font-semibold uppercase text-slate-400">Quentin_CV</p>
+                </div>
+              </div>
+            </details>
+
+            <details className="group rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+              <summary className="flex cursor-pointer items-center justify-between text-sm font-semibold text-slate-800">
+                Expériences professionnelles (synthèse orientée missions)
+                <span className="text-brand-cyan transition group-open:rotate-180">▾</span>
+              </summary>
+              <div className="mt-4 grid gap-3 text-sm text-slate-600">
+                <div className="rounded-xl border border-slate-100 bg-white p-4">
+                  <p className="font-medium text-slate-800">Administrateur de réseaux informatiques — Paris (oct. 2017 → juin 2021)</p>
+                  <p className="mt-2">
+                    Administration, sécurisation et maintenance de réseaux ; conception d’infrastructures ; gestion de
+                    projets de déploiement de nouveaux réseaux.
+                  </p>
+                  <p className="mt-2 text-xs font-semibold uppercase text-slate-400">Quentin_CV</p>
+                </div>
+                <div className="rounded-xl border border-slate-100 bg-white p-4">
+                  <p className="font-medium text-slate-800">
+                    Administrateur des systèmes d’informations — Polynésie française (nov. 2018 → fév. 2019)
+                  </p>
+                  <p className="mt-2">
+                    Gestion de serveurs et systèmes d’exploitation ; sécurité et sauvegarde des données utilisateur ;
+                    optimisation et évolution des infrastructures.
+                  </p>
+                  <p className="mt-2 text-xs font-semibold uppercase text-slate-400">Quentin_CV</p>
+                </div>
+                <div className="rounded-xl border border-slate-100 bg-white p-4">
+                  <p className="font-medium text-slate-800">Pilotage & coordination opérationnelle (2022 → 2024)</p>
+                  <p className="mt-2">
+                    Management opérationnel, suivi de compétences et mises en formation, continuité des actions/projets,
+                    culture sécurité et respect des procédures.
+                  </p>
+                  <p className="mt-2">
+                    Capacité d’encadrement : coordination d’équipe jusqu’à 24 personnes selon les missions.
+                  </p>
+                </div>
+              </div>
+            </details>
+
+            <details className="group rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+              <summary className="flex cursor-pointer items-center justify-between text-sm font-semibold text-slate-800">
+                Méthode d’intervention (comment l’entreprise travaille)
+                <span className="text-brand-cyan transition group-open:rotate-180">▾</span>
+              </summary>
+              <div className="mt-4 grid gap-3 text-sm text-slate-600 md:grid-cols-2">
+                {[
+                  { title: 'Diagnostic', text: 'Symptômes, contexte, priorités.' },
+                  { title: 'Résolution', text: 'Actions ciblées, explication simple.' },
+                  { title: 'Sécurisation', text: 'Mises à jour, sauvegarde, bonnes pratiques.' },
+                  { title: 'Prévention', text: 'Conseils et plan d’entretien.' },
+                ].map((step) => (
+                  <div key={step.title} className="rounded-xl border border-slate-100 bg-white p-4">
+                    <p className="font-medium text-slate-800">{step.title}</p>
+                    <p className="mt-2">{step.text}</p>
+                  </div>
+                ))}
+              </div>
+            </details>
           </div>
         </div>
       </section>
