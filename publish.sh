@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -e
+msg="${1:-update}"
+git pull --rebase origin main
+git add -A
+git commit -m "$msg" || true
+git push
