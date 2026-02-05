@@ -20,7 +20,8 @@
 2. Collez les règles depuis `firestore.rules` dans **Firestore > Rules** (remplacez l’email admin).
 3. Collez la configuration Firebase dans `src/firebase.ts`.
 4. Créez un utilisateur admin dans **Firebase Auth** (email/mot de passe).
-5. Le formulaire écrit dans la collection `devis` et la page `/admin-cagnat` affiche les demandes.
+5. Activez **App Check** (provider reCAPTCHA v3) et remplacez `YOUR_RECAPTCHA_V3_SITE_KEY` dans `src/firebase.ts`.
+6. Le formulaire écrit dans la collection `devis` et la page `/admin-cagnat` affiche les demandes.
 
 ## Domaine personnalisé
 1. Dans Netlify : **Domain settings** > **Add domain**.

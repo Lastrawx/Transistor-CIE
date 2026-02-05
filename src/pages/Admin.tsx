@@ -2,7 +2,7 @@ import { type FormEvent, useEffect, useMemo, useState } from 'react'
 import type { User } from 'firebase/auth'
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import type { Timestamp } from 'firebase/firestore'
-import { collection, doc, getDocs, limit, orderBy, query, updateDoc } from 'firebase/firestore'
+import { collection, deleteDoc, doc, getDocs, limit, orderBy, query, serverTimestamp, updateDoc } from 'firebase/firestore'
 import { auth, db } from '../firebase'
 import SEO from '../components/SEO'
 
@@ -22,23 +22,48 @@ type DevisItem = {
   message?: string
   statut?: string
   createdAt?: Timestamp | null
+  updatedAt?: Timestamp | null
 }
 
-type StatusFilter = 'all' | 'nouveau' | 'lu' | 'repondu' | 'archive'
+type Status =
+  | 'nouveau'
+  | 'lu'
+  | 'devis_en_cours'
+  | 'devis_envoye'
+  | 'en_attente_client'
+  | 'intervention_a_planifier'
+  | 'facture_a_envoyer'
+  | 'facture_envoyee'
+  | 'termine'
+  | 'rejete'
+
+type StatusFilter = 'all' | Status
 
 const statusOptions = [
   { value: 'nouveau', label: 'Nouveau' },
   { value: 'lu', label: 'Lu' },
-  { value: 'repondu', label: 'Répondu' },
-  { value: 'archive', label: 'Archivé' },
+  { value: 'devis_en_cours', label: 'Devis en cours' },
+  { value: 'devis_envoye', label: 'Devis envoyé' },
+  { value: 'en_attente_client', label: 'En attente client' },
+  { value: 'intervention_a_planifier', label: 'Intervention à planifier' },
+  { value: 'facture_a_envoyer', label: 'Facture à envoyer' },
+  { value: 'facture_envoyee', label: 'Facture envoyée' },
+  { value: 'termine', label: 'Terminé' },
+  { value: 'rejete', label: 'Rejeté' },
 ]
 
 const filterOptions: { value: StatusFilter; label: string }[] = [
   { value: 'all', label: 'Tous' },
   { value: 'nouveau', label: 'Nouveaux' },
   { value: 'lu', label: 'Lus' },
-  { value: 'repondu', label: 'Répondus' },
-  { value: 'archive', label: 'Archivés' },
+  { value: 'devis_en_cours', label: 'Devis en cours' },
+  { value: 'devis_envoye', label: 'Devis envoyés' },
+  { value: 'en_attente_client', label: 'En attente client' },
+  { value: 'intervention_a_planifier', label: 'Intervention à planifier' },
+  { value: 'facture_a_envoyer', label: 'Facture à envoyer' },
+  { value: 'facture_envoyee', label: 'Facture envoyée' },
+  { value: 'termine', label: 'Terminés' },
+  { value: 'rejete', label: 'Rejetés' },
 ]
 
 const Admin = () => {
@@ -51,23 +76,47 @@ const Admin = () => {
   const [isLoadingList, setIsLoadingList] = useState(false)
   const [items, setItems] = useState<DevisItem[]>([])
   const [updatingIds, setUpdatingIds] = useState<Record<string, boolean>>({})
+  const [deletingIds, setDeletingIds] = useState<Record<string, boolean>>({})
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('all')
 
   const counts = useMemo(() => {
     return items.reduce(
       (acc, item) => {
-        const key = (item.statut || 'nouveau') as Exclude<StatusFilter, 'all'>
+        const key = (item.statut || 'nouveau') as Status
         acc[key] = (acc[key] ?? 0) + 1
         acc.total += 1
         return acc
       },
-      { total: 0, nouveau: 0, lu: 0, repondu: 0, archive: 0 },
+      {
+        total: 0,
+        nouveau: 0,
+        lu: 0,
+        devis_en_cours: 0,
+        devis_envoye: 0,
+        en_attente_client: 0,
+        intervention_a_planifier: 0,
+        facture_a_envoyer: 0,
+        facture_envoyee: 0,
+        termine: 0,
+        rejete: 0,
+      },
     )
   }, [items])
 
   const visibleItems = useMemo(() => {
-    if (statusFilter === 'all') return items
-    return items.filter((item) => (item.statut || 'nouveau') === statusFilter)
+    const list = [...items].sort((a, b) => {
+      const aTime = (a.updatedAt ?? a.createdAt)?.toMillis?.() ?? 0
+      const bTime = (b.updatedAt ?? b.createdAt)?.toMillis?.() ?? 0
+      return bTime - aTime
+    })
+
+    if (statusFilter === 'all') {
+      const nouveaux = list.filter((item) => (item.statut || 'nouveau') === 'nouveau')
+      const autres = list.filter((item) => (item.statut || 'nouveau') !== 'nouveau')
+      return [...nouveaux, ...autres]
+    }
+
+    return list.filter((item) => (item.statut || 'nouveau') === statusFilter)
   }, [items, statusFilter])
 
   const loadDevis = async () => {
@@ -122,7 +171,7 @@ const Admin = () => {
   const handleStatusChange = async (id: string, nextStatus: string) => {
     setUpdatingIds((current) => ({ ...current, [id]: true }))
     try {
-      await updateDoc(doc(db, 'devis', id), { statut: nextStatus })
+      await updateDoc(doc(db, 'devis', id), { statut: nextStatus, updatedAt: serverTimestamp() })
       setItems((current) =>
         current.map((item) => (item.id === id ? { ...item, statut: nextStatus } : item)),
       )
@@ -131,6 +180,21 @@ const Admin = () => {
       setListError('Impossible de mettre à jour le statut. Vérifiez vos droits.')
     } finally {
       setUpdatingIds((current) => ({ ...current, [id]: false }))
+    }
+  }
+
+  const handleDelete = async (id: string) => {
+    const confirmed = window.confirm('Supprimer définitivement ce devis ?')
+    if (!confirmed) return
+    setDeletingIds((current) => ({ ...current, [id]: true }))
+    try {
+      await deleteDoc(doc(db, 'devis', id))
+      setItems((current) => current.filter((item) => item.id !== id))
+    } catch (error) {
+      console.error('Firestore delete failed', error)
+      setListError('Impossible de supprimer ce devis. Vérifiez vos droits.')
+    } finally {
+      setDeletingIds((current) => ({ ...current, [id]: false }))
     }
   }
 
@@ -247,6 +311,14 @@ const Admin = () => {
                         {updatingIds[item.id] && <span>Enregistrement...</span>}
                       </div>
                       {item.createdAt && <span>Reçu : {formatDate(item.createdAt)}</span>}
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(item.id)}
+                        className="btn-ghost text-rose-600 hover:text-rose-700"
+                        disabled={Boolean(deletingIds[item.id])}
+                      >
+                        {deletingIds[item.id] ? 'Suppression...' : 'Supprimer'}
+                      </button>
                     </div>
                   </article>
                 ))

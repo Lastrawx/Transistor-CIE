@@ -98,6 +98,7 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
     const payload = {
       type: 'devis',
       createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
       source: 'site-netlify',
       profil: (formData.get('profil') ?? '').toString().trim(),
       service: (formData.get('service') ?? '').toString().trim(),
