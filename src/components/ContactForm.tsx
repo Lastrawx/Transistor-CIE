@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from 'react'
+import { type FormEvent, useEffect, useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { buildSubject, profileLabel } from '../utils/format'
 import { useProfile } from '../utils/profile'
 import type { UserProfile } from '../utils/storage'
@@ -15,7 +16,18 @@ type ContactFormProps = {
   compact?: boolean
 }
 
+const encodeFormData = (data: FormData) => {
+  const params = new URLSearchParams()
+  data.forEach((value, key) => {
+    if (typeof value === 'string') {
+      params.append(key, value)
+    }
+  })
+  return params.toString()
+}
+
 const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }: ContactFormProps) => {
+  const navigate = useNavigate()
   const { profile: storedProfile } = useProfile()
   const initialProfile = prefillProfile ?? storedProfile ?? 'particulier'
   const [profile, setProfile] = useState<UserProfile>(initialProfile)
@@ -25,6 +37,7 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
   )
   const [subjectTouched, setSubjectTouched] = useState(false)
   const [ready, setReady] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const profileLocked = Boolean(prefillProfile)
   const serviceLocked = Boolean(prefillService)
@@ -54,6 +67,27 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
     return () => window.clearTimeout(timer)
   }, [])
 
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    if (isSubmitting) return
+    setIsSubmitting(true)
+
+    const form = event.currentTarget
+    const formData = new FormData(form)
+
+    try {
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encodeFormData(formData),
+      })
+      navigate('/merci')
+    } catch (error) {
+      console.error('Netlify form submission failed', error)
+      setIsSubmitting(false)
+    }
+  }
+
   const helperText = useMemo(() => {
     if (serviceLocked) {
       return `Service sélectionné : ${service}`
@@ -68,6 +102,7 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
       data-netlify="true"
       data-netlify-honeypot="bot-field"
       action="/merci"
+      onSubmit={handleSubmit}
       className={`grid gap-4 ${compact ? 'text-sm' : 'text-base'}`}
     >
       <input type="hidden" name="form-name" value="contact" />
@@ -188,8 +223,8 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
         </span>
       </label>
 
-      <button type="submit" className="btn-primary" disabled={!ready}>
-        {ready ? 'Envoyer ma demande' : 'Préparation...'}
+      <button type="submit" className="btn-primary" disabled={!ready || isSubmitting}>
+        {ready ? (isSubmitting ? 'Envoi en cours...' : 'Envoyer ma demande') : 'Préparation...'}
       </button>
     </form>
   )
