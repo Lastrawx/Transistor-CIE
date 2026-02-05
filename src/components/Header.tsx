@@ -25,7 +25,7 @@ const Header = () => {
           <img
             src={logoWordmark}
             alt="Transistor&CIE"
-            className="hidden h-[44px] w-auto sm:block sm:h-[54px] md:h-[58px]"
+            className="h-[26px] w-auto sm:h-[54px] md:h-[58px]"
           />
         </Link>
 
