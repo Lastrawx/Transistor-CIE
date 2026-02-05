@@ -16,16 +16,17 @@ const Header = () => {
   const { profile } = useProfile()
   const ctaTarget = profile === 'entreprise' ? '/entreprise' : profile === 'particulier' ? '/particulier' : '/contact'
   const ctaLabel = profile ? 'Voir le pôle' : 'Demander un devis'
+  const ctaLabelShort = profile ? 'Pôle' : 'Devis'
 
   return (
     <header className="sticky top-0 z-40 border-b border-white/60 bg-white/80 backdrop-blur">
       <div className="container-page flex h-[64px] items-center justify-between gap-3 sm:h-[72px] sm:gap-6">
-        <Link to="/" className="flex items-center gap-2 shrink-0">
-          <img src={logoIcon} alt="Transistor&CIE" className="h-[48px] w-[48px] sm:h-[58px] sm:w-[58px] md:h-[62px] md:w-[62px]" />
+        <Link to="/" className="flex min-w-0 items-center gap-2">
+          <img src={logoIcon} alt="Transistor&CIE" className="h-[48px] w-[48px] shrink-0 sm:h-[58px] sm:w-[58px] md:h-[62px] md:w-[62px]" />
           <img
             src={logoWordmark}
             alt="Transistor&CIE"
-            className="h-[26px] w-auto sm:h-[54px] md:h-[58px]"
+            className="h-[26px] w-auto max-w-[110px] sm:h-[54px] sm:max-w-none md:h-[58px]"
           />
         </Link>
 
@@ -47,8 +48,12 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center gap-2 shrink-0 sm:gap-3">
-          <Link className="btn-primary shrink-0 whitespace-nowrap px-4 py-2 text-xs sm:px-5 sm:py-3 sm:text-sm" to={ctaTarget}>
-            {ctaLabel}
+          <Link
+            className="btn-primary shrink-0 whitespace-nowrap px-3 py-2 text-[11px] leading-tight sm:px-5 sm:py-3 sm:text-sm sm:leading-none"
+            to={ctaTarget}
+          >
+            <span className="sm:hidden">{ctaLabelShort}</span>
+            <span className="hidden sm:inline">{ctaLabel}</span>
           </Link>
           <details className="relative shrink-0 lg:hidden">
             <summary className="btn-ghost cursor-pointer whitespace-nowrap">Menu</summary>
