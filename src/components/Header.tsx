@@ -19,10 +19,14 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-40 border-b border-white/60 bg-white/80 backdrop-blur">
-      <div className="container-page flex h-[72px] items-center justify-between gap-6">
-        <Link to="/" className="flex items-center gap-2">
-          <img src={logoIcon} alt="Transistor&CIE" className="h-[58px] w-[58px] sm:h-[62px] sm:w-[62px]" />
-          <img src={logoWordmark} alt="Transistor&CIE" className="h-[48px] w-auto sm:h-[54px] md:h-[58px]" />
+      <div className="container-page flex h-[64px] items-center justify-between gap-3 sm:h-[72px] sm:gap-6">
+        <Link to="/" className="flex items-center gap-2 shrink-0">
+          <img src={logoIcon} alt="Transistor&CIE" className="h-[48px] w-[48px] sm:h-[58px] sm:w-[58px] md:h-[62px] md:w-[62px]" />
+          <img
+            src={logoWordmark}
+            alt="Transistor&CIE"
+            className="hidden h-[44px] w-auto sm:block sm:h-[54px] md:h-[58px]"
+          />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-600">
@@ -42,13 +46,13 @@ const Header = () => {
           </a>
         </nav>
 
-        <div className="flex items-center gap-3">
-          <Link className="btn-primary" to={ctaTarget}>
+        <div className="flex items-center gap-2 shrink-0 sm:gap-3">
+          <Link className="btn-primary shrink-0 whitespace-nowrap px-4 py-2 text-xs sm:px-5 sm:py-3 sm:text-sm" to={ctaTarget}>
             {ctaLabel}
           </Link>
-          <details className="relative lg:hidden">
-            <summary className="btn-ghost cursor-pointer">Menu</summary>
-            <div className="absolute right-5 top-[4.5rem] w-56 rounded-2xl border border-slate-100 bg-white p-4 shadow-xl">
+          <details className="relative shrink-0 lg:hidden">
+            <summary className="btn-ghost cursor-pointer whitespace-nowrap">Menu</summary>
+            <div className="absolute right-0 top-16 w-56 rounded-2xl border border-slate-100 bg-white p-4 shadow-xl sm:right-5 sm:top-[4.5rem]">
               <div className="flex flex-col gap-3 text-sm font-medium">
                 {navItems.map((item) => (
                   <NavLink
