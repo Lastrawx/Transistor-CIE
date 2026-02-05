@@ -1,5 +1,6 @@
 import { NavLink, Link } from 'react-router-dom'
-import logo from '../assets/logo.webp'
+import logoIcon from '../assets/logo-icon.png'
+import logoWordmark from '../assets/logo-wordmark.png'
 import { useProfile } from '../utils/profile'
 import { instagram } from '../content/instagram'
 
@@ -18,13 +19,10 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-40 border-b border-white/60 bg-white/80 backdrop-blur">
-      <div className="container-page flex h-20 items-center justify-between gap-6">
-        <Link to="/" className="flex items-center gap-3">
-          <img src={logo} alt="Transistor&CIE" className="h-10 w-auto" />
-          <div className="hidden sm:block">
-            <p className="text-sm font-semibold text-slate-900">Transistor&CIE</p>
-            <p className="text-xs text-slate-500">Tech & Green IT à distance</p>
-          </div>
+      <div className="container-page flex h-[72px] items-center justify-between gap-6">
+        <Link to="/" className="flex items-center gap-2">
+          <img src={logoIcon} alt="Transistor&CIE" className="h-[58px] w-[58px] sm:h-[62px] sm:w-[62px]" />
+          <img src={logoWordmark} alt="Transistor&CIE" className="h-[48px] w-auto sm:h-[54px] md:h-[58px]" />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-600">

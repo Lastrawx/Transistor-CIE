@@ -14,11 +14,12 @@ const About = () => {
       <section className="container-page section-card p-8">
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="space-y-4">
-            <p className="text-xs font-semibold uppercase text-slate-500">Qui suis-je</p>
+            <p className="text-xs font-semibold uppercase text-slate-500">Qui sommes nous ?</p>
             <h1 className="text-3xl font-semibold text-slate-900">Un partenaire tech & Green IT</h1>
             <p className="text-sm text-slate-600">
-              Transistor&CIE accompagne particuliers et entreprises avec une approche pédagogique, sobre et efficace.
-              L'objectif est de simplifier la tech, améliorer la performance et réduire l'empreinte numérique.
+              Transistor&CIE accompagne particuliers et entreprises avec une approche pédagogique, amicale et efficace.
+              L'objectif est de vous simplifier la tech, améliorer votre quotidien et/ou vos performance et réduire
+              votre empreinte numérique.
             </p>
             <div className="grid gap-3 sm:grid-cols-2">
               {[
