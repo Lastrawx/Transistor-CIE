@@ -152,7 +152,7 @@ const Home = () => {
 
         <div className="section-card space-y-6 p-8">
           <div>
-            <p className="text-xs font-semibold uppercase text-slate-500">Preuve & crédibilité</p>
+            <p className="text-xs font-semibold uppercase text-slate-500">Qualification & expérience</p>
             <h3 className="text-2xl font-semibold text-slate-900">Détails & références</h3>
           </div>
 
