@@ -64,7 +64,7 @@ export const confidentialite: LegalSection[] = [
     title: 'Droits',
     content: [
       'Vous pouvez demander l’accès, la rectification ou la suppression de vos données.',
-      'Contact : [À compléter]',
+      'Contact : effectuer cette demande via le formulaire de contact du site.',
     ],
   },
   {
