@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transistor&CIE — La tech au quotidien, simplifiée</title>
+    <meta
+      name="description"
+      content="Transistor&CIE accompagne particuliers et entreprises avec des services tech, Green IT et cybersécurité. 100% à distance, devis gratuit."
+    />
+    <meta property="og:title" content="Transistor&CIE — La tech au quotidien, simplifiée" />
+    <meta
+      property="og:description"
+      content="Services tech pour particuliers et entreprises. 100% à distance, devis gratuit."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/og-home.webp" />
+    <meta name="theme-color" content="#0B1F2A" />
+  </head>
+  <body>
+    <form
+      name="contact"
+      method="POST"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+      action="/merci"
+      hidden
+    >
+      <input type="hidden" name="form-name" value="contact" />
+      <p hidden>
+        <label>Don’t fill this out: <input name="bot-field" /></label>
+      </p>
+      <input type="text" name="profil" />
+      <input type="text" name="service" />
+      <input type="text" name="objet" />
+      <input type="text" name="nom" />
+      <input type="text" name="prenom" />
+      <input type="email" name="email" />
+      <input type="tel" name="telephone" />
+      <textarea name="message"></textarea>
+      <input type="checkbox" name="consentement" />
+    </form>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
