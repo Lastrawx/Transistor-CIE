@@ -125,23 +125,19 @@ const Home = () => {
               {
                 title: 'Systèmes & Réseaux',
                 text: "Administration, sécurisation et maintenance de réseaux, conception d’infrastructures, déploiements et évolution d’environnements.",
-                source: 'Quentin_CV',
               },
               {
                 title: 'Sécurité & Continuité',
                 text: "Sécurisation, sauvegarde des données, optimisation des systèmes, maintien d’un environnement fiable au quotidien.",
-                source: 'Quentin_CV',
               },
               {
                 title: 'Transition verte (IT + Énergie)',
                 text: 'Green IT et accompagnement des organisations vers des plans complets de transition aux énergies renouvelables (cadrage, étapes, priorisation, accompagnement).',
-                source: 'Quentin_CV',
               },
             ].map((item) => (
               <article key={item.title} className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
                 <h3 className="text-lg font-semibold text-slate-900">{item.title}</h3>
                 <p className="mt-2 text-sm text-slate-600">{item.text}</p>
-                <p className="mt-3 text-xs font-semibold uppercase text-slate-400">{item.source}</p>
               </article>
             ))}
           </div>
@@ -171,14 +167,12 @@ const Home = () => {
                   <p className="font-medium text-slate-800">
                     Licence sciences et technologies de la défense — Saint-Cyr Coëtquidan, Guer (2021–2023).
                   </p>
-                  <p className="mt-2 text-xs font-semibold uppercase text-slate-400">Quentin_CV</p>
                 </div>
                 <div className="rounded-xl border border-slate-100 bg-white p-4">
                   <p className="font-medium text-slate-800">
                     Diplôme militaire de spécialité – Emplois des réseaux — École nationale des transmissions, Rennes
                     (2018).
                   </p>
-                  <p className="mt-2 text-xs font-semibold uppercase text-slate-400">Quentin_CV</p>
                 </div>
               </div>
             </details>
@@ -195,7 +189,6 @@ const Home = () => {
                     Administration, sécurisation et maintenance de réseaux ; conception d’infrastructures ; gestion de
                     projets de déploiement de nouveaux réseaux.
                   </p>
-                  <p className="mt-2 text-xs font-semibold uppercase text-slate-400">Quentin_CV</p>
                 </div>
                 <div className="rounded-xl border border-slate-100 bg-white p-4">
                   <p className="font-medium text-slate-800">
@@ -205,7 +198,6 @@ const Home = () => {
                     Gestion de serveurs et systèmes d’exploitation ; sécurité et sauvegarde des données utilisateur ;
                     optimisation et évolution des infrastructures.
                   </p>
-                  <p className="mt-2 text-xs font-semibold uppercase text-slate-400">Quentin_CV</p>
                 </div>
                 <div className="rounded-xl border border-slate-100 bg-white p-4">
                   <p className="font-medium text-slate-800">Pilotage & coordination opérationnelle (2022 → 2024)</p>
