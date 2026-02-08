@@ -207,13 +207,13 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
         <label className="space-y-2">
           <span className="text-sm font-semibold text-slate-700">Service (optionnel)</span>
           <input
-          name="service"
-          value={service}
-          onChange={(event) => setService(event.target.value)}
-          maxLength={MAX_SERVICE_LENGTH}
-          className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3"
-          placeholder="Ex: Assistance & dépannage"
-        />
+            name="service"
+            value={service}
+            onChange={(event) => setService(event.target.value)}
+            maxLength={MAX_SERVICE_LENGTH}
+            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3"
+            placeholder="Ex: Assistance & dépannage"
+          />
         </label>
       )}
 
