@@ -69,8 +69,7 @@ export const confidentialite: PrivacySection[] = [
     title: '1. Responsable du traitement',
     paragraphs: [
       'Le responsable du traitement des données personnelles collectées sur le site Transistor&CIE est :',
-      'Transistor&CIE',
-      'Entrepreneur individuel (micro-entreprise)',
+      'Transistor&CIE — Entrepreneur individuel (micro-entreprise).',
       'Email de contact : Quentin-cagnat@live.fr',
     ],
   },
@@ -78,72 +77,86 @@ export const confidentialite: PrivacySection[] = [
     title: '2. Données collectées',
     paragraphs: [
       'Dans le cadre de l’utilisation du site et des services proposés, Transistor&CIE peut collecter les données personnelles suivantes :',
-      'Aucune donnée sensible n’est collectée volontairement.',
+      'Aucune donnée sensible n’est collectée volontairement, hors cas spécifique de prévention de la fraude prévu ci-dessous.',
     ],
     items: [
-      'Nom et prénom',
-      'Adresse email',
-      'Numéro de téléphone (si renseigné)',
-      'Contenu des messages envoyés via le formulaire de contact',
+      'Profil (particulier / entreprise), service, objet de la demande.',
+      'Nom, prénom, adresse email, numéro de téléphone (si renseigné).',
+      'Contenu des messages envoyés via le formulaire de contact.',
+      'Consentement (case à cocher), date/heure de création de la demande et informations techniques nécessaires au traitement.',
+      'Le cas échéant, un justificatif d’identité strictement nécessaire en cas de demande d’application de la garantie satisfaction.',
     ],
   },
   {
     title: '3. Finalités de la collecte',
     paragraphs: [
       'Les données personnelles sont collectées uniquement pour :',
-      'Les données ne sont ni vendues, ni cédées, ni transmises à des tiers à des fins commerciales.',
+      'Les données ne sont ni vendues, ni cédées à des tiers à des fins commerciales.',
     ],
     items: [
-      'répondre aux demandes de contact,',
-      'établir des devis et échanges commerciaux,',
-      'assurer la relation client et le suivi des prestations.',
+      'Répondre aux demandes de contact.',
+      'Établir des devis et échanges commerciaux.',
+      'Assurer la relation client et le suivi des prestations.',
+      'Prévenir les abus (anti-spam / sécurité du formulaire).',
+      'Le cas échéant, instruire une demande de garantie satisfaction et prévenir la fraude.',
     ],
   },
   {
-    title: '4. Durée de conservation',
+    title: '4. Destinataires et sous-traitants',
+    paragraphs: [
+      'Les données sont accessibles uniquement aux personnes habilitées de Transistor&CIE.',
+      'Elles peuvent être traitées par des prestataires techniques strictement nécessaires au fonctionnement du service (hébergement et outils techniques), agissant en qualité de sous-traitants.',
+    ],
+  },
+  {
+    title: '5. Durée de conservation',
     paragraphs: [
       'Les données personnelles sont conservées uniquement pendant la durée nécessaire :',
     ],
     items: [
-      'au traitement de la demande,',
-      'à la relation commerciale,',
-      'et au respect des obligations légales et comptables.',
+      'Au traitement de la demande.',
+      'À la relation commerciale.',
+      'Au respect des obligations légales et comptables.',
+      'En cas de justificatif d’identité demandé pour la garantie satisfaction : conservation limitée à la durée strictement requise à cette finalité.',
     ],
   },
   {
-    title: '5. Sécurité des données',
+    title: '6. Sécurité des données',
     paragraphs: [
       'Transistor&CIE met en œuvre des mesures techniques et organisationnelles raisonnables afin de protéger les données personnelles contre toute perte, accès non autorisé ou divulgation.',
     ],
   },
   {
-    title: '6. Droits des utilisateurs',
+    title: '7. Cookies, stockage local et mesure d’audience',
+    paragraphs: [
+      'Le site Transistor&CIE n’utilise pas de cookies publicitaires.',
+      'Des cookies et mécanismes techniques strictement nécessaires au bon fonctionnement du site peuvent être utilisés (ex. sécurité anti-abus).',
+      'Le site peut également utiliser le stockage local du navigateur (localStorage) pour des préférences d’interface (ex. profil sélectionné, fermeture temporaire de bandeaux).',
+      'Si un outil de mesure d’audience est activé, des données de fréquentation peuvent être collectées à des fins statistiques.',
+    ],
+  },
+  {
+    title: '8. Droits des utilisateurs',
     paragraphs: [
       'Conformément à la réglementation en vigueur (RGPD), l’utilisateur dispose des droits suivants :',
       'Toute demande peut être adressée par email à : Quentin-cagnat@live.fr',
+      'En cas de difficulté non résolue, l’utilisateur peut introduire une réclamation auprès de la CNIL.',
     ],
     items: [
-      'droit d’accès à ses données,',
-      'droit de rectification,',
-      'droit à l’effacement,',
-      'droit d’opposition ou de limitation du traitement.',
+      'Droit d’accès à ses données.',
+      'Droit de rectification.',
+      'Droit à l’effacement.',
+      'Droit d’opposition ou de limitation du traitement.',
     ],
   },
   {
-    title: '7. Cookies',
-    paragraphs: [
-      'Le site Transistor&CIE n’utilise pas de cookies à des fins publicitaires ou de suivi avancé.',
-      'Des cookies techniques strictement nécessaires au bon fonctionnement du site peuvent être utilisés.',
-    ],
-  },
-  {
-    title: '8. Modification de la politique de confidentialité',
+    title: '9. Modification de la politique de confidentialité',
     paragraphs: [
       'Transistor&CIE se réserve le droit de modifier la présente politique de confidentialité à tout moment afin de rester conforme aux évolutions légales ou techniques.',
     ],
   },
   {
-    title: '9. Droit applicable',
+    title: '10. Droit applicable',
     paragraphs: [
       'La présente politique de confidentialité est soumise au droit français.',
     ],
@@ -211,7 +224,8 @@ export const cgvCguSections: TermsSection[] = [
   {
     title: '5. Tarifs',
     paragraphs: [
-      'Les prix affichés sur le site sont indicatifs. Les tarifs définitifs sont communiqués via devis avant toute prestation.',
+      'Les tarifs sont communiqués via devis avant toute prestation.',
+      'Le devis validé par le Client fait foi pour le périmètre, le prix et les modalités de l’intervention.',
       'Transistor&CIE étant sous le régime de la micro-entreprise, la TVA est non applicable (article 293B du CGI).',
     ],
   },
@@ -260,8 +274,9 @@ export const cgvCguSections: TermsSection[] = [
   {
     title: '9. Données personnelles',
     paragraphs: [
-      'Les données personnelles collectées via le site sont utilisées uniquement dans le cadre des échanges commerciaux et de la réalisation des prestations.',
-      "Conformément à la réglementation en vigueur, le client dispose d'un droit d'accès, de rectification et de suppression de ses données, sur simple demande par email.",
+      'Les données collectées dans le cadre des demandes de devis et des prestations (profil, service, objet, identité, coordonnées, message, consentement et informations techniques de suivi) sont utilisées uniquement pour la relation commerciale et l’exécution des prestations.',
+      'Dans le cadre de la garantie satisfaction, un justificatif d’identité strictement nécessaire peut être demandé pour la prévention de la fraude, puis traité et conservé pour la durée strictement requise à cette finalité.',
+      'Les modalités détaillées de traitement des données sont précisées dans la Politique de confidentialité du site.',
     ],
   },
   {

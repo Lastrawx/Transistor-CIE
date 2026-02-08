@@ -20,7 +20,7 @@ type ContactFormProps = {
 
 const MIN_EMAIL_LENGTH = 5
 const MAX_EMAIL_LENGTH = 200
-const MIN_MESSAGE_LENGTH = 5
+const MIN_MESSAGE_LENGTH = 20
 const MAX_MESSAGE_LENGTH = 3000
 
 const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }: ContactFormProps) => {
@@ -90,7 +90,7 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
     }
 
     if (message.length < MIN_MESSAGE_LENGTH || message.length > MAX_MESSAGE_LENGTH) {
-      setSubmitError('Merci de renseigner un message entre 5 et 3000 caractères.')
+      setSubmitError('Merci de renseigner un message entre 20 et 3000 caractères.')
       setIsSubmitting(false)
       return
     }
