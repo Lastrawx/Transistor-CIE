@@ -1,6 +1,7 @@
 import SEO from '../components/SEO'
 import ContactForm from '../components/ContactForm'
 import PillBanner from '../components/PillBanner'
+import GuaranteeHighlight from '../components/GuaranteeHighlight'
 import { instagram } from '../content/instagram'
 
 const Contact = () => {
@@ -20,6 +21,7 @@ const Contact = () => {
               Décrivez votre besoin et recevez une proposition claire. Interventions 100% à distance.
             </p>
             <PillBanner />
+            <GuaranteeHighlight compact />
             <div className="rounded-2xl border border-slate-100 bg-white p-5">
               <p className="text-sm font-semibold text-slate-800">Instagram</p>
               <a

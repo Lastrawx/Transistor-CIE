@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import Hero from '../components/Hero'
 import ProfileChoice from '../components/ProfileChoice'
 import PillBanner from '../components/PillBanner'
+import GuaranteeHighlight from '../components/GuaranteeHighlight'
 import SEO from '../components/SEO'
 import { instagram } from '../content/instagram'
 import heroHome from '../assets/hero-home.webp'
@@ -105,6 +106,7 @@ const Home = () => {
               </div>
             ))}
           </div>
+          <GuaranteeHighlight />
         </div>
       </section>
 

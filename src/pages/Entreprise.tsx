@@ -3,6 +3,7 @@ import Hero from '../components/Hero'
 import PillBanner from '../components/PillBanner'
 import ServiceGrid from '../components/ServiceGrid'
 import ContactModal from '../components/ContactModal'
+import GuaranteeHighlight from '../components/GuaranteeHighlight'
 import SEO from '../components/SEO'
 import { entrepriseServices, type Service } from '../content/services'
 import heroEntreprise from '../assets/hero-entreprise.webp'
@@ -44,6 +45,7 @@ const Entreprise = () => {
 
       <section className="container-page space-y-6">
         <PillBanner />
+        <GuaranteeHighlight compact />
         <div id="services" className="space-y-6">
           <h2 className="text-3xl font-semibold text-slate-900">Services pour entreprises</h2>
           <p className="text-sm text-slate-600">
