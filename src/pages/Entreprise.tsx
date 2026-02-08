@@ -27,13 +27,13 @@ const Entreprise = () => {
     <div className="space-y-16">
       <SEO
         title="Transistor&CIE — Entreprises"
-        description="Performance, Green IT et cybersécurité pour les entreprises. 100% à distance, devis gratuit."
+        description="Création de sites web, Green IT, cybersécurité et infrastructure IT pour les entreprises. 100% à distance, devis gratuit."
         image={heroEntreprise}
       />
 
       <Hero
-        title="Performance & Responsabilité"
-        subtitle="Optimisez vos coûts, votre image RSE et votre sécurité avec un accompagnement à distance."
+        title="Sites Web, Performance & Responsabilité"
+        subtitle="Lancez votre présence en ligne et sécurisez votre activité avec un accompagnement à distance."
         kicker="Pôle Entreprises"
         ctaLabel="Demander un devis"
         ctaLink="/contact"
@@ -49,7 +49,7 @@ const Entreprise = () => {
         <div id="services" className="space-y-6">
           <h2 className="text-3xl font-semibold text-slate-900">Services pour entreprises</h2>
           <p className="text-sm text-slate-600">
-            Une approche claire pour des résultats mesurables : sobriété numérique, infrastructure, sécurité.
+            Une approche claire pour des résultats mesurables : sites web essentiels, sobriété numérique, infrastructure et sécurité.
           </p>
           <ServiceGrid services={entrepriseServices} onQuote={handleQuote} />
         </div>

@@ -14,6 +14,10 @@ const formatDate = (value?: Timestamp | null) => {
 
 type DevisItem = {
   id: string
+  type?: string
+  source?: string
+  profil?: string
+  objet?: string
   nom?: string
   prenom?: string
   email?: string
@@ -21,6 +25,8 @@ type DevisItem = {
   service?: string
   message?: string
   statut?: string
+  consentement?: boolean
+  website?: string
   createdAt?: Timestamp | null
   updatedAt?: Timestamp | null
 }
@@ -66,6 +72,24 @@ const filterOptions: { value: StatusFilter; label: string }[] = [
   { value: 'rejete', label: 'Rejetés' },
 ]
 
+const statusLabelMap = Object.fromEntries(statusOptions.map((option) => [option.value, option.label])) as Record<
+  string,
+  string
+>
+
+const toMillis = (value?: Timestamp | null) => {
+  return value?.toMillis?.() ?? 0
+}
+
+const toDate = (value?: Timestamp | null) => {
+  if (!value || typeof value.toDate !== 'function') return null
+  return value.toDate()
+}
+
+const normalize = (value?: string | null) => {
+  return value?.toString().trim() ?? ''
+}
+
 const Admin = () => {
   const [user, setUser] = useState<User | null>(null)
   const [hasAdminClaim, setHasAdminClaim] = useState<boolean | null>(null)
@@ -75,6 +99,8 @@ const Admin = () => {
   const [authError, setAuthError] = useState<string | null>(null)
   const [listError, setListError] = useState<string | null>(null)
   const [isLoadingList, setIsLoadingList] = useState(false)
+  const [isExporting, setIsExporting] = useState(false)
+  const [exportFeedback, setExportFeedback] = useState<string | null>(null)
   const [items, setItems] = useState<DevisItem[]>([])
   const [updatingIds, setUpdatingIds] = useState<Record<string, boolean>>({})
   const [deletingIds, setDeletingIds] = useState<Record<string, boolean>>({})
@@ -106,8 +132,8 @@ const Admin = () => {
 
   const visibleItems = useMemo(() => {
     const list = [...items].sort((a, b) => {
-      const aTime = (a.updatedAt ?? a.createdAt)?.toMillis?.() ?? 0
-      const bTime = (b.updatedAt ?? b.createdAt)?.toMillis?.() ?? 0
+      const aTime = toMillis(a.updatedAt ?? a.createdAt)
+      const bTime = toMillis(b.updatedAt ?? b.createdAt)
       return bTime - aTime
     })
 
@@ -138,6 +164,23 @@ const Admin = () => {
     } finally {
       setIsLoadingList(false)
     }
+  }
+
+  const fetchAllDevis = async () => {
+    const snapshot = await getDocs(collection(db, 'devis'))
+    const allItems: DevisItem[] = []
+    snapshot.forEach((entry) => {
+      const data = entry.data() as Omit<DevisItem, 'id'>
+      allItems.push({ id: entry.id, ...data })
+    })
+
+    allItems.sort((a, b) => {
+      const aTime = toMillis(a.createdAt ?? a.updatedAt)
+      const bTime = toMillis(b.createdAt ?? b.updatedAt)
+      return bTime - aTime
+    })
+
+    return allItems
   }
 
   useEffect(() => {
@@ -241,6 +284,130 @@ const Admin = () => {
     }
   }
 
+  const handleExportExcel = async () => {
+    setIsExporting(true)
+    setExportFeedback(null)
+    setListError(null)
+
+    try {
+      const allItems = await fetchAllDevis()
+      const { Workbook } = await import('exceljs')
+      const workbook = new Workbook()
+      workbook.creator = 'Transistor&CIE'
+      workbook.created = new Date()
+      workbook.modified = new Date()
+
+      const sheet = workbook.addWorksheet('Demandes de devis', {
+        views: [{ state: 'frozen', ySplit: 3 }],
+      })
+
+      const columns = [
+        { header: 'Date de réception', key: 'createdAt', width: 22 },
+        { header: 'Dernière mise à jour', key: 'updatedAt', width: 22 },
+        { header: 'Statut', key: 'statusLabel', width: 18 },
+        { header: 'Profil', key: 'profil', width: 14 },
+        { header: 'Service', key: 'service', width: 34 },
+        { header: 'Objet', key: 'objet', width: 40 },
+        { header: 'Nom', key: 'nom', width: 18 },
+        { header: 'Prénom', key: 'prenom', width: 18 },
+        { header: 'Email', key: 'email', width: 34 },
+        { header: 'Téléphone', key: 'telephone', width: 18 },
+        { header: 'Message', key: 'message', width: 62 },
+        { header: 'Consentement', key: 'consentement', width: 14 },
+        { header: 'Source', key: 'source', width: 18 },
+        { header: 'Type', key: 'type', width: 12 },
+        { header: 'ID Firestore', key: 'id', width: 34 },
+      ] as const
+
+      sheet.columns = columns.map((column) => ({ key: column.key, width: column.width }))
+
+      const titleCell = sheet.getCell('A1')
+      titleCell.value = 'Demandes de devis — Transistor&CIE'
+      titleCell.font = { bold: true, size: 16, color: { argb: 'FFFFFFFF' } }
+      titleCell.alignment = { vertical: 'middle', horizontal: 'left' }
+      titleCell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '0F172A' } }
+      sheet.mergeCells(1, 1, 1, columns.length)
+      sheet.getRow(1).height = 26
+
+      const exportInfoCell = sheet.getCell('A2')
+      exportInfoCell.value = `Export généré le ${new Date().toLocaleString('fr-FR')} — ${allItems.length} demandes`
+      exportInfoCell.font = { italic: true, color: { argb: '475569' } }
+      exportInfoCell.alignment = { vertical: 'middle', horizontal: 'left' }
+      sheet.mergeCells(2, 1, 2, columns.length)
+      sheet.getRow(2).height = 22
+
+      const headerRow = sheet.getRow(3)
+      headerRow.values = columns.map((column) => column.header)
+      headerRow.font = { bold: true, color: { argb: 'FFFFFFFF' } }
+      headerRow.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '1D4ED8' } }
+      headerRow.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true }
+      headerRow.height = 24
+
+      allItems.forEach((item) => {
+        const statusValue = normalize(item.statut) || 'nouveau'
+        const statusLabel = statusLabelMap[statusValue] ?? statusValue
+        sheet.addRow({
+          createdAt: toDate(item.createdAt) ?? '',
+          updatedAt: toDate(item.updatedAt) ?? '',
+          statusLabel,
+          profil: normalize(item.profil),
+          service: normalize(item.service),
+          objet: normalize(item.objet),
+          nom: normalize(item.nom),
+          prenom: normalize(item.prenom),
+          email: normalize(item.email),
+          telephone: normalize(item.telephone),
+          message: normalize(item.message),
+          consentement: item.consentement ? 'Oui' : 'Non',
+          source: normalize(item.source),
+          type: normalize(item.type) || 'devis',
+          id: item.id,
+        })
+      })
+
+      const lastRowNumber = Math.max(sheet.rowCount, 3)
+      sheet.autoFilter = {
+        from: { row: 3, column: 1 },
+        to: { row: lastRowNumber, column: columns.length },
+      }
+
+      for (let rowNumber = 4; rowNumber <= lastRowNumber; rowNumber += 1) {
+        const row = sheet.getRow(rowNumber)
+        row.getCell(1).numFmt = 'dd/mm/yyyy hh:mm'
+        row.getCell(2).numFmt = 'dd/mm/yyyy hh:mm'
+        row.getCell(11).alignment = { vertical: 'top', wrapText: true }
+        row.alignment = { vertical: 'top' }
+
+        const messageText = row.getCell(11).value?.toString() ?? ''
+        if (messageText.length > 0) {
+          row.height = Math.min(120, Math.max(20, Math.ceil(messageText.length / 95) * 18))
+        }
+      }
+
+      const fileStamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-')
+      const fileName = `devis_transistor_cie_${fileStamp}.xlsx`
+      const buffer = await workbook.xlsx.writeBuffer()
+      const blob = new Blob([buffer], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      })
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = fileName
+      document.body.append(link)
+      link.click()
+      link.remove()
+      URL.revokeObjectURL(url)
+
+      setExportFeedback(`Export Excel généré: ${allItems.length} demandes.`)
+    } catch (error) {
+      console.error('Excel export failed', error)
+      setExportFeedback('Échec de l’export Excel. Vérifiez vos droits et réessayez.')
+    } finally {
+      setIsExporting(false)
+    }
+  }
+
   return (
     <div className="space-y-10">
       <SEO title="Admin — Devis" description="Administration des demandes de devis Transistor&CIE" />
@@ -299,6 +466,14 @@ const Admin = () => {
               <button type="button" onClick={loadDevis} className="btn-secondary" disabled={isLoadingList}>
                 {isLoadingList ? 'Chargement...' : 'Rafraîchir la liste'}
               </button>
+              <button
+                type="button"
+                onClick={handleExportExcel}
+                className="btn-secondary"
+                disabled={isExporting}
+              >
+                {isExporting ? 'Export en cours...' : 'Exporter Excel'}
+              </button>
               <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
                 Total : {counts.total}
               </span>
@@ -306,6 +481,15 @@ const Admin = () => {
                 Nouveaux : {counts.nouveau}
               </span>
               {listError && <p className="text-sm text-rose-600">{listError}</p>}
+              {exportFeedback && (
+                <p
+                  className={`text-sm ${
+                    exportFeedback.startsWith('Échec') ? 'text-rose-600' : 'text-emerald-700'
+                  }`}
+                >
+                  {exportFeedback}
+                </p>
+              )}
             </div>
 
             <div className="flex flex-wrap items-center gap-2">

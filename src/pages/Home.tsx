@@ -67,7 +67,7 @@ const Home = () => {
               <div className="space-y-3">
                 <h3 className="text-xl font-semibold text-slate-900">Entreprises</h3>
                 <p className="text-sm text-slate-600">
-                  Performance, RSE, cybersécurité et infrastructure IT pour sécuriser et accélérer votre activité.
+                  Création de sites web essentiels, performance, RSE, cybersécurité et infrastructure IT pour sécuriser et accélérer votre activité.
                 </p>
                 <Link to="/entreprise" className="btn-primary">
                   Voir les services
@@ -172,8 +172,27 @@ const Home = () => {
                 </div>
                 <div className="rounded-xl border border-slate-100 bg-white p-4">
                   <p className="font-medium text-slate-800">
-                    Diplôme militaire de spécialité, emplois des systèmes réseaux — École nationale des transmissions
+                    Diplôme de spécialité, emplois des systèmes réseaux — École nationale des transmissions
                   </p>
+                </div>
+                <div className="rounded-xl border border-slate-100 bg-white p-4">
+                  <p className="font-medium text-slate-800">
+                    Formation technique en administration de routeurs — Allied Telesis
+                  </p>
+                </div>
+                <div className="rounded-xl border border-slate-100 bg-white p-4">
+                  <p className="font-medium text-slate-800">
+                    Formation technique en mise en oeuvre de liaisons chiffrées — Crypsis
+                  </p>
+                </div>
+                <div className="rounded-xl border border-slate-100 bg-white p-4">
+                  <p className="font-medium text-slate-800">Formation Java orientée objet</p>
+                </div>
+                <div className="rounded-xl border border-slate-100 bg-white p-4">
+                  <p className="font-medium text-slate-800">Formation développement web — HTML / CSS</p>
+                </div>
+                <div className="rounded-xl border border-slate-100 bg-white p-4">
+                  <p className="font-medium text-slate-800">Formation aux fondamentaux des bases de données</p>
                 </div>
               </div>
             </details>
