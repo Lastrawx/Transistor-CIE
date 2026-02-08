@@ -20,8 +20,14 @@ type ContactFormProps = {
 
 const MIN_EMAIL_LENGTH = 5
 const MAX_EMAIL_LENGTH = 200
+const MIN_SUBJECT_LENGTH = 5
+const MAX_SUBJECT_LENGTH = 200
+const MAX_NAME_LENGTH = 100
+const MAX_SERVICE_LENGTH = 160
+const MAX_PHONE_LENGTH = 30
 const MIN_MESSAGE_LENGTH = 20
 const MAX_MESSAGE_LENGTH = 3000
+const PHONE_PATTERN = /^$|^[0-9+(). -]{6,25}$/
 
 const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }: ContactFormProps) => {
   const navigate = useNavigate()
@@ -65,10 +71,45 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
     }
 
     const email = (formData.get('email') ?? '').toString().trim()
+    const subject = (formData.get('objet') ?? '').toString().trim()
+    const firstName = (formData.get('prenom') ?? '').toString().trim()
+    const lastName = (formData.get('nom') ?? '').toString().trim()
+    const serviceValue = (formData.get('service') ?? '').toString().trim()
+    const phone = (formData.get('telephone') ?? '').toString().trim()
     const message = (formData.get('message') ?? '').toString().trim()
 
     if (email.length < MIN_EMAIL_LENGTH || email.length > MAX_EMAIL_LENGTH) {
       setSubmitError('Merci de renseigner un email valide.')
+      setIsSubmitting(false)
+      return
+    }
+
+    if (subject.length < MIN_SUBJECT_LENGTH || subject.length > MAX_SUBJECT_LENGTH) {
+      setSubmitError('Merci de renseigner un objet entre 5 et 200 caractères.')
+      setIsSubmitting(false)
+      return
+    }
+
+    if (lastName.length === 0 || lastName.length > MAX_NAME_LENGTH) {
+      setSubmitError('Merci de renseigner un nom valide.')
+      setIsSubmitting(false)
+      return
+    }
+
+    if (firstName.length === 0 || firstName.length > MAX_NAME_LENGTH) {
+      setSubmitError('Merci de renseigner un prénom valide.')
+      setIsSubmitting(false)
+      return
+    }
+
+    if (serviceValue.length > MAX_SERVICE_LENGTH) {
+      setSubmitError('Le champ service est trop long (160 caractères max).')
+      setIsSubmitting(false)
+      return
+    }
+
+    if (phone.length > MAX_PHONE_LENGTH || !PHONE_PATTERN.test(phone)) {
+      setSubmitError('Merci de renseigner un téléphone valide ou de laisser ce champ vide.')
       setIsSubmitting(false)
       return
     }
@@ -85,12 +126,12 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
       updatedAt: serverTimestamp(),
       source: 'site-netlify',
       profil: (formData.get('profil') ?? '').toString().trim(),
-      service: (formData.get('service') ?? '').toString().trim(),
-      objet: (formData.get('objet') ?? '').toString().trim(),
-      nom: (formData.get('nom') ?? '').toString().trim(),
-      prenom: (formData.get('prenom') ?? '').toString().trim(),
+      service: serviceValue,
+      objet: subject,
+      nom: lastName,
+      prenom: firstName,
       email,
-      telephone: (formData.get('telephone') ?? '').toString().trim(),
+      telephone: phone,
       message,
       statut: 'nouveau',
       consentement: Boolean(formData.get('consentement')),
@@ -166,12 +207,13 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
         <label className="space-y-2">
           <span className="text-sm font-semibold text-slate-700">Service (optionnel)</span>
           <input
-            name="service"
-            value={service}
-            onChange={(event) => setService(event.target.value)}
-            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3"
-            placeholder="Ex: Assistance & dépannage"
-          />
+          name="service"
+          value={service}
+          onChange={(event) => setService(event.target.value)}
+          maxLength={MAX_SERVICE_LENGTH}
+          className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3"
+          placeholder="Ex: Assistance & dépannage"
+        />
         </label>
       )}
 
@@ -181,6 +223,8 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
           name="objet"
           required
           value={subjectValue}
+          minLength={MIN_SUBJECT_LENGTH}
+          maxLength={MAX_SUBJECT_LENGTH}
           onChange={(event) => {
             setSubjectTouched(true)
             setSubject(event.target.value)
@@ -192,13 +236,19 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
       <div className="grid gap-4 md:grid-cols-2">
         <label className="space-y-2">
           <span className="text-sm font-semibold text-slate-700">Nom *</span>
-          <input name="nom" required className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3" />
+          <input
+            name="nom"
+            required
+            maxLength={MAX_NAME_LENGTH}
+            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3"
+          />
         </label>
         <label className="space-y-2">
           <span className="text-sm font-semibold text-slate-700">Prénom *</span>
           <input
             name="prenom"
             required
+            maxLength={MAX_NAME_LENGTH}
             className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3"
           />
         </label>
@@ -211,6 +261,7 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
             type="email"
             name="email"
             required
+            maxLength={MAX_EMAIL_LENGTH}
             className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3"
           />
         </label>
@@ -219,6 +270,7 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
           <input
             type="tel"
             name="telephone"
+            maxLength={MAX_PHONE_LENGTH}
             className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3"
             placeholder="Optionnel mais recommandé"
           />
@@ -230,7 +282,8 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
         <textarea
           name="message"
           required
-          minLength={20}
+          minLength={MIN_MESSAGE_LENGTH}
+          maxLength={MAX_MESSAGE_LENGTH}
           rows={compact ? 4 : 6}
           className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3"
           placeholder="Décrivez votre besoin en quelques lignes."

@@ -17,11 +17,17 @@
 
 ## Configuration Firebase (formulaire + admin)
 1. Créez un projet Firebase avec **Firestore** et **Authentication (Email/Password)** activés.
-2. Collez les règles depuis `firestore.rules` dans **Firestore > Rules** (remplacez l’email admin).
+2. Collez les règles depuis `firestore.rules` dans **Firestore > Rules**.
 3. Collez la configuration Firebase dans `src/firebase.ts`.
 4. Créez un utilisateur admin dans **Firebase Auth** (email/mot de passe).
 5. Activez **App Check** (provider reCAPTCHA v3) et vérifiez/remplacez la clé reCAPTCHA dans `src/firebase.ts`.
-6. Le formulaire écrit dans la collection `devis` et la page `/admin-cagnat` affiche les demandes.
+6. Attribuez le rôle admin (custom claim) à votre compte :
+   - Préparez un accès Admin SDK (au choix) :
+   - `GOOGLE_APPLICATION_CREDENTIALS=/chemin/vers/service-account.json`
+   - ou `FIREBASE_SERVICE_ACCOUNT_JSON='{\"type\":\"service_account\",...}'`
+   - Lancez : `npm run set-admin-claim -- votre-email@domaine.com true`
+   - Déconnectez/reconnectez ensuite le compte dans `/admin-cagnat`.
+7. Le formulaire écrit dans la collection `devis` et la page `/admin-cagnat` affiche les demandes.
 
 ## Domaine personnalisé
 1. Dans Netlify : **Domain settings** > **Add domain**.

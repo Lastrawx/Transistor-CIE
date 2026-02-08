@@ -1,6 +1,6 @@
 import { type FormEvent, useEffect, useMemo, useState } from 'react'
 import type { User } from 'firebase/auth'
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { getIdTokenResult, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import type { Timestamp } from 'firebase/firestore'
 import { collection, deleteDoc, doc, getDocs, limit, orderBy, query, serverTimestamp, updateDoc } from 'firebase/firestore'
 import { auth, db } from '../firebase'
@@ -68,6 +68,7 @@ const filterOptions: { value: StatusFilter; label: string }[] = [
 
 const Admin = () => {
   const [user, setUser] = useState<User | null>(null)
+  const [hasAdminClaim, setHasAdminClaim] = useState<boolean | null>(null)
   const [authLoading, setAuthLoading] = useState(true)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -140,17 +141,59 @@ const Admin = () => {
   }
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (nextUser) => {
+    let active = true
+
+    const syncSession = async (nextUser: User | null) => {
+      if (!active) return
+
       setUser(nextUser)
-      setAuthLoading(false)
-      if (nextUser) {
-        void loadDevis()
-      } else {
+      setAuthLoading(true)
+      setListError(null)
+
+      if (!nextUser) {
+        setHasAdminClaim(null)
         setItems([])
+        setAuthLoading(false)
+        return
       }
+
+      try {
+        const tokenResult = await getIdTokenResult(nextUser, true)
+        const canAccessAdmin = tokenResult.claims.admin === true
+
+        if (!active) return
+        setHasAdminClaim(canAccessAdmin)
+
+        if (canAccessAdmin) {
+          await loadDevis()
+          return
+        }
+
+        setItems([])
+        setListError(
+          'Compte connecté sans droit administrateur. Activez le claim admin puis reconnectez-vous.',
+        )
+      } catch (error) {
+        console.error('Admin claim check failed', error)
+        if (!active) return
+        setHasAdminClaim(false)
+        setItems([])
+        setListError('Impossible de vérifier vos droits administrateur.')
+      } finally {
+        if (active) {
+          setAuthLoading(false)
+        }
+      }
+    }
+
+    const unsubscribe = onAuthStateChanged(auth, (nextUser) => {
+      void syncSession(nextUser)
     })
 
-    return () => unsubscribe()
+    return () => {
+      active = false
+      unsubscribe()
+    }
   }, [])
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
@@ -245,6 +288,11 @@ const Admin = () => {
             </button>
             {authError && <p className="text-sm text-rose-600">{authError}</p>}
           </form>
+        ) : hasAdminClaim === false ? (
+          <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+            Ce compte est bien connecté mais ne possède pas le rôle <code>admin</code>. Mettez à jour le claim
+            administrateur, puis déconnectez-vous et reconnectez-vous.
+          </div>
         ) : (
           <div className="mt-6 space-y-4">
             <div className="flex flex-wrap items-center gap-3">

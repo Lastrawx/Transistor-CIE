@@ -3,29 +3,106 @@ service cloud.firestore {
   match /databases/{database}/documents {
     function isAdmin() {
       return request.auth != null
-        && request.auth.token.email in [
-          "quentin-cagnat@live.fr",
-          "Quentin-cagnat@live.fr"
+        && request.auth.token.admin == true;
+    }
+
+    function isValidStatus(status) {
+      return status in [
+        "nouveau",
+        "lu",
+        "devis_en_cours",
+        "devis_envoye",
+        "en_attente_client",
+        "intervention_a_planifier",
+        "facture_a_envoyer",
+        "facture_envoyee",
+        "termine",
+        "rejete"
         ];
+    }
+
+    function isValidDevisShape(data) {
+      return data.keys().hasOnly([
+        "type",
+        "createdAt",
+        "updatedAt",
+        "source",
+        "profil",
+        "service",
+        "objet",
+        "nom",
+        "prenom",
+        "email",
+        "telephone",
+        "message",
+        "statut",
+        "consentement",
+        "website"
+      ])
+      && data.keys().hasAll([
+        "type",
+        "createdAt",
+        "updatedAt",
+        "source",
+        "profil",
+        "service",
+        "objet",
+        "nom",
+        "prenom",
+        "email",
+        "telephone",
+        "message",
+        "statut",
+        "consentement",
+        "website"
+      ]);
     }
 
     match /devis/{docId} {
       allow get, list, read: if isAdmin();
 
       allow create: if
-        request.resource.data.type == "devis"
-        && request.resource.data.website == ""
-        && request.resource.data.consentement is bool
-        && request.resource.data.consentement == true
+        isValidDevisShape(request.resource.data)
+        && request.resource.data.type == "devis"
+        && request.resource.data.source == "site-netlify"
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time
+        && request.resource.data.profil is string
+        && request.resource.data.profil in ["particulier", "entreprise"]
+        && request.resource.data.objet is string
+        && request.resource.data.objet.size() >= 5
+        && request.resource.data.objet.size() <= 200
+        && request.resource.data.nom is string
+        && request.resource.data.nom.size() >= 1
+        && request.resource.data.nom.size() <= 100
+        && request.resource.data.prenom is string
+        && request.resource.data.prenom.size() >= 1
+        && request.resource.data.prenom.size() <= 100
+        && request.resource.data.service is string
+        && request.resource.data.service.size() <= 160
+        && request.resource.data.telephone is string
+        && request.resource.data.telephone.size() <= 30
+        && request.resource.data.telephone.matches('^$|^[0-9+(). -]{6,25}$')
         && request.resource.data.email is string
         && request.resource.data.email.size() >= 5
         && request.resource.data.email.size() <= 200
+        && request.resource.data.email.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$')
         && request.resource.data.message is string
         && request.resource.data.message.size() >= 20
         && request.resource.data.message.size() <= 3000
-        && request.resource.data.statut == "nouveau";
+        && request.resource.data.statut == "nouveau"
+        && request.resource.data.consentement is bool
+        && request.resource.data.consentement == true
+        && request.resource.data.website == "";
 
-      allow update, delete: if isAdmin();
+      allow update: if
+        isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(["statut", "updatedAt"])
+        && request.resource.data.statut is string
+        && isValidStatus(request.resource.data.statut)
+        && request.resource.data.updatedAt == request.time;
+
+      allow delete: if isAdmin();
     }
   }
 }

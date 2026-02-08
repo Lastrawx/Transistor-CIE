@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { NavLink, Link, useLocation } from 'react-router-dom'
-import logoIcon from '../assets/logo-icon.png'
-import logoWordmark from '../assets/logo-wordmark.png'
+import logoIcon from '../assets/logo-icon.jpg'
+import logoWordmark from '../assets/logo-wordmark.jpg'
 import { useProfile } from '../utils/useProfile'
 import { instagram } from '../content/instagram'
 

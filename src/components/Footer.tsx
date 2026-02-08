@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import logo from '../assets/logo.jpg'
+import logo from '../assets/logo.webp'
 import { instagram } from '../content/instagram'
 
 const Footer = () => {
