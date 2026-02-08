@@ -14,17 +14,26 @@ const Confidentialite = () => {
         {confidentialite.map((section) => (
           <div key={section.title} className="space-y-2">
             <h2 className="text-xl font-semibold text-slate-800">{section.title}</h2>
-            <div className="space-y-2 text-sm text-slate-600">
-              {section.paragraphs.map((paragraph, paragraphIndex) => (
-                <p key={`${section.title}-paragraph-${paragraphIndex}`}>{paragraph}</p>
-              ))}
-            </div>
+            {section.paragraphs.length > 0 && (
+              <div className="space-y-2 text-sm text-slate-600">
+                {section.paragraphs.map((paragraph, paragraphIndex) => (
+                  <p key={`${section.title}-paragraph-${paragraphIndex}`}>{paragraph}</p>
+                ))}
+              </div>
+            )}
             {section.items && section.items.length > 0 && (
               <ul className="list-disc pl-5 text-sm text-slate-600">
                 {section.items.map((item, itemIndex) => (
                   <li key={`${section.title}-item-${itemIndex}`}>{item}</li>
                 ))}
               </ul>
+            )}
+            {section.postParagraphs && section.postParagraphs.length > 0 && (
+              <div className="space-y-2 text-sm text-slate-600">
+                {section.postParagraphs.map((paragraph, paragraphIndex) => (
+                  <p key={`${section.title}-post-paragraph-${paragraphIndex}`}>{paragraph}</p>
+                ))}
+              </div>
             )}
           </div>
         ))}

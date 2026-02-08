@@ -14,12 +14,14 @@ export type TermsSection = {
   paragraphs: string[]
   items?: string[]
   groups?: TermsGroup[]
+  postParagraphs?: string[]
 }
 
 export type PrivacySection = {
   title: string
   paragraphs: string[]
   items?: string[]
+  postParagraphs?: string[]
 }
 
 export const mentionsLegales: LegalSection[] = [
@@ -77,7 +79,6 @@ export const confidentialite: PrivacySection[] = [
     title: '2. Données collectées',
     paragraphs: [
       'Dans le cadre de l’utilisation du site et des services proposés, Transistor&CIE peut collecter les données personnelles suivantes :',
-      'Aucune donnée sensible n’est collectée volontairement, hors cas spécifique de prévention de la fraude prévu ci-dessous.',
     ],
     items: [
       'Profil (particulier / entreprise), service, objet de la demande.',
@@ -86,12 +87,14 @@ export const confidentialite: PrivacySection[] = [
       'Consentement (case à cocher), date/heure de création de la demande et informations techniques nécessaires au traitement.',
       'Le cas échéant, un justificatif d’identité strictement nécessaire en cas de demande d’application de la garantie satisfaction.',
     ],
+    postParagraphs: [
+      'Aucune donnée sensible n’est collectée volontairement, hors cas spécifique de prévention de la fraude prévu ci-dessous.',
+    ],
   },
   {
     title: '3. Finalités de la collecte',
     paragraphs: [
       'Les données personnelles sont collectées uniquement pour :',
-      'Les données ne sont ni vendues, ni cédées à des tiers à des fins commerciales.',
     ],
     items: [
       'Répondre aux demandes de contact.',
@@ -99,6 +102,9 @@ export const confidentialite: PrivacySection[] = [
       'Assurer la relation client et le suivi des prestations.',
       'Prévenir les abus (anti-spam / sécurité du formulaire).',
       'Le cas échéant, instruire une demande de garantie satisfaction et prévenir la fraude.',
+    ],
+    postParagraphs: [
+      'Les données ne sont ni vendues, ni cédées à des tiers à des fins commerciales.',
     ],
   },
   {
@@ -139,14 +145,16 @@ export const confidentialite: PrivacySection[] = [
     title: '8. Droits des utilisateurs',
     paragraphs: [
       'Conformément à la réglementation en vigueur (RGPD), l’utilisateur dispose des droits suivants :',
-      'Toute demande peut être adressée par email à : Quentin-cagnat@live.fr',
-      'En cas de difficulté non résolue, l’utilisateur peut introduire une réclamation auprès de la CNIL.',
     ],
     items: [
       'Droit d’accès à ses données.',
       'Droit de rectification.',
       'Droit à l’effacement.',
       'Droit d’opposition ou de limitation du traitement.',
+    ],
+    postParagraphs: [
+      'Toute demande peut être adressée par email à : Quentin-cagnat@live.fr',
+      'En cas de difficulté non résolue, l’utilisateur peut introduire une réclamation auprès de la CNIL.',
     ],
   },
   {
@@ -165,42 +173,42 @@ export const confidentialite: PrivacySection[] = [
 
 export const cgvCguSections: TermsSection[] = [
   {
-    title: "1. Présentation de l'entreprise",
+    title: '1. Présentation de l’entreprise',
     paragraphs: [
-      "Le présent site est édité par Transistor&CIE, entrepreneur individuel (micro-entreprise), exploitée par Quentin Xavier Jérôme CAGNAT, immatriculé au Registre National des Entreprises (RNE), exerçant une activité de conseil, assistance et services informatiques à distance.",
-      "Les coordonnées complètes de l'éditeur figurent dans la page Mentions légales du site.",
+      'Le présent site est édité par Transistor&CIE, entrepreneur individuel (micro-entreprise), exploitée par Quentin Xavier Jérôme CAGNAT, immatriculé au Registre National des Entreprises (RNE), exerçant une activité de conseil, assistance et services informatiques à distance.',
+      'Les coordonnées complètes de l’éditeur figurent dans la page Mentions légales du site.',
     ],
   },
   {
-    title: "2. Champ d'application",
+    title: '2. Champ d’application',
     paragraphs: [
-      "Les présentes Conditions Générales de Vente et d'Utilisation (CGV/CGU) s'appliquent à l'ensemble des prestations proposées par Transistor&CIE, à destination :",
-      'Toute commande ou utilisation des services implique l’acceptation pleine et entière des présentes CGV/CGU.',
+      'Les présentes Conditions Générales de Vente et d’Utilisation (CGV/CGU) s’appliquent à l’ensemble des prestations proposées par Transistor&CIE, à destination :',
     ],
     items: [
       'des particuliers,',
       'des professionnels et entreprises.',
     ],
+    postParagraphs: [
+      'Toute commande ou utilisation des services implique l’acceptation pleine et entière des présentes CGV/CGU.',
+    ],
   },
   {
     title: '3. Services proposés',
-    paragraphs: [
-      'La liste des services est donnée à titre indicatif et peut évoluer.',
-    ],
+    paragraphs: [],
     groups: [
       {
-        title: 'Services à destination des particuliers',
+        title: 'Services à destination des particuliers :',
         items: [
           'Assistance & dépannage informatique à distance',
           'Coaching montage PC sur-mesure',
           'Support pour appareils connectés et mobiles',
           'Formation et accompagnement à la culture numérique',
           'Optimisation budget informatique et réseau domestique',
-          "Conseil énergie & Green IT pour l'habitat",
+          'Conseil énergie & Green IT pour l’habitat',
         ],
       },
       {
-        title: 'Services à destination des entreprises',
+        title: 'Services à destination des entreprises :',
         items: [
           'Création de site web',
           'Transition numérique verte (Green IT)',
@@ -209,16 +217,19 @@ export const cgvCguSections: TermsSection[] = [
         ],
       },
     ],
+    postParagraphs: [
+      'La liste des services est donnée à titre indicatif et peut évoluer.',
+    ],
   },
   {
-    title: "4. Modalités d'intervention",
+    title: '4. Modalités d’intervention',
     paragraphs: [
       'Les prestations sont réalisées principalement à distance, par prise en main, visioconférence, téléphone ou outils numériques adaptés.',
       'Avant toute intervention :',
     ],
     items: [
       'un devis gratuit et personnalisé est proposé,',
-      "aucune prestation n'est réalisée sans validation préalable du client.",
+      'aucune prestation n’est réalisée sans validation préalable du client.',
     ],
   },
   {
@@ -243,25 +254,27 @@ export const cgvCguSections: TermsSection[] = [
   {
     title: '6. Obligations du client',
     paragraphs: [
-      "Le client s'engage à :",
-      "Transistor&CIE ne saurait être tenu responsable de pertes de données préexistantes ou résultant d'un défaut de sauvegarde du client.",
+      'Le client s’engage à :',
     ],
     items: [
       'fournir des informations exactes et complètes,',
       'disposer des droits nécessaires sur les équipements et logiciels concernés,',
       'sauvegarder ses données avant toute intervention.',
     ],
+    postParagraphs: [
+      'Transistor&CIE ne saurait être tenu responsable de pertes de données préexistantes ou résultant d’un défaut de sauvegarde du client.',
+    ],
   },
   {
     title: '7. Responsabilité',
     paragraphs: [
-      "Transistor&CIE s'engage à mettre en œuvre tous les moyens nécessaires pour fournir une prestation de qualité, dans une obligation de moyens et non de résultat.",
-      "La responsabilité de Transistor&CIE ne saurait être engagée en cas :",
+      'Transistor&CIE s’engage à mettre en œuvre tous les moyens nécessaires pour fournir une prestation de qualité, dans une obligation de moyens et non de résultat.',
+      'La responsabilité de Transistor&CIE ne saurait être engagée en cas :',
     ],
     items: [
       'de mauvaise utilisation des recommandations fournies,',
-      "de défaillance matérielle ou logicielle indépendante de l'intervention,",
-      "d'interruption de services tiers (hébergeurs, éditeurs, fournisseurs d'accès).",
+      'de défaillance matérielle ou logicielle indépendante de l’intervention,',
+      'd’interruption de services tiers (hébergeurs, éditeurs, fournisseurs d’accès).',
     ],
   },
   {

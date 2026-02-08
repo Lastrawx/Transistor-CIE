@@ -20,11 +20,13 @@ const CgvCgu = () => {
           <section key={section.title} id={section.id} className="space-y-3 scroll-mt-28">
             <h2 className="text-xl font-semibold text-slate-800">{section.title}</h2>
 
-            <div className="space-y-2 text-sm text-slate-600">
-              {section.paragraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </div>
+            {section.paragraphs.length > 0 && (
+              <div className="space-y-2 text-sm text-slate-600">
+                {section.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+            )}
 
             {section.items && section.items.length > 0 && (
               <ul className="list-disc pl-5 text-sm text-slate-600 space-y-1">
@@ -45,6 +47,14 @@ const CgvCgu = () => {
                       ))}
                     </ul>
                   </div>
+                ))}
+              </div>
+            )}
+
+            {section.postParagraphs && section.postParagraphs.length > 0 && (
+              <div className="space-y-2 text-sm text-slate-600">
+                {section.postParagraphs.map((paragraph) => (
+                  <p key={`${section.title}-${paragraph}`}>{paragraph}</p>
                 ))}
               </div>
             )}
