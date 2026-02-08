@@ -17,7 +17,7 @@ const CgvCgu = () => {
         </div>
 
         {cgvCguSections.map((section) => (
-          <section key={section.title} className="space-y-3">
+          <section key={section.title} id={section.id} className="space-y-3 scroll-mt-28">
             <h2 className="text-xl font-semibold text-slate-800">{section.title}</h2>
 
             <div className="space-y-2 text-sm text-slate-600">

@@ -9,6 +9,7 @@ export type TermsGroup = {
 }
 
 export type TermsSection = {
+  id?: string
   title: string
   paragraphs: string[]
   items?: string[]
@@ -160,6 +161,17 @@ export const cgvCguSections: TermsSection[] = [
     paragraphs: [
       'Les prix affichés sur le site sont indicatifs. Les tarifs définitifs sont communiqués via devis avant toute prestation.',
       'Transistor&CIE étant sous le régime de la micro-entreprise, la TVA est non applicable (article 293B du CGI).',
+    ],
+  },
+  {
+    id: 'garantie-satisfaction',
+    title: 'Garantie satisfaction (conditions)',
+    paragraphs: [
+      'Transistor&CIE propose une garantie satisfaction sur certaines prestations à distance, conformément au périmètre défini au devis.',
+      'La garantie est limitée aux devis d’un montant inférieur ou égal à 150 € TTC et s’apprécie uniquement au regard de critères objectifs mentionnés au devis (résultat attendu, livrables, actions prévues).',
+      'En cas de non-atteinte du résultat défini au devis, le Client doit en informer Transistor&CIE dans un délai de 48 heures suivant la fin de l’intervention. Transistor&CIE pourra, selon la situation et dans la limite du périmètre du devis, proposer une reprise de l’intervention ou appliquer la garantie selon les présentes CGV.',
+      'La garantie ne s’applique pas lorsque la difficulté rencontrée est externe au périmètre du devis, lorsque les pré-requis indiqués au devis n’ont pas été respectés, ou en cas d’intervention/modification par un tiers susceptible d’affecter le résultat.',
+      'À des fins de prévention de la fraude et de sécurisation des transactions, Transistor&CIE peut demander au Client un justificatif d’identité strictement nécessaire, traité et conservé pour la durée strictement requise à cette finalité, conformément à la réglementation applicable.',
     ],
   },
   {
