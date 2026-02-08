@@ -9,6 +9,7 @@ import Admin from '../pages/Admin'
 import Merci from '../pages/Merci'
 import MentionsLegales from '../pages/MentionsLegales'
 import Confidentialite from '../pages/Confidentialite'
+import CgvCgu from '../pages/CgvCgu'
 
 const ScrollToTop = () => {
   const { pathname, hash } = useLocation()
@@ -39,6 +40,9 @@ const AppRouter = () => {
         <Route path="/merci" element={<Merci />} />
         <Route path="/mentions-legales" element={<MentionsLegales />} />
         <Route path="/confidentialite" element={<Confidentialite />} />
+        <Route path="/cgv-cgu" element={<CgvCgu />} />
+        <Route path="/cgv" element={<CgvCgu />} />
+        <Route path="/cgu" element={<CgvCgu />} />
         <Route path="*" element={<Home />} />
       </Routes>
     </>

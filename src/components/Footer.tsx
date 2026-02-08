@@ -42,6 +42,7 @@ const Footer = () => {
           <div className="flex flex-col gap-2 text-xs text-slate-500">
             <Link to="/mentions-legales">Mentions légales</Link>
             <Link to="/confidentialite">Politique de confidentialité</Link>
+            <Link to="/cgv-cgu">CGV / CGU</Link>
           </div>
         </div>
       </div>
