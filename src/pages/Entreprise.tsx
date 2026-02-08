@@ -7,7 +7,7 @@ import GuaranteeHighlight from '../components/GuaranteeHighlight'
 import SEO from '../components/SEO'
 import { entrepriseServices, type Service } from '../content/services'
 import heroEntreprise from '../assets/hero-entreprise.webp'
-import { useProfile } from '../utils/profile'
+import { useProfile } from '../utils/useProfile'
 
 const Entreprise = () => {
   const { setProfile } = useProfile()

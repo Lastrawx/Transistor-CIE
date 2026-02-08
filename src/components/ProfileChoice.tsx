@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { useProfile } from '../utils/profile'
+import { useProfile } from '../utils/useProfile'
 
 const ProfileChoice = () => {
   const navigate = useNavigate()

@@ -7,7 +7,7 @@ import GuaranteeHighlight from '../components/GuaranteeHighlight'
 import SEO from '../components/SEO'
 import { particulierServices, type Service } from '../content/services'
 import heroParticulier from '../assets/hero-particulier.webp'
-import { useProfile } from '../utils/profile'
+import { useProfile } from '../utils/useProfile'
 
 const Particulier = () => {
   const { setProfile } = useProfile()

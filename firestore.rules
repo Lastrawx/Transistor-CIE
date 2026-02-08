@@ -4,8 +4,8 @@ service cloud.firestore {
     function isAdmin() {
       return request.auth != null
         && request.auth.token.email in [
-          // TODO: remplace par ton email admin
-          "TON_EMAIL_ADMIN@domaine.com"
+          "quentin-cagnat@live.fr",
+          "Quentin-cagnat@live.fr"
         ];
     }
 
@@ -15,11 +15,13 @@ service cloud.firestore {
       allow create: if
         request.resource.data.type == "devis"
         && request.resource.data.website == ""
+        && request.resource.data.consentement is bool
+        && request.resource.data.consentement == true
         && request.resource.data.email is string
         && request.resource.data.email.size() >= 5
         && request.resource.data.email.size() <= 200
         && request.resource.data.message is string
-        && request.resource.data.message.size() >= 5
+        && request.resource.data.message.size() >= 20
         && request.resource.data.message.size() <= 3000
         && request.resource.data.statut == "nouveau";
 

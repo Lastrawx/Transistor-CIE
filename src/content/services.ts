@@ -7,7 +7,7 @@ import energieImg from '../assets/service-energie-green.webp'
 import greenItImg from '../assets/service-greenit.webp'
 import infraImg from '../assets/service-infra.webp'
 import cyberImg from '../assets/service-cyber.webp'
-import webImg from '../assets/service-web.png'
+import webImg from '../assets/service-web.jpg'
 
 export type Service = {
   id: string

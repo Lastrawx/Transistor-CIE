@@ -1,7 +1,8 @@
-import { NavLink, Link } from 'react-router-dom'
+import { useEffect, useRef } from 'react'
+import { NavLink, Link, useLocation } from 'react-router-dom'
 import logoIcon from '../assets/logo-icon.png'
 import logoWordmark from '../assets/logo-wordmark.png'
-import { useProfile } from '../utils/profile'
+import { useProfile } from '../utils/useProfile'
 import { instagram } from '../content/instagram'
 
 const navItems = [
@@ -14,9 +15,23 @@ const navItems = [
 
 const Header = () => {
   const { profile } = useProfile()
+  const location = useLocation()
+  const menuRef = useRef<HTMLDetailsElement | null>(null)
   const ctaTarget = profile === 'entreprise' ? '/entreprise' : profile === 'particulier' ? '/particulier' : '/contact'
   const ctaLabel = profile ? 'Voir le pôle' : 'Demander un devis'
   const ctaLabelShort = profile ? 'Pôle' : 'Devis'
+
+  useEffect(() => {
+    if (menuRef.current) {
+      menuRef.current.open = false
+    }
+  }, [location.pathname])
+
+  const closeMobileMenu = () => {
+    if (menuRef.current) {
+      menuRef.current.open = false
+    }
+  }
 
   return (
     <header className="sticky top-0 z-40 border-b border-white/60 bg-white/80 backdrop-blur">
@@ -55,7 +70,7 @@ const Header = () => {
             <span className="sm:hidden">{ctaLabelShort}</span>
             <span className="hidden sm:inline">{ctaLabel}</span>
           </Link>
-          <details className="relative shrink-0 lg:hidden">
+          <details ref={menuRef} className="relative shrink-0 lg:hidden">
             <summary className="btn-ghost cursor-pointer whitespace-nowrap">Menu</summary>
             <div className="absolute right-0 top-16 w-56 rounded-2xl border border-slate-100 bg-white p-4 shadow-xl sm:right-5 sm:top-[4.5rem]">
               <div className="flex flex-col gap-3 text-sm font-medium">
@@ -63,6 +78,7 @@ const Header = () => {
                   <NavLink
                     key={item.to}
                     to={item.to}
+                    onClick={closeMobileMenu}
                     className={({ isActive }) =>
                       `transition hover:text-slate-900 ${isActive ? 'text-slate-900' : 'text-slate-600'}`
                     }
@@ -74,6 +90,7 @@ const Header = () => {
                   href={instagram.url}
                   target="_blank"
                   rel="noreferrer"
+                  onClick={closeMobileMenu}
                   className="transition hover:text-slate-900 text-slate-600"
                 >
                   Instagram

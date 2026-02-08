@@ -3,7 +3,7 @@ import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
 import { db } from '../firebase'
 import { buildSubject, profileLabel } from '../utils/format'
-import { useProfile } from '../utils/profile'
+import { useProfile } from '../utils/useProfile'
 import type { UserProfile } from '../utils/storage'
 
 const profileOptions: { value: UserProfile; label: string }[] = [
@@ -27,12 +27,12 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
   const navigate = useNavigate()
   const { profile: storedProfile } = useProfile()
   const initialProfile = prefillProfile ?? storedProfile ?? 'particulier'
-  const [profile, setProfile] = useState<UserProfile>(initialProfile)
-  const [service, setService] = useState(prefillService ?? '')
+  const [profile, setProfile] = useState<UserProfile>(() => initialProfile)
+  const [service, setService] = useState(() => prefillService ?? '')
+  const [subjectTouched, setSubjectTouched] = useState(() => Boolean(prefillSubject))
   const [subject, setSubject] = useState(
-    prefillSubject ?? buildSubject(prefillService || 'Demande de devis', initialProfile),
+    () => prefillSubject ?? buildSubject(prefillService || 'Demande de devis', initialProfile),
   )
-  const [subjectTouched, setSubjectTouched] = useState(false)
   const [ready, setReady] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
@@ -41,29 +41,13 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
   const serviceLocked = Boolean(prefillService)
 
   useEffect(() => {
-    setProfile(prefillProfile ?? storedProfile ?? 'particulier')
-  }, [prefillProfile, storedProfile])
-
-  useEffect(() => {
-    setService(prefillService ?? '')
-  }, [prefillService])
-
-  useEffect(() => {
-    if (!subjectTouched) {
-      setSubject(buildSubject(service || 'Demande de devis', profile))
-    }
-  }, [service, profile, subjectTouched])
-
-  useEffect(() => {
-    if (!subjectTouched && prefillSubject) {
-      setSubject(prefillSubject)
-    }
-  }, [prefillSubject, subjectTouched])
-
-  useEffect(() => {
     const timer = window.setTimeout(() => setReady(true), 1200)
     return () => window.clearTimeout(timer)
   }, [])
+
+  const subjectValue = subjectTouched
+    ? subject
+    : prefillSubject ?? buildSubject(service || 'Demande de devis', profile)
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -196,7 +180,7 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
         <input
           name="objet"
           required
-          value={subject}
+          value={subjectValue}
           onChange={(event) => {
             setSubjectTouched(true)
             setSubject(event.target.value)

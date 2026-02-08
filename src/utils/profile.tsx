@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   clearUserProfile,
   getUserProfile,
@@ -6,18 +6,7 @@ import {
   subscribeUserProfile,
   type UserProfile,
 } from './storage'
-
-export type ProfileContextValue = {
-  profile: UserProfile | null
-  setProfile: (profile: UserProfile) => void
-  clearProfile: () => void
-}
-
-const ProfileContext = createContext<ProfileContextValue>({
-  profile: null,
-  setProfile: () => {},
-  clearProfile: () => {},
-})
+import { type ProfileContextValue, ProfileContext } from './profile-context'
 
 export const ProfileProvider = ({ children }: { children: React.ReactNode }) => {
   const [profile, setProfileState] = useState<UserProfile | null>(() => getUserProfile())
@@ -49,5 +38,3 @@ export const ProfileProvider = ({ children }: { children: React.ReactNode }) => 
 
   return <ProfileContext.Provider value={value}>{children}</ProfileContext.Provider>
 }
-
-export const useProfile = () => useContext(ProfileContext)

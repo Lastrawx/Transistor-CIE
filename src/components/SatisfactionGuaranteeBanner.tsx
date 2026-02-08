@@ -55,7 +55,8 @@ const SatisfactionGuaranteeBanner = ({ onVisibilityChange }: SatisfactionGuarant
   const previousFocusRef = useRef<HTMLElement | null>(null)
   const hasTrackedViewRef = useRef(false)
 
-  const hiddenOnThisPage = HIDDEN_PATHS.has(location.pathname)
+  const normalizedPath = location.pathname.length > 1 ? location.pathname.replace(/\/+$/, '') : location.pathname
+  const hiddenOnThisPage = HIDDEN_PATHS.has(normalizedPath)
   const bannerVisible = !dismissed && !hiddenOnThisPage
 
   useEffect(() => {

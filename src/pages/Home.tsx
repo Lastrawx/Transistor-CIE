@@ -8,7 +8,7 @@ import { instagram } from '../content/instagram'
 import heroHome from '../assets/hero-home.webp'
 import heroParticulier from '../assets/hero-particulier.webp'
 import heroEntreprise from '../assets/hero-entreprise.webp'
-import { useProfile } from '../utils/profile'
+import { useProfile } from '../utils/useProfile'
 
 const Home = () => {
   const { profile } = useProfile()
@@ -203,7 +203,7 @@ const Home = () => {
                 <div className="rounded-xl border border-slate-100 bg-white p-4">
                   <p className="font-medium text-slate-800">Pilotage & coordination opérationnelle</p>
                   <p className="mt-2">
-                    Management opérationnel, suivi de compétences, mises en formation, plannification et gestion de
+                    Management opérationnel, suivi de compétences, mises en formation, planification et gestion de
                     projets, garant de la sécurité des personnes et des biens.
                   </p>
                   <p className="mt-2">Volume en gestion : 30 à 50 personnes</p>
