@@ -10,14 +10,22 @@ const Confidentialite = () => {
       />
       <div className="section-card p-8 space-y-6">
         <h1 className="text-3xl font-semibold text-slate-900">Politique de confidentialité</h1>
+        <p className="text-sm text-slate-600">Transistor&CIE</p>
         {confidentialite.map((section) => (
           <div key={section.title} className="space-y-2">
             <h2 className="text-xl font-semibold text-slate-800">{section.title}</h2>
-            <ul className="list-disc pl-5 text-sm text-slate-600">
-              {section.content.map((item) => (
-                <li key={item}>{item}</li>
+            <div className="space-y-2 text-sm text-slate-600">
+              {section.paragraphs.map((paragraph, paragraphIndex) => (
+                <p key={`${section.title}-paragraph-${paragraphIndex}`}>{paragraph}</p>
               ))}
-            </ul>
+            </div>
+            {section.items && section.items.length > 0 && (
+              <ul className="list-disc pl-5 text-sm text-slate-600">
+                {section.items.map((item, itemIndex) => (
+                  <li key={`${section.title}-item-${itemIndex}`}>{item}</li>
+                ))}
+              </ul>
+            )}
           </div>
         ))}
       </div>

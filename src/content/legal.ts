@@ -16,6 +16,12 @@ export type TermsSection = {
   groups?: TermsGroup[]
 }
 
+export type PrivacySection = {
+  title: string
+  paragraphs: string[]
+  items?: string[]
+}
+
 export const mentionsLegales: LegalSection[] = [
   {
     title: 'Éditeur du site',
@@ -58,42 +64,88 @@ export const mentionsLegales: LegalSection[] = [
   },
 ]
 
-export const confidentialite: LegalSection[] = [
+export const confidentialite: PrivacySection[] = [
   {
-    title: 'Données collectées',
-    content: [
-      'Formulaire de contact : profil, service, objet, nom, prénom, email, téléphone (optionnel) et message.',
+    title: '1. Responsable du traitement',
+    paragraphs: [
+      'Le responsable du traitement des données personnelles collectées sur le site Transistor&CIE est :',
+      'Transistor&CIE',
+      'Entrepreneur individuel (micro-entreprise)',
+      'Email de contact : Quentin-cagnat@live.fr',
     ],
   },
   {
-    title: 'Finalité',
-    content: [
-      'Répondre aux demandes de devis et de contact, assurer le suivi des échanges.',
+    title: '2. Données collectées',
+    paragraphs: [
+      'Dans le cadre de l’utilisation du site et des services proposés, Transistor&CIE peut collecter les données personnelles suivantes :',
+      'Aucune donnée sensible n’est collectée volontairement.',
+    ],
+    items: [
+      'Nom et prénom',
+      'Adresse email',
+      'Numéro de téléphone (si renseigné)',
+      'Contenu des messages envoyés via le formulaire de contact',
     ],
   },
   {
-    title: 'Base légale',
-    content: [
-      'Consentement via le formulaire et intérêt légitime à répondre aux sollicitations.',
+    title: '3. Finalités de la collecte',
+    paragraphs: [
+      'Les données personnelles sont collectées uniquement pour :',
+      'Les données ne sont ni vendues, ni cédées, ni transmises à des tiers à des fins commerciales.',
+    ],
+    items: [
+      'répondre aux demandes de contact,',
+      'établir des devis et échanges commerciaux,',
+      'assurer la relation client et le suivi des prestations.',
     ],
   },
   {
-    title: 'Durée de conservation',
-    content: [
-      'Les données sont conservées pendant la durée nécessaire au traitement de la demande, puis archivées selon les obligations légales.',
+    title: '4. Durée de conservation',
+    paragraphs: [
+      'Les données personnelles sont conservées uniquement pendant la durée nécessaire :',
+    ],
+    items: [
+      'au traitement de la demande,',
+      'à la relation commerciale,',
+      'et au respect des obligations légales et comptables.',
     ],
   },
   {
-    title: 'Droits',
-    content: [
-      'Vous pouvez demander l’accès, la rectification ou la suppression de vos données.',
-      'Contact : effectuer cette demande via le formulaire de contact du site.',
+    title: '5. Sécurité des données',
+    paragraphs: [
+      'Transistor&CIE met en œuvre des mesures techniques et organisationnelles raisonnables afin de protéger les données personnelles contre toute perte, accès non autorisé ou divulgation.',
     ],
   },
   {
-    title: 'Cookies',
-    content: [
-      'Ce site ne dépose pas de cookies publicitaires. Des cookies techniques peuvent être utilisés par la plateforme d’hébergement.',
+    title: '6. Droits des utilisateurs',
+    paragraphs: [
+      'Conformément à la réglementation en vigueur (RGPD), l’utilisateur dispose des droits suivants :',
+      'Toute demande peut être adressée par email à : Quentin-cagnat@live.fr',
+    ],
+    items: [
+      'droit d’accès à ses données,',
+      'droit de rectification,',
+      'droit à l’effacement,',
+      'droit d’opposition ou de limitation du traitement.',
+    ],
+  },
+  {
+    title: '7. Cookies',
+    paragraphs: [
+      'Le site Transistor&CIE n’utilise pas de cookies à des fins publicitaires ou de suivi avancé.',
+      'Des cookies techniques strictement nécessaires au bon fonctionnement du site peuvent être utilisés.',
+    ],
+  },
+  {
+    title: '8. Modification de la politique de confidentialité',
+    paragraphs: [
+      'Transistor&CIE se réserve le droit de modifier la présente politique de confidentialité à tout moment afin de rester conforme aux évolutions légales ou techniques.',
+    ],
+  },
+  {
+    title: '9. Droit applicable',
+    paragraphs: [
+      'La présente politique de confidentialité est soumise au droit français.',
     ],
   },
 ]
