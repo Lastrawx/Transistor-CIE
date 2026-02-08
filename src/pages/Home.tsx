@@ -33,12 +33,7 @@ const Home = () => {
         image={heroHome}
         imageAlt="Bienvenue chez Transistor&CIE"
       >
-        <div className="space-y-4 pt-4">
-          <div className="rounded-3xl border border-brand-cyan/20 bg-white/80 p-4 shadow-sm">
-            <p className="text-xs font-semibold uppercase text-slate-500">Offre de lancement</p>
-            <p className="mt-1 text-3xl font-semibold leading-tight text-brand-cyan sm:text-4xl">-25%</p>
-            <p className="text-sm text-slate-600">Sur votre premier service Transistor&CIE.</p>
-          </div>
+        <div className="pt-4">
           <ProfileChoice />
         </div>
       </Hero>

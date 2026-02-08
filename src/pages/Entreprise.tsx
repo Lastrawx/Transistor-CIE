@@ -6,8 +6,6 @@ import ContactModal from '../components/ContactModal'
 import SEO from '../components/SEO'
 import { entrepriseServices, type Service } from '../content/services'
 import heroEntreprise from '../assets/hero-entreprise.webp'
-import pricingCover from '../assets/pricing-entreprise-cover.webp'
-import pricingTable from '../assets/pricing-entreprise-table.webp'
 import { useProfile } from '../utils/profile'
 
 const Entreprise = () => {
@@ -52,23 +50,6 @@ const Entreprise = () => {
             Une approche claire pour des résultats mesurables : sobriété numérique, infrastructure, sécurité.
           </p>
           <ServiceGrid services={entrepriseServices} onQuote={handleQuote} />
-        </div>
-      </section>
-
-      <section className="container-page section-card p-8">
-        <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-          <img src={pricingCover} alt="Tarifs Entreprises" className="rounded-2xl border border-slate-100" />
-          <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-slate-900">Grille tarifaire indicative (HT)</h2>
-            <p className="text-sm text-slate-600">
-              Les tarifs sont donnés à titre indicatif. Le devis gratuit et personnalisé est fourni avant toute intervention.
-            </p>
-            <img
-              src={pricingTable}
-              alt="Grille tarifaire Entreprises"
-              className="rounded-2xl border border-slate-100"
-            />
-          </div>
         </div>
       </section>
 

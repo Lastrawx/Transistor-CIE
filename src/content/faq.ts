@@ -20,11 +20,6 @@ export const faqItems: FAQItem[] = [
       'Des outils sécurisés de visio et de prise en main à distance, choisis selon votre contexte (particulier ou entreprise).',
   },
   {
-    question: 'Les tarifs affichés sont-ils fixes ?',
-    answer:
-      'Ils sont indicatifs. Chaque besoin est unique, le devis gratuit précise un prix personnalisé avant toute intervention.',
-  },
-  {
     question: 'Mes données sont-elles protégées ?',
     answer:
       'La confidentialité est une priorité. Les accès sont sécurisés et limités à l’intervention convenue.',

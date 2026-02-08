@@ -6,8 +6,6 @@ import ContactModal from '../components/ContactModal'
 import SEO from '../components/SEO'
 import { particulierServices, type Service } from '../content/services'
 import heroParticulier from '../assets/hero-particulier.webp'
-import pricingCover from '../assets/pricing-particulier-cover.webp'
-import pricingTable from '../assets/pricing-particulier-table.webp'
 import { useProfile } from '../utils/profile'
 
 const Particulier = () => {
@@ -52,23 +50,6 @@ const Particulier = () => {
             Un accompagnement clair, accessible et sans déplacement. Choisissez votre service et demandez un devis gratuit.
           </p>
           <ServiceGrid services={particulierServices} onQuote={handleQuote} />
-        </div>
-      </section>
-
-      <section className="container-page section-card p-8">
-        <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-          <img src={pricingCover} alt="Tarifs Particuliers" className="rounded-2xl border border-slate-100" />
-          <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-slate-900">Grille tarifaire indicative</h2>
-            <p className="text-sm text-slate-600">
-              Les tarifs sont donnés à titre indicatif. Le devis gratuit et personnalisé est fourni avant toute intervention.
-            </p>
-            <img
-              src={pricingTable}
-              alt="Grille tarifaire Particuliers"
-              className="rounded-2xl border border-slate-100"
-            />
-          </div>
         </div>
       </section>
 
