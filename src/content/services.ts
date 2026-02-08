@@ -7,6 +7,7 @@ import energieImg from '../assets/service-energie-green.webp'
 import greenItImg from '../assets/service-greenit.webp'
 import infraImg from '../assets/service-infra.webp'
 import cyberImg from '../assets/service-cyber.webp'
+import webImg from '../assets/service-web.png'
 
 export type Service = {
   id: string
@@ -124,6 +125,23 @@ export const particulierServices: Service[] = [
 ]
 
 export const entrepriseServices: Service[] = [
+  {
+    id: 'creation-site-web',
+    title: 'Création de site web',
+    offer:
+      'Site vitrine moderne, rapide et orienté conversion. Conception d’un site professionnel (vitrine) adapté mobile & desktop, avec vos services, une page contact et un référencement de base pour être trouvable sur Google.',
+    includes: [
+      'Maquette simple & structure claire (Accueil / Services / À propos / Contact)',
+      'Design responsive + optimisation performance',
+      'Formulaire de contact fonctionnel + protection anti-spam',
+      'SEO de base : titres, métadonnées, mots-clés, indexation',
+    ],
+    benefits: ['Un site crédible qui rassure et génère des demandes de devis.'],
+    modalities: '100% à distance — Devis Gratuit.',
+    tags: ['Site web', ...commonTags],
+    defaultSubject: 'Demande de devis — Création de site web — Entreprise',
+    image: webImg,
+  },
   {
     id: 'transition-numerique-verte',
     title: 'Transition Numérique Verte (Green IT)',
