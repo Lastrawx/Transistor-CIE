@@ -3,6 +3,7 @@ import ContactForm from '../components/ContactForm'
 import PillBanner from '../components/PillBanner'
 import GuaranteeHighlight from '../components/GuaranteeHighlight'
 import { instagram } from '../content/instagram'
+import { site } from '../content/site'
 
 const Contact = () => {
   return (
@@ -22,6 +23,23 @@ const Contact = () => {
             </p>
             <PillBanner />
             <GuaranteeHighlight compact />
+            <div className="rounded-2xl border border-slate-100 bg-white p-5">
+              <p className="text-sm font-semibold text-slate-800">Coordonnées directes</p>
+              <div className="mt-2 flex flex-col gap-1 text-sm text-slate-600">
+                <a className="hover:text-slate-900" href={`tel:${site.phoneHref}`}>
+                  {site.phoneDisplay} (appel direct)
+                </a>
+                <a className="hover:text-slate-900" href={site.whatsappUrl} target="_blank" rel="noreferrer">
+                  WhatsApp Business
+                </a>
+                <a className="hover:text-slate-900" href={`mailto:${site.contactEmail}`}>
+                  {site.contactEmail}
+                </a>
+                <a className="hover:text-slate-900" href={site.websiteUrl} target="_blank" rel="noreferrer">
+                  {site.websiteUrl}
+                </a>
+              </div>
+            </div>
             <div className="rounded-2xl border border-slate-100 bg-white p-5">
               <p className="text-sm font-semibold text-slate-800">Instagram</p>
               <a

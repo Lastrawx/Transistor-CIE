@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import logo from '../assets/logo.webp'
 import { instagram } from '../content/instagram'
+import { site } from '../content/site'
 
 const Footer = () => {
   return (
@@ -39,6 +40,17 @@ const Footer = () => {
           >
             Instagram {instagram.handle}
           </a>
+          <div className="flex flex-col gap-1 text-slate-600">
+            <a className="hover:text-slate-900" href={`tel:${site.phoneHref}`}>
+              {site.phoneDisplay} (appel & WhatsApp)
+            </a>
+            <a className="hover:text-slate-900" href={`mailto:${site.contactEmail}`}>
+              {site.contactEmail}
+            </a>
+            <a className="hover:text-slate-900" href={site.websiteUrl} target="_blank" rel="noreferrer">
+              {site.websiteUrl}
+            </a>
+          </div>
           <div className="flex flex-col gap-2 text-xs text-slate-500">
             <Link to="/mentions-legales">Mentions légales</Link>
             <Link to="/confidentialite">Politique de confidentialité</Link>

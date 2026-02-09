@@ -1,3 +1,5 @@
+import { site } from './site'
+
 export type LegalSection = {
   title: string
   content: string[]
@@ -37,6 +39,9 @@ export const mentionsLegales: LegalSection[] = [
       'Registre : Inscrit au RNE (Registre National des Entreprises)',
       'Code APE : 6202A – Conseil en systèmes et logiciels informatiques',
       'TVA : non applicable, article 293B du CGI',
+      `Téléphone : ${site.phoneDisplay} (appel direct et WhatsApp Business)`,
+      `Email : ${site.contactEmail}`,
+      `Site web : ${site.websiteUrl}`,
     ],
   },
   {
@@ -72,7 +77,8 @@ export const confidentialite: PrivacySection[] = [
     paragraphs: [
       'Le responsable du traitement des données personnelles collectées sur le site Transistor&CIE est :',
       'Transistor&CIE — Entrepreneur individuel (micro-entreprise).',
-      'Email de contact : Quentin-cagnat@live.fr',
+      `Email de contact : ${site.contactEmail}`,
+      `Téléphone de contact : ${site.phoneDisplay}`,
     ],
   },
   {
@@ -153,7 +159,7 @@ export const confidentialite: PrivacySection[] = [
       'Droit d’opposition ou de limitation du traitement.',
     ],
     postParagraphs: [
-      'Toute demande peut être adressée par email à : Quentin-cagnat@live.fr',
+      `Toute demande peut être adressée par email à : ${site.contactEmail}`,
       'En cas de difficulté non résolue, l’utilisateur peut introduire une réclamation auprès de la CNIL.',
     ],
   },

@@ -4,6 +4,7 @@ import logoIcon from '../assets/logo-icon.jpg'
 import logoWordmark from '../assets/logo-wordmark.jpg'
 import { useProfile } from '../utils/useProfile'
 import { instagram } from '../content/instagram'
+import { site } from '../content/site'
 
 const navItems = [
   { label: 'Accueil', to: '/' },
@@ -63,6 +64,21 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center gap-2 shrink-0 sm:gap-3">
+          <a
+            className="btn-ghost hidden lg:inline-flex whitespace-nowrap px-3 py-2 text-[11px] leading-tight xl:text-xs"
+            href={`tel:${site.phoneHref}`}
+          >
+            <span className="xl:hidden">Appeler</span>
+            <span className="hidden xl:inline">Appeler {site.phoneDisplay}</span>
+          </a>
+          <a
+            className="btn-secondary hidden lg:inline-flex whitespace-nowrap px-3 py-2 text-[11px] leading-tight xl:text-xs"
+            href={site.whatsappUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            WhatsApp
+          </a>
           <Link
             className="btn-primary shrink-0 whitespace-nowrap px-3 py-2 text-[11px] leading-tight sm:px-5 sm:py-3 sm:text-sm sm:leading-none"
             to={ctaTarget}
@@ -94,6 +110,23 @@ const Header = () => {
                   className="transition hover:text-slate-900 text-slate-600"
                 >
                   Instagram
+                </a>
+                <div className="my-1 border-t border-slate-100" />
+                <a
+                  href={`tel:${site.phoneHref}`}
+                  onClick={closeMobileMenu}
+                  className="btn-ghost w-full"
+                >
+                  Appeler {site.phoneDisplay}
+                </a>
+                <a
+                  href={site.whatsappUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={closeMobileMenu}
+                  className="btn-secondary w-full"
+                >
+                  WhatsApp
                 </a>
               </div>
             </div>

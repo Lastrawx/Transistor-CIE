@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { site } from '../content/site'
 
 const ensureMeta = (key: string, value: string, attr: 'name' | 'property' = 'name') => {
   if (!value) return
@@ -30,8 +31,9 @@ type SEOProps = {
 
 const SEO = ({ title, description, image }: SEOProps) => {
   useEffect(() => {
-    const canonicalUrl = `${window.location.origin}${window.location.pathname}`
-    const imageUrl = image ? new URL(image, window.location.origin).toString() : `${window.location.origin}/og-home.webp`
+    const canonicalBase = site.websiteUrl.replace(/\/$/, '')
+    const canonicalUrl = `${canonicalBase}${window.location.pathname}`
+    const imageUrl = image ? new URL(image, canonicalBase).toString() : `${canonicalBase}/og-home.webp`
 
     document.title = title
     ensureMeta('description', description, 'name')
