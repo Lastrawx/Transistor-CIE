@@ -24,16 +24,16 @@ const Particulier = () => {
   }
 
   return (
-    <div className="space-y-16">
+    <div className="space-y-16 pt-3 sm:pt-4">
       <SEO
         title="Transistor&CIE — Particuliers"
-        description="Assistance, optimisation, formation et Green IT pour la maison. 100% à distance, devis gratuit."
+        description="Assistance, optimisation, formation et Green IT pour la maison. 100% digital, partout en France. Devis gratuit."
         image={heroParticulier}
       />
 
       <Hero
         title="La Tech au quotidien, simplifiée"
-        subtitle="Rapide, pédagogique et 100% à distance pour retrouver un usage sans stress."
+        subtitle="Rapide, pédagogique et 100% digital, partout en France pour retrouver un usage sans stress."
         kicker="Pôle Particuliers"
         ctaLabel="Demander un devis"
         ctaLink="/contact"
@@ -51,7 +51,7 @@ const Particulier = () => {
           <p className="text-sm text-slate-600">
             Un accompagnement clair, accessible et sans déplacement. Choisissez votre service et demandez un devis gratuit.
           </p>
-          <ServiceGrid services={particulierServices} onQuote={handleQuote} />
+          <ServiceGrid services={particulierServices} onQuote={handleQuote} profile="particulier" />
         </div>
       </section>
 

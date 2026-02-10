@@ -9,6 +9,7 @@ import heroHome from '../assets/hero-home.webp'
 import heroParticulier from '../assets/hero-particulier.webp'
 import heroEntreprise from '../assets/hero-entreprise.webp'
 import { useProfile } from '../utils/useProfile'
+import { site } from '../content/site'
 
 const Home = () => {
   const { profile } = useProfile()
@@ -16,28 +17,47 @@ const Home = () => {
   const ctaLabel = profile ? 'Voir mon pôle' : 'Demander un devis'
 
   return (
-    <div className="space-y-20">
+    <div className="space-y-20 pt-3 sm:pt-4">
       <SEO
         title="Transistor&CIE — La tech au quotidien, simplifiée"
-        description="Particuliers et entreprises. Assistance, Green IT, cybersécurité. 100% à distance, devis gratuit."
+        description="Particuliers et entreprises. Assistance, Green IT, cybersécurité. 100% digital, partout en France. Devis gratuit."
         image={heroHome}
       />
 
-      <Hero
-        title="La tech au quotidien, simplifiée"
-        subtitle="Performance & Responsabilité"
-        kicker="Transistor&CIE"
-        ctaLabel={ctaLabel}
-        ctaLink={ctaLink}
-        secondaryLabel="Découvrir les services"
-        secondaryLink="/#poles"
-        image={heroHome}
-        imageAlt="Bienvenue chez Transistor&CIE"
-      >
-        <div className="pt-4">
-          <ProfileChoice />
-        </div>
-      </Hero>
+      <div className="space-y-8">
+        <section className="container-page pt-2">
+          <div className="section-card flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
+            <div>
+              <p className="text-xs font-semibold uppercase text-slate-500">Contact rapide</p>
+              <p className="mt-1 text-sm text-slate-600">Besoin d&apos;une réponse immédiate ? Appelez-nous ou écrivez sur WhatsApp.</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <a href={`tel:${site.phoneHref}`} className="btn-ghost px-4 py-2 text-xs sm:text-sm">
+                Appeler {site.phoneDisplay}
+              </a>
+              <a href={site.whatsappUrl} target="_blank" rel="noreferrer" className="btn-secondary px-4 py-2 text-xs sm:text-sm">
+                WhatsApp
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <Hero
+          title="La tech au quotidien, simplifiée"
+          subtitle="Performance & Responsabilité"
+          kicker="Transistor&CIE"
+          ctaLabel={ctaLabel}
+          ctaLink={ctaLink}
+          secondaryLabel="Découvrir les services"
+          secondaryLink="/#poles"
+          image={heroHome}
+          imageAlt="Bienvenue chez Transistor&CIE"
+        >
+          <div className="pt-4">
+            <ProfileChoice />
+          </div>
+        </Hero>
+      </div>
 
       <section id="poles" className="container-page space-y-8">
         <div className="flex items-center justify-between">
@@ -182,6 +202,11 @@ const Home = () => {
                 </div>
                 <div className="rounded-xl border border-slate-100 bg-white p-4">
                   <p className="font-medium text-slate-800">
+                    Formation en administration de serveurs Windows (Windows Server)
+                  </p>
+                </div>
+                <div className="rounded-xl border border-slate-100 bg-white p-4">
+                  <p className="font-medium text-slate-800">
                     Formation technique en mise en oeuvre de liaisons chiffrées — Crypsis
                   </p>
                 </div>
@@ -286,7 +311,7 @@ const Home = () => {
 
       <section className="container-page section-card p-8 text-center">
         <h2 className="text-3xl font-semibold text-slate-900">Prêt à simplifier votre tech ?</h2>
-        <p className="mt-2 text-sm text-slate-600">Demandez un devis gratuit. Réponse rapide et accompagnement 100% à distance.</p>
+        <p className="mt-2 text-sm text-slate-600">Demandez un devis gratuit. Réponse rapide et accompagnement 100% digital, partout en France.</p>
         <div className="mt-6 flex justify-center">
           <Link to={ctaLink} className="btn-primary">
             {ctaLabel}

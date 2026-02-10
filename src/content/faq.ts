@@ -10,7 +10,7 @@ export const faqItems: FAQItem[] = [
       'Le devis est gratuit et envoyé rapidement après votre demande. Comptez généralement 24 à 48h ouvrées.',
   },
   {
-    question: 'Les interventions sont-elles vraiment 100% à distance ?',
+    question: 'Les interventions sont-elles vraiment 100% digital, partout en France ?',
     answer:
       'Oui. Les diagnostics, conseils et accompagnements se font en visio ou prise en main à distance, sans déplacement.',
   },

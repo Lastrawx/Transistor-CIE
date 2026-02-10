@@ -1,8 +1,29 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
 import { instagram } from '../content/instagram'
+import { flushQuoteConversionIfPending } from '../utils/ads'
 
 const Merci = () => {
+  useEffect(() => {
+    const sentImmediately = flushQuoteConversionIfPending()
+    if (sentImmediately) return
+
+    let attempts = 0
+    const maxAttempts = 20
+    const retryTimer = window.setInterval(() => {
+      attempts += 1
+      const sent = flushQuoteConversionIfPending()
+      if (sent || attempts >= maxAttempts) {
+        window.clearInterval(retryTimer)
+      }
+    }, 500)
+
+    return () => {
+      window.clearInterval(retryTimer)
+    }
+  }, [])
+
   return (
     <div className="container-page py-16">
       <SEO

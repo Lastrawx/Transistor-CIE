@@ -1,0 +1,160 @@
+import { useEffect } from 'react'
+import { Link, Navigate, useParams } from 'react-router-dom'
+import SEO from '../components/SEO'
+import { buildServiceQuoteLink, getServiceByProfileAndId, type ServiceProfile } from '../content/services'
+import { useProfile } from '../utils/useProfile'
+
+type ServiceOfferProps = {
+  profile: ServiceProfile
+}
+
+const ServiceOffer = ({ profile }: ServiceOfferProps) => {
+  const { setProfile } = useProfile()
+  const { serviceId } = useParams<{ serviceId: string }>()
+
+  useEffect(() => {
+    setProfile(profile)
+  }, [profile, setProfile])
+
+  if (!serviceId) {
+    return <Navigate to={`/${profile}`} replace />
+  }
+
+  const service = getServiceByProfileAndId(profile, serviceId)
+
+  if (!service) {
+    return <Navigate to={`/${profile}`} replace />
+  }
+
+  const quoteLink = buildServiceQuoteLink(profile, service.id)
+  const finalSecondaryCta = service.landing.finalSecondaryCta
+  const secondaryQuoteLink = finalSecondaryCta
+    ? buildServiceQuoteLink(profile, service.id, finalSecondaryCta.subject)
+    : null
+  const relatedOffer = service.landing.relatedOffer
+  const relatedOfferLink = relatedOffer ? `/${relatedOffer.profile}/${relatedOffer.serviceId}` : null
+  const profileLabel = profile === 'particulier' ? 'Particuliers' : 'Entreprises'
+
+  return (
+    <div className="space-y-12 pt-3 sm:pt-4">
+      <SEO
+        title={`Transistor&CIE — ${service.title}`}
+        description={`${service.offer} ${service.modalities}.`}
+        image={service.image}
+      />
+
+      <section className="container-page section-card p-8">
+        <div className="space-y-5">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="chip">Pôle {profileLabel}</span>
+            <span className="inline-flex items-center rounded-full bg-emerald-100 px-4 py-2 text-xs font-semibold text-emerald-800">
+              {service.modalities}
+            </span>
+          </div>
+          <h1 className="text-4xl font-semibold leading-tight text-slate-900">{service.landing.heroTitle}</h1>
+          <p className="text-lg text-slate-600">{service.landing.heroSubtitle}</p>
+          <div className="flex flex-wrap gap-3">
+            <Link to={quoteLink} className="btn-primary">
+              Demander un devis
+            </Link>
+            <Link to={`/${profile}`} className="btn-secondary">
+              Retour aux offres
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="container-page grid gap-6 lg:grid-cols-2">
+        <article className="section-card p-6">
+          <h2 className="text-2xl font-semibold text-slate-900">Pour qui / Cas d’usage</h2>
+          <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-600">
+            {service.landing.useCases.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </article>
+
+        <article className="section-card p-6">
+          <h2 className="text-2xl font-semibold text-slate-900">Ce que comprend l’offre</h2>
+          <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-600">
+            {service.includes.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </article>
+
+        <article className="section-card p-6">
+          <h2 className="text-2xl font-semibold text-slate-900">Résultats / Bénéfices</h2>
+          <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-600">
+            {service.benefits.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </article>
+
+        <article className="section-card p-6">
+          <h2 className="text-2xl font-semibold text-slate-900">Déroulé en 3 étapes</h2>
+          <div className="mt-4 grid gap-3">
+            {service.landing.processSteps.slice(0, 3).map((step, index) => (
+              <div key={step} className="rounded-2xl border border-slate-100 bg-white p-4 text-sm text-slate-700">
+                <p className="font-semibold text-slate-900">{index + 1}. {step}</p>
+              </div>
+            ))}
+          </div>
+        </article>
+      </section>
+
+      <section className="container-page section-card p-6">
+        <h2 className="text-2xl font-semibold text-slate-900">Modalités</h2>
+        <p className="mt-3 rounded-xl bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-900">{service.modalities}</p>
+        {service.landing.pricingNote && (
+          <p className="mt-3 text-sm text-slate-600">{service.landing.pricingNote}</p>
+        )}
+      </section>
+
+      {relatedOffer && relatedOfferLink && (
+        <section className="container-page section-card p-6">
+          <h2 className="text-2xl font-semibold text-slate-900">Suivi continu</h2>
+          <p className="mt-3 text-sm text-slate-600">{relatedOffer.text}</p>
+          <div className="mt-4">
+            <Link to={relatedOfferLink} className="btn-secondary">
+              {relatedOffer.buttonLabel}
+            </Link>
+          </div>
+        </section>
+      )}
+
+      <section className="container-page section-card p-6">
+        <h2 className="text-2xl font-semibold text-slate-900">FAQ</h2>
+        <div className="mt-4 grid gap-3">
+          {service.landing.faq.slice(0, 3).map((item) => (
+            <details key={item.question} className="group rounded-2xl border border-slate-100 bg-white p-4">
+              <summary className="flex cursor-pointer items-center justify-between gap-4 text-sm font-semibold text-slate-800">
+                {item.question}
+                <span className="text-brand-cyan transition group-open:rotate-180">▾</span>
+              </summary>
+              <p className="mt-3 text-sm text-slate-600">{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section className="container-page section-card p-8 text-center">
+        <h2 className="text-3xl font-semibold text-slate-900">Besoin d’un devis sur ce sujet ?</h2>
+        <p className="mt-2 text-sm text-slate-600">Objet prérempli : {service.defaultSubject}</p>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <Link to={quoteLink} className="btn-primary">
+            Demander un devis
+          </Link>
+          {secondaryQuoteLink && finalSecondaryCta && (
+            <Link to={secondaryQuoteLink} className="btn-secondary">
+              {finalSecondaryCta.label}
+            </Link>
+          )}
+        </div>
+      </section>
+    </div>
+  )
+}
+
+export default ServiceOffer

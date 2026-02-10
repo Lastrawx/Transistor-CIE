@@ -24,16 +24,16 @@ const Entreprise = () => {
   }
 
   return (
-    <div className="space-y-16">
+    <div className="space-y-16 pt-3 sm:pt-4">
       <SEO
         title="Transistor&CIE — Entreprises"
-        description="Création de sites web, Green IT, cybersécurité et infrastructure IT pour les entreprises. 100% à distance, devis gratuit."
+        description="Création de sites web, Green IT, cybersécurité et infrastructure IT pour les entreprises. 100% digital, partout en France. Devis gratuit."
         image={heroEntreprise}
       />
 
       <Hero
         title="Sites Web, Performance & Responsabilité"
-        subtitle="Lancez votre présence en ligne et sécurisez votre activité avec un accompagnement à distance."
+        subtitle="Lancez votre présence en ligne et sécurisez votre activité avec un accompagnement 100% digital, partout en France."
         kicker="Pôle Entreprises"
         ctaLabel="Demander un devis"
         ctaLink="/contact"
@@ -51,7 +51,7 @@ const Entreprise = () => {
           <p className="text-sm text-slate-600">
             Une approche claire pour des résultats mesurables : sites web essentiels, sobriété numérique, infrastructure et sécurité.
           </p>
-          <ServiceGrid services={entrepriseServices} onQuote={handleQuote} />
+          <ServiceGrid services={entrepriseServices} onQuote={handleQuote} profile="entreprise" />
         </div>
       </section>
 

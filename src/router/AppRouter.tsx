@@ -11,6 +11,7 @@ const Merci = lazy(() => import('../pages/Merci'))
 const MentionsLegales = lazy(() => import('../pages/MentionsLegales'))
 const Confidentialite = lazy(() => import('../pages/Confidentialite'))
 const CgvCgu = lazy(() => import('../pages/CgvCgu'))
+const ServiceOffer = lazy(() => import('../pages/ServiceOffer'))
 
 const ScrollToTop = () => {
   const { pathname, hash } = useLocation()
@@ -35,7 +36,9 @@ const AppRouter = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/particulier" element={<Particulier />} />
+          <Route path="/particulier/:serviceId" element={<ServiceOffer profile="particulier" />} />
           <Route path="/entreprise" element={<Entreprise />} />
+          <Route path="/entreprise/:serviceId" element={<ServiceOffer profile="entreprise" />} />
           <Route path="/a-propos" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/admin-cagnat" element={<Admin />} />

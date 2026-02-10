@@ -409,7 +409,7 @@ const Admin = () => {
   }
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-10 pt-3 sm:pt-4">
       <SEO title="Admin — Devis" description="Administration des demandes de devis Transistor&CIE" />
 
       <section className="container-page section-card p-8">

@@ -1,16 +1,39 @@
+import { useMemo } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import SEO from '../components/SEO'
 import ContactForm from '../components/ContactForm'
 import PillBanner from '../components/PillBanner'
 import GuaranteeHighlight from '../components/GuaranteeHighlight'
 import { instagram } from '../content/instagram'
 import { site } from '../content/site'
+import { getServiceByProfileAndId, type ServiceProfile } from '../content/services'
+import type { UserProfile } from '../utils/storage'
 
 const Contact = () => {
+  const [searchParams] = useSearchParams()
+  const prefillProfile = useMemo(() => {
+    const value = searchParams.get('profile')
+    if (value === 'particulier' || value === 'entreprise') {
+      return value as UserProfile
+    }
+    return undefined
+  }, [searchParams])
+
+  const prefillService = useMemo(() => {
+    const profile = searchParams.get('profile')
+    const serviceId = searchParams.get('serviceId')
+    if (!profile || !serviceId) return undefined
+    if (profile !== 'particulier' && profile !== 'entreprise') return undefined
+    return getServiceByProfileAndId(profile as ServiceProfile, serviceId)?.title
+  }, [searchParams])
+
+  const prefillSubject = searchParams.get('subject') ?? undefined
+
   return (
-    <div className="space-y-16">
+    <div className="space-y-16 pt-3 sm:pt-4">
       <SEO
         title="Transistor&CIE — Contact"
-        description="Demandez un devis gratuit, 100% à distance."
+        description="Demandez un devis gratuit, 100% digital, partout en France."
       />
 
       <section className="container-page section-card p-8">
@@ -19,7 +42,7 @@ const Contact = () => {
             <p className="text-xs font-semibold uppercase text-slate-500">Contact</p>
             <h1 className="text-3xl font-semibold text-slate-900">Demandez votre devis gratuit</h1>
             <p className="text-sm text-slate-600">
-              Décrivez votre besoin et recevez une proposition claire. Interventions 100% à distance.
+              Décrivez votre besoin et recevez une proposition claire. Interventions 100% digital, partout en France.
             </p>
             <PillBanner />
             <GuaranteeHighlight compact />
@@ -30,7 +53,7 @@ const Contact = () => {
                   {site.phoneDisplay} (appel direct)
                 </a>
                 <a className="hover:text-slate-900" href={site.whatsappUrl} target="_blank" rel="noreferrer">
-                  WhatsApp Business
+                  WhatsApp
                 </a>
                 <a className="hover:text-slate-900" href={`mailto:${site.contactEmail}`}>
                   {site.contactEmail}
@@ -53,7 +76,11 @@ const Contact = () => {
             </div>
           </div>
           <div>
-            <ContactForm />
+            <ContactForm
+              prefillProfile={prefillProfile}
+              prefillService={prefillService}
+              prefillSubject={prefillSubject}
+            />
           </div>
         </div>
       </section>

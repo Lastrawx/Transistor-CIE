@@ -5,10 +5,10 @@ import iconChip from '../assets/icon-chip.webp'
 
 const About = () => {
   return (
-    <div className="space-y-16">
+    <div className="space-y-16 pt-3 sm:pt-4">
       <SEO
         title="Transistor&CIE — À propos"
-        description="Vision, valeurs et mode d'intervention 100% à distance."
+        description="Vision, valeurs et mode d'intervention 100% digital, partout en France."
       />
 
       <section className="container-page section-card p-8">
@@ -45,7 +45,7 @@ const About = () => {
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-slate-900">Zone d'intervention</h2>
           <p className="text-sm text-slate-600">
-            Les interventions se font 100% à distance, partout en France et au-delà. Vous gagnez du temps, évitez les
+            Les interventions se font 100% digital, partout en France. Vous gagnez du temps, évitez les
             déplacements et bénéficiez d'un accompagnement flexible.
           </p>
         </div>

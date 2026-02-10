@@ -95,7 +95,7 @@ const ContactModal = ({
             <h2 id="contact-modal-title" className="text-2xl font-semibold text-slate-900">
               Parlons de votre besoin
             </h2>
-            <p className="mt-2 text-sm text-slate-600">100% à distance, devis gratuit.</p>
+            <p className="mt-2 text-sm text-slate-600">100% digital, partout en France — Devis gratuit.</p>
           </div>
           <button type="button" onClick={onClose} className="btn-ghost" aria-label="Fermer la fenêtre de devis">
             Fermer

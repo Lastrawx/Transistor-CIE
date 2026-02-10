@@ -39,7 +39,7 @@ export const mentionsLegales: LegalSection[] = [
       'Registre : Inscrit au RNE (Registre National des Entreprises)',
       'Code APE : 6202A – Conseil en systèmes et logiciels informatiques',
       'TVA : non applicable, article 293B du CGI',
-      `Téléphone : ${site.phoneDisplay} (appel direct et WhatsApp Business)`,
+      `Téléphone : ${site.phoneDisplay} (appel direct et WhatsApp)`,
       `Email : ${site.contactEmail}`,
       `Site web : ${site.websiteUrl}`,
     ],
@@ -51,7 +51,7 @@ export const mentionsLegales: LegalSection[] = [
   {
     title: 'Activité',
     content: [
-      'Activité principale : Conseil et assistance informatique à distance.',
+      'Activité principale : Conseil et assistance informatique en digital, partout en France.',
     ],
   },
   {
@@ -205,6 +205,7 @@ export const cgvCguSections: TermsSection[] = [
       {
         title: 'Services à destination des particuliers :',
         items: [
+          'Support Digital Familial (abonnement foyer)',
           'Assistance & dépannage informatique à distance',
           'Coaching montage PC sur-mesure',
           'Support pour appareils connectés et mobiles',
@@ -216,6 +217,7 @@ export const cgvCguSections: TermsSection[] = [
       {
         title: 'Services à destination des entreprises :',
         items: [
+          'Abonnement Cybersécurité PME (service continu)',
           'Création de site web',
           'Transition numérique verte (Green IT)',
           'Conseil en infrastructure informatique',
@@ -230,7 +232,7 @@ export const cgvCguSections: TermsSection[] = [
   {
     title: '4. Modalités d’intervention',
     paragraphs: [
-      'Les prestations sont réalisées principalement à distance, par prise en main, visioconférence, téléphone ou outils numériques adaptés.',
+      'Les prestations sont réalisées en digital, partout en France, par prise en main à distance, visioconférence, téléphone ou outils numériques adaptés.',
       'Avant toute intervention :',
     ],
     items: [
@@ -243,6 +245,7 @@ export const cgvCguSections: TermsSection[] = [
     paragraphs: [
       'Les tarifs sont communiqués via devis avant toute prestation.',
       'Le devis validé par le Client fait foi pour le périmètre, le prix et les modalités de l’intervention.',
+      'Pour les offres d’abonnement, les modalités de facturation, de fréquence, de niveau de service et d’engagement sont précisées au devis.',
       'Transistor&CIE étant sous le régime de la micro-entreprise, la TVA est non applicable (article 293B du CGI).',
     ],
   },
@@ -251,7 +254,7 @@ export const cgvCguSections: TermsSection[] = [
     title: 'Garantie satisfaction (conditions)',
     paragraphs: [
       'Transistor&CIE propose une garantie satisfaction sur certaines prestations à distance, conformément au périmètre défini au devis.',
-      'La garantie est limitée aux devis d’un montant inférieur ou égal à 150 € TTC et s’apprécie uniquement au regard de critères objectifs mentionnés au devis (résultat attendu, livrables, actions prévues).',
+      'La garantie s’apprécie uniquement au regard de critères objectifs mentionnés au devis (résultat attendu, livrables, actions prévues).',
       'En cas de non-atteinte du résultat défini au devis, le Client doit en informer Transistor&CIE dans un délai de 48 heures suivant la fin de l’intervention. Transistor&CIE pourra, selon la situation et dans la limite du périmètre du devis, proposer une reprise de l’intervention ou appliquer la garantie selon les présentes CGV.',
       'La garantie ne s’applique pas lorsque la difficulté rencontrée est externe au périmètre du devis, lorsque les pré-requis indiqués au devis n’ont pas été respectés, ou en cas d’intervention/modification par un tiers susceptible d’affecter le résultat.',
       'À des fins de prévention de la fraude et de sécurisation des transactions, Transistor&CIE peut demander au Client un justificatif d’identité strictement nécessaire, traité et conservé pour la durée strictement requise à cette finalité, conformément à la réglementation applicable.',

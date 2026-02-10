@@ -1,7 +1,15 @@
 import type { Service } from '../content/services'
-import ServiceDetails from './ServiceDetails'
+import { Link } from 'react-router-dom'
 
-const ServiceCard = ({ service, onQuote }: { service: Service; onQuote: (service: Service) => void }) => {
+const ServiceCard = ({
+  service,
+  onQuote,
+  profile,
+}: {
+  service: Service
+  onQuote: (service: Service) => void
+  profile: 'particulier' | 'entreprise'
+}) => {
   return (
     <article className="section-card overflow-hidden p-6">
       <div className="flex flex-col gap-6">
@@ -24,10 +32,14 @@ const ServiceCard = ({ service, onQuote }: { service: Service; onQuote: (service
           )}
         </div>
         <div className="space-y-3">
-          <ServiceDetails service={service} />
-          <button type="button" onClick={() => onQuote(service)} className="btn-primary w-full">
-            Demander un devis
-          </button>
+          <div className="flex flex-col gap-2">
+            <Link to={`/${profile}/${service.id}`} className="btn-secondary w-full">
+              Voir l&apos;offre
+            </Link>
+            <button type="button" onClick={() => onQuote(service)} className="btn-primary w-full">
+              Demander un devis
+            </button>
+          </div>
         </div>
       </div>
     </article>

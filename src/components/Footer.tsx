@@ -16,7 +16,7 @@ const Footer = () => {
             </div>
           </div>
           <p className="text-sm text-slate-600">
-            Particuliers & entreprises. Conseil, assistance et Green IT. 100% à distance, devis gratuit.
+            Particuliers & entreprises. Conseil, assistance et Green IT. 100% digital, partout en France. Devis gratuit.
           </p>
         </div>
 

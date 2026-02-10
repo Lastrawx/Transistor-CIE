@@ -5,6 +5,7 @@ import { db } from '../firebase'
 import { buildSubject, profileLabel } from '../utils/format'
 import { useProfile } from '../utils/useProfile'
 import type { UserProfile } from '../utils/storage'
+import { markQuoteConversionPending } from '../utils/ads'
 
 const profileOptions: { value: UserProfile; label: string }[] = [
   { value: 'particulier', label: 'Particulier' },
@@ -28,30 +29,6 @@ const MAX_PHONE_LENGTH = 30
 const MIN_MESSAGE_LENGTH = 20
 const MAX_MESSAGE_LENGTH = 3000
 const PHONE_PATTERN = /^$|^[0-9+(). -]{6,25}$/
-const GOOGLE_ADS_CONVERSION_SEND_TO = 'AW-17935957032/8enxCOSW4_UbEKj4w-hC'
-
-const trackQuoteSubmission = () => {
-  if (typeof window === 'undefined') return
-
-  const analyticsWindow = window as Window & typeof globalThis & {
-    gtag?: (...args: unknown[]) => void
-    dataLayer?: Array<Record<string, unknown>>
-  }
-
-  if (typeof analyticsWindow.gtag === 'function') {
-    analyticsWindow.gtag('event', 'conversion', {
-      send_to: GOOGLE_ADS_CONVERSION_SEND_TO,
-    })
-  }
-
-  if (Array.isArray(analyticsWindow.dataLayer)) {
-    analyticsWindow.dataLayer.push({
-      event: 'devis_submit',
-      lead_type: 'devis',
-      source: 'site-netlify',
-    })
-  }
-}
 
 const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }: ContactFormProps) => {
   const navigate = useNavigate()
@@ -164,7 +141,7 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
 
     try {
       await addDoc(collection(db, 'devis'), payload)
-      trackQuoteSubmission()
+      markQuoteConversionPending()
       form.reset()
       navigate('/merci')
     } catch (error) {
