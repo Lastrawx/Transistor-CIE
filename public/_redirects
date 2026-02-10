@@ -1,1 +1,14 @@
-/* /index.html 200
+/particulier /index.html 200
+/particulier/* /index.html 200
+/entreprise /index.html 200
+/entreprise/* /index.html 200
+/a-propos /index.html 200
+/contact /index.html 200
+/admin-cagnat /index.html 200
+/merci /index.html 200
+/mentions-legales /index.html 200
+/confidentialite /index.html 200
+/cgv-cgu /index.html 200
+/cgv /index.html 200
+/cgu /index.html 200
+/* /404.html 404

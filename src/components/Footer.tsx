@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import logo from '../assets/logo.webp'
 import { instagram } from '../content/instagram'
 import { site } from '../content/site'
+import { resetAdsConsentStatus } from '../utils/cookie-consent'
 
 const Footer = () => {
   return (
@@ -9,7 +10,7 @@ const Footer = () => {
       <div className="container-page grid gap-10 py-12 md:grid-cols-[1.2fr_1fr_1fr]">
         <div className="space-y-4">
           <div className="flex items-center gap-3">
-            <img src={logo} alt="Transistor&CIE" className="h-10 w-auto" />
+            <img src={logo} alt="Transistor&CIE" width={80} height={80} className="h-10 w-auto" />
             <div>
               <p className="text-sm font-semibold text-slate-900">Transistor&CIE</p>
               <p className="text-xs text-slate-500">La tech au quotidien, simplifiée</p>
@@ -55,6 +56,13 @@ const Footer = () => {
             <Link to="/mentions-legales">Mentions légales</Link>
             <Link to="/confidentialite">Politique de confidentialité</Link>
             <Link to="/cgv-cgu">CGV / CGU</Link>
+            <button
+              type="button"
+              onClick={resetAdsConsentStatus}
+              className="text-left transition hover:text-slate-700"
+            >
+              Gérer mes cookies
+            </button>
           </div>
         </div>
       </div>

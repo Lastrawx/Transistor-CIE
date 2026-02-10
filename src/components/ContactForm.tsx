@@ -16,6 +16,7 @@ type ContactFormProps = {
   prefillProfile?: UserProfile | null
   prefillService?: string
   prefillSubject?: string
+  prefillMessage?: string
   compact?: boolean
 }
 
@@ -30,7 +31,13 @@ const MIN_MESSAGE_LENGTH = 20
 const MAX_MESSAGE_LENGTH = 3000
 const PHONE_PATTERN = /^$|^[0-9+(). -]{6,25}$/
 
-const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }: ContactFormProps) => {
+const ContactForm = ({
+  prefillProfile,
+  prefillService,
+  prefillSubject,
+  prefillMessage,
+  compact,
+}: ContactFormProps) => {
   const navigate = useNavigate()
   const { profile: storedProfile } = useProfile()
   const initialProfile = prefillProfile ?? storedProfile ?? 'particulier'
@@ -157,6 +164,11 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
     }
     return 'Précisez votre besoin, nous vous répondons rapidement.'
   }, [service, serviceLocked])
+
+  const messagePrefill = useMemo(() => {
+    if (!prefillMessage) return ''
+    return prefillMessage.slice(0, MAX_MESSAGE_LENGTH)
+  }, [prefillMessage])
 
   return (
     <form
@@ -286,6 +298,7 @@ const ContactForm = ({ prefillProfile, prefillService, prefillSubject, compact }
           required
           minLength={MIN_MESSAGE_LENGTH}
           maxLength={MAX_MESSAGE_LENGTH}
+          defaultValue={messagePrefill}
           rows={compact ? 4 : 6}
           className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3"
           placeholder="Décrivez votre besoin en quelques lignes."

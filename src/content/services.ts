@@ -8,6 +8,8 @@ import greenItImg from '../assets/service-greenit.webp'
 import infraImg from '../assets/service-infra.webp'
 import cyberImg from '../assets/service-cyber.webp'
 import webImg from '../assets/service-web-essentiels.jpg'
+import familialSubscriptionImg from '../assets/service-support-familial-abonnement.jpg'
+import cyberSubscriptionImg from '../assets/service-abonnement-cyber-pme.jpg'
 
 export type ServiceProfile = 'particulier' | 'entreprise'
 
@@ -71,6 +73,7 @@ export const particulierServices: Service[] = [
     modalities: digitalModalities,
     tags: ['Abonnement', 'Foyer', 'Sérénité', ...commonTags],
     defaultSubject: 'Demande de devis — Support Digital Familial (Abonnement foyer) — Particulier',
+    image: familialSubscriptionImg,
     landing: {
       heroTitle: 'Votre foyer accompagné toute l’année.',
       heroSubtitle:
@@ -393,7 +396,7 @@ export const entrepriseServices: Service[] = [
       'Sensibilisation phishing (formation + simulations si possible)',
       'Mises à jour des protections et contrôles réguliers',
       'Recommandations d’amélioration continue',
-      'Hotline 24/7 (H24)',
+      'Hotline 24/7 (H24) pour incidents critiques (SLA contractuel au devis)',
     ],
     benefits: [
       'Un niveau de sécurité piloté dans la durée.',
@@ -402,6 +405,7 @@ export const entrepriseServices: Service[] = [
     modalities: digitalModalities,
     tags: ['Abonnement', 'PME/TPE', 'Service continu', ...commonTags],
     defaultSubject: 'Demande de devis — Abonnement Cybersécurité PME (Service continu) — Entreprise',
+    image: cyberSubscriptionImg,
     landing: {
       heroTitle: 'La cybersécurité en continu, sans équipe interne.',
       heroSubtitle:
@@ -431,7 +435,8 @@ export const entrepriseServices: Service[] = [
         },
         {
           question: 'Engagement ?',
-          answer: 'Les modalités d’engagement sont précisées dans le devis et les CGV/CGU.',
+          answer:
+            'Les engagements (fréquence, canaux, priorisation, délais de prise en charge et périmètre) sont précisés dans le devis/SLA et les CGV/CGU.',
         },
       ],
     },
@@ -638,10 +643,29 @@ export const servicesByProfile: Record<ServiceProfile, Service[]> = {
 export const getServiceByProfileAndId = (profile: ServiceProfile, serviceId: string) =>
   servicesByProfile[profile].find((service) => service.id === serviceId)
 
-export const buildServiceQuoteLink = (profile: ServiceProfile, serviceId: string, subject?: string) => {
+type QuoteLinkOptions = {
+  subject?: string
+  message?: string
+  includeQuizSummary?: boolean
+}
+
+export const buildServiceQuoteLink = (
+  profile: ServiceProfile,
+  serviceId: string,
+  options?: string | QuoteLinkOptions,
+) => {
+  const normalizedOptions: QuoteLinkOptions =
+    typeof options === 'string' ? { subject: options } : options ?? {}
+
   const params = new URLSearchParams({ profile, serviceId })
-  if (subject) {
-    params.set('subject', subject)
+  if (normalizedOptions.subject) {
+    params.set('subject', normalizedOptions.subject)
+  }
+  if (normalizedOptions.message) {
+    params.set('message', normalizedOptions.message)
+  }
+  if (normalizedOptions.includeQuizSummary) {
+    params.set('includeQuizSummary', '1')
   }
   return `/contact?${params.toString()}`
 }

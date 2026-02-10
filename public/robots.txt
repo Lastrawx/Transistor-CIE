@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin-cagnat
+
+Sitemap: https://www.transistor-cie.fr/sitemap.xml

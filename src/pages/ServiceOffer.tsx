@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import SEO from '../components/SEO'
+import CyberRiskQuiz from '../components/CyberRiskQuiz'
 import { buildServiceQuoteLink, getServiceByProfileAndId, type ServiceProfile } from '../content/services'
 import { useProfile } from '../utils/useProfile'
 
@@ -28,9 +29,13 @@ const ServiceOffer = ({ profile }: ServiceOfferProps) => {
 
   const quoteLink = buildServiceQuoteLink(profile, service.id)
   const finalSecondaryCta = service.landing.finalSecondaryCta
-  const secondaryQuoteLink = finalSecondaryCta
-    ? buildServiceQuoteLink(profile, service.id, finalSecondaryCta.subject)
-    : null
+  const hasCyberQuiz =
+    profile === 'entreprise' &&
+    (service.id === 'cybersecurite-essentielle' || service.id === 'abonnement-cybersecurite-pme')
+  const secondaryCtaToQuiz =
+    hasCyberQuiz && finalSecondaryCta?.label.toLowerCase().includes('évaluer') === true
+  const secondaryQuoteLink =
+    finalSecondaryCta && !secondaryCtaToQuiz ? buildServiceQuoteLink(profile, service.id, finalSecondaryCta.subject) : null
   const relatedOffer = service.landing.relatedOffer
   const relatedOfferLink = relatedOffer ? `/${relatedOffer.profile}/${relatedOffer.serviceId}` : null
   const profileLabel = profile === 'particulier' ? 'Particuliers' : 'Entreprises'
@@ -57,6 +62,11 @@ const ServiceOffer = ({ profile }: ServiceOfferProps) => {
             <Link to={quoteLink} className="btn-primary">
               Demander un devis
             </Link>
+            {hasCyberQuiz && (
+              <a href="#quiz-cyber" className="btn-secondary">
+                Évaluer mon risque cyber
+              </a>
+            )}
             <Link to={`/${profile}`} className="btn-secondary">
               Retour aux offres
             </Link>
@@ -124,6 +134,13 @@ const ServiceOffer = ({ profile }: ServiceOfferProps) => {
         </section>
       )}
 
+      {hasCyberQuiz && (
+        <section className="container-page section-card p-6">
+          <h2 className="text-2xl font-semibold text-slate-900">Évaluer mon risque cyber</h2>
+          <CyberRiskQuiz profile={profile} serviceId={service.id} serviceTitle={service.title} />
+        </section>
+      )}
+
       <section className="container-page section-card p-6">
         <h2 className="text-2xl font-semibold text-slate-900">FAQ</h2>
         <div className="mt-4 grid gap-3">
@@ -146,7 +163,12 @@ const ServiceOffer = ({ profile }: ServiceOfferProps) => {
           <Link to={quoteLink} className="btn-primary">
             Demander un devis
           </Link>
-          {secondaryQuoteLink && finalSecondaryCta && (
+          {secondaryCtaToQuiz && finalSecondaryCta && (
+            <a href="#quiz-cyber" className="btn-secondary">
+              {finalSecondaryCta.label}
+            </a>
+          )}
+          {secondaryQuoteLink && finalSecondaryCta && !secondaryCtaToQuiz && (
             <Link to={secondaryQuoteLink} className="btn-secondary">
               {finalSecondaryCta.label}
             </Link>

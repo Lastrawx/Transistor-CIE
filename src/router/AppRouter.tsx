@@ -12,6 +12,7 @@ const MentionsLegales = lazy(() => import('../pages/MentionsLegales'))
 const Confidentialite = lazy(() => import('../pages/Confidentialite'))
 const CgvCgu = lazy(() => import('../pages/CgvCgu'))
 const ServiceOffer = lazy(() => import('../pages/ServiceOffer'))
+const NotFound = lazy(() => import('../pages/NotFound'))
 
 const ScrollToTop = () => {
   const { pathname, hash } = useLocation()
@@ -48,7 +49,7 @@ const AppRouter = () => {
           <Route path="/cgv-cgu" element={<CgvCgu />} />
           <Route path="/cgv" element={<CgvCgu />} />
           <Route path="/cgu" element={<CgvCgu />} />
-          <Route path="*" element={<Home />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
     </>

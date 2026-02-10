@@ -28,6 +28,8 @@ const Contact = () => {
   }, [searchParams])
 
   const prefillSubject = searchParams.get('subject') ?? undefined
+  const prefillMessage = searchParams.get('message') ?? undefined
+  const hasQuizSummaryPrefill = searchParams.get('includeQuizSummary') === '1' && Boolean(prefillMessage)
 
   return (
     <div className="space-y-16 pt-3 sm:pt-4">
@@ -76,10 +78,16 @@ const Contact = () => {
             </div>
           </div>
           <div>
+            {hasQuizSummaryPrefill && (
+              <div className="mb-4 rounded-2xl border border-cyan-200 bg-cyan-50 p-4 text-sm text-cyan-900">
+                Synthèse du test cyber préremplie dans le message. Vous pouvez la modifier avant envoi.
+              </div>
+            )}
             <ContactForm
               prefillProfile={prefillProfile}
               prefillService={prefillService}
               prefillSubject={prefillSubject}
+              prefillMessage={prefillMessage}
             />
           </div>
         </div>

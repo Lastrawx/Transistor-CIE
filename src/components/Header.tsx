@@ -17,9 +17,17 @@ const Header = () => {
   const { profile } = useProfile()
   const location = useLocation()
   const menuRef = useRef<HTMLDetailsElement | null>(null)
-  const ctaTarget = profile === 'entreprise' ? '/entreprise' : profile === 'particulier' ? '/particulier' : '/contact'
-  const ctaLabel = profile ? 'Voir le pôle' : 'Demander un devis'
-  const ctaLabelShort = profile ? 'Pôle' : 'Devis'
+  const isHome = location.pathname === '/'
+  const profileContactQuery = profile ? `?profile=${profile}` : ''
+  const ctaTarget = isHome
+    ? `/contact${profileContactQuery}`
+    : profile === 'entreprise'
+      ? '/entreprise'
+      : profile === 'particulier'
+        ? '/particulier'
+        : '/contact'
+  const ctaLabel = isHome ? 'Demander un devis' : profile ? 'Voir le pôle' : 'Demander un devis'
+  const ctaLabelShort = isHome ? 'Devis' : profile ? 'Pôle' : 'Devis'
 
   useEffect(() => {
     if (menuRef.current) {
@@ -37,10 +45,18 @@ const Header = () => {
     <header className="sticky top-0 z-40 border-b border-white/60 bg-white/80 backdrop-blur">
       <div className="container-page flex h-[64px] items-center justify-between gap-3 sm:h-[72px] sm:gap-6">
         <Link to="/" className="flex min-w-0 items-center gap-2">
-          <img src={logoIcon} alt="Transistor&CIE" className="h-[48px] w-[48px] shrink-0 sm:h-[58px] sm:w-[58px] md:h-[62px] md:w-[62px]" />
+          <img
+            src={logoIcon}
+            alt="Transistor&CIE"
+            width={62}
+            height={62}
+            className="h-[48px] w-[48px] shrink-0 sm:h-[58px] sm:w-[58px] md:h-[62px] md:w-[62px]"
+          />
           <img
             src={logoWordmark}
             alt="Transistor&CIE"
+            width={240}
+            height={58}
             className="h-[26px] w-auto max-w-[110px] sm:h-[54px] sm:max-w-none md:h-[58px]"
           />
         </Link>

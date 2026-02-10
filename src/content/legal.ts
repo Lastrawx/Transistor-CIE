@@ -1,5 +1,7 @@
 import { site } from './site'
 
+const LAST_UPDATED = '10 février 2026'
+
 export type LegalSection = {
   title: string
   content: string[]
@@ -30,15 +32,15 @@ export const mentionsLegales: LegalSection[] = [
   {
     title: 'Éditeur du site',
     content: [
-      'Transistor&CIE – Entrepreneur individuel (micro-entreprise)',
+      'Transistor&CIE - Entrepreneur individuel (micro-entreprise)',
       'Nom et prénom : Quentin Xavier Jérôme CAGNAT',
-      'Adresse : 3 boulevard Tourasse, 64000 Pau – France (domiciliation de l’entreprise)',
+      'Adresse : 3 boulevard Tourasse, 64000 Pau - France (domiciliation de l’entreprise)',
       'SIREN : 100 810 647',
       'SIRET : 100 810 647 00014',
       'Ville d’immatriculation : Pau',
       'Registre : Inscrit au RNE (Registre National des Entreprises)',
-      'Code APE : 6202A – Conseil en systèmes et logiciels informatiques',
-      'TVA : non applicable, article 293B du CGI',
+      'Code APE : 6202A - Conseil en systèmes et logiciels informatiques',
+      'TVA : non applicable, article 293 B du CGI',
       `Téléphone : ${site.phoneDisplay} (appel direct et WhatsApp)`,
       `Email : ${site.contactEmail}`,
       `Site web : ${site.websiteUrl}`,
@@ -50,9 +52,7 @@ export const mentionsLegales: LegalSection[] = [
   },
   {
     title: 'Activité',
-    content: [
-      'Activité principale : Conseil et assistance informatique en digital, partout en France.',
-    ],
+    content: ['Conseil et assistance informatique, cybersécurité, Green IT et accompagnement numérique en digital, partout en France.'],
   },
   {
     title: 'Hébergement',
@@ -65,9 +65,13 @@ export const mentionsLegales: LegalSection[] = [
   {
     title: 'Propriété intellectuelle',
     content: [
-      'Les contenus (textes, visuels, logos) sont la propriété de Transistor&CIE, sauf mention contraire.',
-      'Toute reproduction sans autorisation est interdite.',
+      'Les contenus (textes, visuels, logos, chartes, supports) sont la propriété de Transistor&CIE, sauf mention contraire.',
+      'Toute reproduction, extraction ou réutilisation sans autorisation écrite est interdite.',
     ],
+  },
+  {
+    title: 'Mise à jour',
+    content: [`Dernière mise à jour des mentions légales : ${LAST_UPDATED}`],
   },
 ]
 
@@ -76,101 +80,114 @@ export const confidentialite: PrivacySection[] = [
     title: '1. Responsable du traitement',
     paragraphs: [
       'Le responsable du traitement des données personnelles collectées sur le site Transistor&CIE est :',
-      'Transistor&CIE — Entrepreneur individuel (micro-entreprise).',
+      'Transistor&CIE - Entrepreneur individuel (micro-entreprise).',
       `Email de contact : ${site.contactEmail}`,
       `Téléphone de contact : ${site.phoneDisplay}`,
     ],
   },
   {
-    title: '2. Données collectées',
+    title: '2. Catégories de données traitées',
     paragraphs: [
-      'Dans le cadre de l’utilisation du site et des services proposés, Transistor&CIE peut collecter les données personnelles suivantes :',
+      'Dans le cadre des demandes de devis et de la relation client, les catégories de données suivantes peuvent être traitées :',
     ],
     items: [
       'Profil (particulier / entreprise), service, objet de la demande.',
-      'Nom, prénom, adresse email, numéro de téléphone (si renseigné).',
-      'Contenu des messages envoyés via le formulaire de contact.',
-      'Consentement (case à cocher), date/heure de création de la demande et informations techniques nécessaires au traitement.',
-      'Le cas échéant, un justificatif d’identité strictement nécessaire en cas de demande d’application de la garantie satisfaction.',
-    ],
-    postParagraphs: [
-      'Aucune donnée sensible n’est collectée volontairement, hors cas spécifique de prévention de la fraude prévu ci-dessous.',
+      'Identité et coordonnées : nom, prénom, adresse email, téléphone.',
+      'Contenu des échanges : message libre et informations utiles à l’intervention.',
+      'Données techniques anti-abus et sécurité (horodatage, contrôles de sécurité, journaux techniques).',
+      'Consentements : consentement de contact, préférences cookies, preuve de choix.',
+      'Le cas échéant, justificatif d’identité strictement nécessaire en cas de contestation ou suspicion de fraude.',
     ],
   },
   {
-    title: '3. Finalités de la collecte',
+    title: '3. Finalités et bases légales',
     paragraphs: [
-      'Les données personnelles sont collectées uniquement pour :',
+      'Les traitements sont réalisés pour des finalités déterminées, explicites et légitimes.',
     ],
     items: [
-      'Répondre aux demandes de contact.',
-      'Établir des devis et échanges commerciaux.',
-      'Assurer la relation client et le suivi des prestations.',
-      'Prévenir les abus (anti-spam / sécurité du formulaire).',
-      'Le cas échéant, instruire une demande de garantie satisfaction et prévenir la fraude.',
+      'Gestion des demandes de devis et échanges précontractuels : exécution de mesures précontractuelles.',
+      'Exécution des prestations, gestion administrative, support client : exécution du contrat.',
+      'Facturation, obligations comptables et fiscales : obligation légale.',
+      'Prévention de la fraude, sécurité du site et défense des droits : intérêt légitime.',
+      'Mesure d’audience et conversion Google Ads : consentement (aucun chargement publicitaire avant consentement).',
     ],
     postParagraphs: [
       'Les données ne sont ni vendues, ni cédées à des tiers à des fins commerciales.',
     ],
   },
   {
-    title: '4. Destinataires et sous-traitants',
+    title: '4. Destinataires, sous-traitants et transferts hors UE',
     paragraphs: [
       'Les données sont accessibles uniquement aux personnes habilitées de Transistor&CIE.',
-      'Elles peuvent être traitées par des prestataires techniques strictement nécessaires au fonctionnement du service (hébergement et outils techniques), agissant en qualité de sous-traitants.',
-    ],
-  },
-  {
-    title: '5. Durée de conservation',
-    paragraphs: [
-      'Les données personnelles sont conservées uniquement pendant la durée nécessaire :',
+      'Des sous-traitants techniques peuvent intervenir strictement pour l’hébergement, la sécurité et l’exploitation du service.',
     ],
     items: [
-      'Au traitement de la demande.',
-      'À la relation commerciale.',
-      'Au respect des obligations légales et comptables.',
-      'En cas de justificatif d’identité demandé pour la garantie satisfaction : conservation limitée à la durée strictement requise à cette finalité.',
-    ],
-  },
-  {
-    title: '6. Sécurité des données',
-    paragraphs: [
-      'Transistor&CIE met en œuvre des mesures techniques et organisationnelles raisonnables afin de protéger les données personnelles contre toute perte, accès non autorisé ou divulgation.',
-    ],
-  },
-  {
-    title: '7. Cookies, stockage local et mesure d’audience',
-    paragraphs: [
-      'Le site Transistor&CIE n’utilise pas de cookies publicitaires.',
-      'Des cookies et mécanismes techniques strictement nécessaires au bon fonctionnement du site peuvent être utilisés (ex. sécurité anti-abus).',
-      'Le site peut également utiliser le stockage local du navigateur (localStorage) pour des préférences d’interface (ex. profil sélectionné, fermeture temporaire de bandeaux).',
-      'Si un outil de mesure d’audience est activé, des données de fréquentation peuvent être collectées à des fins statistiques.',
-    ],
-  },
-  {
-    title: '8. Droits des utilisateurs',
-    paragraphs: [
-      'Conformément à la réglementation en vigueur (RGPD), l’utilisateur dispose des droits suivants :',
-    ],
-    items: [
-      'Droit d’accès à ses données.',
-      'Droit de rectification.',
-      'Droit à l’effacement.',
-      'Droit d’opposition ou de limitation du traitement.',
+      'Hébergement et infrastructure web : Netlify.',
+      'Base de données et sécurité applicative : Firebase / Google Cloud (Firestore, App Check).',
+      'Mesure de conversion publicitaire : Google Ads (uniquement après consentement).',
     ],
     postParagraphs: [
-      `Toute demande peut être adressée par email à : ${site.contactEmail}`,
-      'En cas de difficulté non résolue, l’utilisateur peut introduire une réclamation auprès de la CNIL.',
+      'Certains sous-traitants pouvant opérer hors de l’Espace économique européen, des transferts hors UE peuvent exister selon les services activés.',
+      'Dans ce cas, Transistor&CIE s’appuie sur les mécanismes juridiques applicables (clauses contractuelles types ou garanties équivalentes selon la documentation des fournisseurs).',
     ],
   },
   {
-    title: '9. Modification de la politique de confidentialité',
+    title: '5. Durées de conservation',
+    paragraphs: ['Les données sont conservées pendant des durées proportionnées à la finalité de traitement :'],
+    items: [
+      'Demandes de devis sans suite commerciale : 3 ans maximum à compter du dernier contact.',
+      'Dossiers clients et pièces contractuelles/comptables : durée contractuelle puis archivage légal (jusqu’à 10 ans pour les pièces comptables).',
+      'Journaux techniques de sécurité : jusqu’à 12 mois.',
+      'Choix de consentement cookies : jusqu’à 6 mois avant nouvelle sollicitation.',
+      'Justificatif d’identité en prévention de fraude : durée strictement nécessaire au traitement du dossier, puis suppression.',
+    ],
+  },
+  {
+    title: '6. Cookies, stockage local et mesure',
     paragraphs: [
-      'Transistor&CIE se réserve le droit de modifier la présente politique de confidentialité à tout moment afin de rester conforme aux évolutions légales ou techniques.',
+      'Le site utilise des mécanismes strictement nécessaires au fonctionnement (sécurité, préférences d’interface, continuité de service).',
+      'Le stockage local du navigateur (localStorage/sessionStorage) peut être utilisé pour mémoriser des préférences (profil choisi, état de certains bandeaux, suivi du parcours de formulaire).',
+      'Les traceurs Google Ads de mesure d’audience/conversion sont désactivés par défaut et ne sont activés qu’après consentement explicite via le bandeau cookies.',
+      'Le consentement peut être retiré à tout moment via l’option "Gérer mes cookies" en bas de page.',
     ],
   },
   {
-    title: '10. Droit applicable',
+    title: '7. Droits des personnes',
+    paragraphs: [
+      'Conformément au RGPD, vous disposez des droits suivants sur vos données :',
+    ],
+    items: [
+      'Droit d’accès.',
+      'Droit de rectification.',
+      'Droit à l’effacement.',
+      'Droit à la limitation du traitement.',
+      'Droit d’opposition.',
+      'Droit à la portabilité (lorsqu’il est applicable).',
+      'Droit de retirer votre consentement à tout moment (sans effet rétroactif sur les traitements déjà réalisés).',
+    ],
+  },
+  {
+    title: '8. Exercice des droits',
+    paragraphs: [
+      `Toute demande peut être adressée à ${site.contactEmail}.`,
+      'Une réponse est apportée dans les délais légaux en vigueur.',
+      'En cas de difficulté non résolue, vous pouvez introduire une réclamation auprès de la CNIL.',
+    ],
+  },
+  {
+    title: '9. Sécurité des données',
+    paragraphs: [
+      'Transistor&CIE met en œuvre des mesures techniques et organisationnelles raisonnables (contrôles d’accès, validation des entrées, journalisation, mécanismes anti-abus) pour limiter les risques de perte, d’altération et d’accès non autorisé.',
+    ],
+  },
+  {
+    title: '10. Mise à jour de la politique',
+    paragraphs: [
+      `La présente politique peut évoluer en fonction des exigences légales, techniques ou organisationnelles. Dernière mise à jour : ${LAST_UPDATED}.`,
+    ],
+  },
+  {
+    title: '11. Droit applicable',
     paragraphs: [
       'La présente politique de confidentialité est soumise au droit français.',
     ],
@@ -181,20 +198,14 @@ export const cgvCguSections: TermsSection[] = [
   {
     title: '1. Présentation de l’entreprise',
     paragraphs: [
-      'Le présent site est édité par Transistor&CIE, entrepreneur individuel (micro-entreprise), exploitée par Quentin Xavier Jérôme CAGNAT, immatriculé au Registre National des Entreprises (RNE), exerçant une activité de conseil, assistance et services informatiques à distance.',
-      'Les coordonnées complètes de l’éditeur figurent dans la page Mentions légales du site.',
+      'Le présent site est édité par Transistor&CIE, entrepreneur individuel (micro-entreprise), exploitée par Quentin Xavier Jérôme CAGNAT, immatriculé au Registre National des Entreprises (RNE).',
+      'Les coordonnées complètes figurent sur la page Mentions légales.',
     ],
   },
   {
     title: '2. Champ d’application',
     paragraphs: [
-      'Les présentes Conditions Générales de Vente et d’Utilisation (CGV/CGU) s’appliquent à l’ensemble des prestations proposées par Transistor&CIE, à destination :',
-    ],
-    items: [
-      'des particuliers,',
-      'des professionnels et entreprises.',
-    ],
-    postParagraphs: [
+      'Les présentes conditions s’appliquent à l’ensemble des prestations proposées par Transistor&CIE, à destination des particuliers et des professionnels.',
       'Toute commande ou utilisation des services implique l’acceptation pleine et entière des présentes CGV/CGU.',
     ],
   },
@@ -208,104 +219,136 @@ export const cgvCguSections: TermsSection[] = [
           'Support Digital Familial (abonnement foyer)',
           'Assistance & dépannage informatique à distance',
           'Coaching montage PC sur-mesure',
-          'Support pour appareils connectés et mobiles',
-          'Formation et accompagnement à la culture numérique',
-          'Optimisation budget informatique et réseau domestique',
-          'Conseil énergie & Green IT pour l’habitat',
+          'Support appareils connectés et mobiles',
+          'Formation et culture numérique',
+          'Optimisation budget Internet & réseau',
+          'Conseil Énergie & Green IT (maison)',
         ],
       },
       {
         title: 'Services à destination des entreprises :',
         items: [
           'Abonnement Cybersécurité PME (service continu)',
-          'Création de site web',
-          'Transition numérique verte (Green IT)',
-          'Conseil en infrastructure informatique',
-          'Cybersécurité essentielle',
+          'Création de sites Web Essentiels',
+          'Transition Numérique Verte (Green IT)',
+          'Conseil en Infrastructure IT',
+          'Cybersécurité Essentielle',
         ],
       },
     ],
     postParagraphs: [
-      'La liste des services est donnée à titre indicatif et peut évoluer.',
+      'La liste des services est indicative et peut évoluer.',
     ],
   },
   {
     title: '4. Modalités d’intervention',
     paragraphs: [
-      'Les prestations sont réalisées en digital, partout en France, par prise en main à distance, visioconférence, téléphone ou outils numériques adaptés.',
-      'Avant toute intervention :',
-    ],
-    items: [
-      'un devis gratuit et personnalisé est proposé,',
-      'aucune prestation n’est réalisée sans validation préalable du client.',
+      'Les prestations sont réalisées 100% digital, partout en France, par visioconférence, téléphone, prise en main à distance ou outils numériques adaptés.',
+      'Avant toute intervention, un devis gratuit et personnalisé est remis au client.',
+      'Aucune prestation n’est exécutée sans validation préalable du devis.',
     ],
   },
   {
-    title: '5. Tarifs',
+    title: '5. Devis, formation du contrat et tarifs',
     paragraphs: [
-      'Les tarifs sont communiqués via devis avant toute prestation.',
-      'Le devis validé par le Client fait foi pour le périmètre, le prix et les modalités de l’intervention.',
-      'Pour les offres d’abonnement, les modalités de facturation, de fréquence, de niveau de service et d’engagement sont précisées au devis.',
-      'Transistor&CIE étant sous le régime de la micro-entreprise, la TVA est non applicable (article 293B du CGI).',
+      'Les tarifs et le périmètre d’intervention sont communiqués sur devis.',
+      'Le devis accepté (signature, validation écrite ou tout autre accord explicite) vaut formation du contrat.',
+      'Le devis fait foi pour le prix, le périmètre, les livrables et les modalités d’exécution.',
+      'TVA non applicable, article 293 B du CGI.',
+    ],
+  },
+  {
+    title: '6. Conditions de règlement et retards de paiement (clients professionnels)',
+    paragraphs: [
+      'Les modalités de règlement (acompte, échéance, paiement unique ou périodique) sont précisées au devis et/ou à la facture.',
+      'Pour les clients professionnels, tout retard de paiement entraîne, de plein droit et sans rappel, des pénalités de retard exigibles dès le lendemain de la date d’échéance.',
+    ],
+    items: [
+      'Taux des pénalités : taux de refinancement de la BCE majoré de 10 points (sans être inférieur à 3 fois le taux d’intérêt légal).',
+      'Indemnité forfaitaire pour frais de recouvrement : 40 euros par facture impayée.',
+      'Si les frais de recouvrement réellement engagés sont supérieurs, une indemnisation complémentaire peut être demandée sur justificatifs.',
+      'Aucun escompte pour paiement anticipé, sauf mention contraire au devis.',
+    ],
+  },
+  {
+    title: '7. Offres d’abonnement et hotline',
+    paragraphs: [
+      'Pour les offres d’abonnement, les modalités de facturation, d’engagement, de fréquence de suivi et de niveau de service (SLA) sont définies au devis.',
+      'La mention "Hotline 24/7 (H24)" signifie un canal de signalement disponible en continu pour incidents critiques.',
+      'Les délais de prise en charge, canaux utilisables, priorisation, exclusions et engagements de résolution sont détaillés contractuellement au devis/SLA.',
+    ],
+  },
+  {
+    title: '8. Droit de rétractation (clients consommateurs)',
+    paragraphs: [
+      'Conformément au droit de la consommation, le client consommateur dispose d’un délai de rétractation de 14 jours à compter de la conclusion du contrat à distance.',
+      'Pour exercer ce droit, le client adresse une déclaration dénuée d’ambiguïté (email ou courrier) ou utilise le formulaire type ci-dessous.',
+      'Si le client demande expressément l’exécution avant la fin du délai de rétractation, il reste redevable du montant correspondant au service déjà exécuté jusqu’à la date de notification de rétractation.',
+      'Le droit de rétractation ne peut plus être exercé lorsque la prestation de service a été pleinement exécutée avant la fin du délai de 14 jours, après demande expresse du client et reconnaissance de la perte de son droit de rétractation.',
+    ],
+    items: [
+      'Formulaire type : "À l’attention de Transistor&CIE - contact@transistor-cie.fr".',
+      'Je vous notifie par la présente ma rétractation du contrat portant sur la prestation suivante : [à compléter].',
+      'Commandé le : [date] / Nom du client : [nom] / Adresse : [adresse] / Date et signature (si envoi papier).',
     ],
   },
   {
     id: 'garantie-satisfaction',
-    title: 'Garantie satisfaction (conditions)',
+    title: '9. Garantie satisfaction (conditions)',
     paragraphs: [
       'Transistor&CIE propose une garantie satisfaction sur certaines prestations à distance, conformément au périmètre défini au devis.',
-      'La garantie s’apprécie uniquement au regard de critères objectifs mentionnés au devis (résultat attendu, livrables, actions prévues).',
-      'En cas de non-atteinte du résultat défini au devis, le Client doit en informer Transistor&CIE dans un délai de 48 heures suivant la fin de l’intervention. Transistor&CIE pourra, selon la situation et dans la limite du périmètre du devis, proposer une reprise de l’intervention ou appliquer la garantie selon les présentes CGV.',
-      'La garantie ne s’applique pas lorsque la difficulté rencontrée est externe au périmètre du devis, lorsque les pré-requis indiqués au devis n’ont pas été respectés, ou en cas d’intervention/modification par un tiers susceptible d’affecter le résultat.',
-      'À des fins de prévention de la fraude et de sécurisation des transactions, Transistor&CIE peut demander au Client un justificatif d’identité strictement nécessaire, traité et conservé pour la durée strictement requise à cette finalité, conformément à la réglementation applicable.',
+      'La garantie s’apprécie au regard de critères objectifs mentionnés au devis (résultat attendu, livrables, actions prévues).',
+      'En cas de non-atteinte du résultat défini au devis, le client informe Transistor&CIE dans un délai de 48 heures suivant la fin de l’intervention.',
+      'Selon la situation et dans la limite du devis, Transistor&CIE peut proposer une reprise, un ajustement ou l’application de la garantie contractuelle prévue.',
+      'La garantie ne s’applique pas si la difficulté est externe au périmètre, si les prérequis n’ont pas été respectés, ou en cas d’intervention tierce altérant le résultat.',
     ],
   },
   {
-    title: '6. Obligations du client',
-    paragraphs: [
-      'Le client s’engage à :',
-    ],
+    title: '10. Obligations du client',
+    paragraphs: ['Le client s’engage à :'],
     items: [
       'fournir des informations exactes et complètes,',
       'disposer des droits nécessaires sur les équipements et logiciels concernés,',
-      'sauvegarder ses données avant toute intervention.',
+      'sauvegarder ses données avant intervention.',
     ],
     postParagraphs: [
-      'Transistor&CIE ne saurait être tenu responsable de pertes de données préexistantes ou résultant d’un défaut de sauvegarde du client.',
+      'Transistor&CIE ne peut être tenu responsable de pertes de données préexistantes ou liées à un défaut de sauvegarde du client.',
     ],
   },
   {
-    title: '7. Responsabilité',
+    title: '11. Responsabilité',
     paragraphs: [
-      'Transistor&CIE s’engage à mettre en œuvre tous les moyens nécessaires pour fournir une prestation de qualité, dans une obligation de moyens et non de résultat.',
-      'La responsabilité de Transistor&CIE ne saurait être engagée en cas :',
+      'Transistor&CIE est tenue à une obligation de moyens et non de résultat, sauf engagement contractuel spécifique plus favorable.',
+      'La responsabilité de Transistor&CIE ne peut être engagée en cas de :',
     ],
     items: [
-      'de mauvaise utilisation des recommandations fournies,',
-      'de défaillance matérielle ou logicielle indépendante de l’intervention,',
-      'd’interruption de services tiers (hébergeurs, éditeurs, fournisseurs d’accès).',
+      'mauvaise utilisation des recommandations remises,',
+      'défaillance matérielle ou logicielle indépendante de la prestation,',
+      'interruption de services tiers (hébergeur, éditeur, opérateur, fournisseur d’accès).',
     ],
   },
   {
-    title: '8. Propriété intellectuelle',
+    title: '12. Données personnelles',
     paragraphs: [
-      'L’ensemble des contenus présents sur le site (textes, visuels, logos, supports pédagogiques) est protégé par le droit de la propriété intellectuelle.',
-      'Toute reproduction, diffusion ou utilisation sans autorisation écrite est interdite.',
+      'Les données collectées dans le cadre des demandes de devis et prestations sont traitées uniquement pour la relation commerciale, l’exécution des services et le respect des obligations légales.',
+      'Les modalités de traitement, bases légales, durées de conservation, droits des personnes et gestion des cookies sont détaillées dans la Politique de confidentialité.',
     ],
   },
   {
-    title: '9. Données personnelles',
+    title: '13. Conditions générales d’utilisation du site (CGU)',
     paragraphs: [
-      'Les données collectées dans le cadre des demandes de devis et des prestations (profil, service, objet, identité, coordonnées, message, consentement et informations techniques de suivi) sont utilisées uniquement pour la relation commerciale et l’exécution des prestations.',
-      'Dans le cadre de la garantie satisfaction, un justificatif d’identité strictement nécessaire peut être demandé pour la prévention de la fraude, puis traité et conservé pour la durée strictement requise à cette finalité.',
-      'Les modalités détaillées de traitement des données sont précisées dans la Politique de confidentialité du site.',
+      'L’utilisateur s’engage à utiliser le site de manière loyale et conforme aux lois en vigueur.',
+      'Sont notamment interdits : les tentatives d’intrusion, l’extraction massive de données, l’usurpation d’identité, la diffusion de contenus illicites et l’usage détourné du formulaire de contact.',
+      'Le site peut être modifié, suspendu ou mis à jour sans préavis pour maintenance, sécurité ou évolution des services.',
+      'Transistor&CIE ne garantit pas une disponibilité continue sans interruption, notamment en cas de maintenance ou de panne de services tiers.',
     ],
   },
   {
-    title: '10. Droit applicable',
+    title: '14. Droit applicable et litiges',
     paragraphs: [
       'Les présentes CGV/CGU sont soumises au droit français.',
-      'En cas de litige, une solution amiable sera recherchée avant toute action judiciaire.',
+      'Une solution amiable est recherchée en priorité.',
+      'À défaut d’accord amiable, les juridictions françaises territorialement compétentes seront saisies selon la qualité des parties (consommateur ou professionnel).',
     ],
   },
 ]

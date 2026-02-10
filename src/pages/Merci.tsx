@@ -29,6 +29,7 @@ const Merci = () => {
       <SEO
         title="Transistor&CIE — Merci"
         description="Votre demande a bien été envoyée."
+        noIndex
       />
       <div className="section-card p-10 text-center">
         <h1 className="text-3xl font-semibold text-slate-900">Merci pour votre demande</h1>

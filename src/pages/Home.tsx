@@ -79,7 +79,13 @@ const Home = () => {
                   Voir les services
                 </Link>
               </div>
-              <img src={heroParticulier} alt="Pôle Particuliers" className="rounded-2xl border border-slate-100" />
+              <img
+                src={heroParticulier}
+                alt="Pôle Particuliers"
+                loading="lazy"
+                decoding="async"
+                className="aspect-[4/3] h-full w-full rounded-2xl border border-slate-100 object-cover"
+              />
             </div>
           </article>
           <article className="section-card overflow-hidden p-6">
@@ -93,7 +99,13 @@ const Home = () => {
                   Voir les services
                 </Link>
               </div>
-              <img src={heroEntreprise} alt="Pôle Entreprises" className="rounded-2xl border border-slate-100" />
+              <img
+                src={heroEntreprise}
+                alt="Pôle Entreprises"
+                loading="lazy"
+                decoding="async"
+                className="aspect-[4/3] h-full w-full rounded-2xl border border-slate-100 object-cover"
+              />
             </div>
           </article>
         </div>
@@ -299,7 +311,13 @@ const Home = () => {
                 rel="noreferrer"
                 className="group rounded-2xl border border-slate-100 bg-white p-3 transition hover:-translate-y-1"
               >
-                <img src={post.image} alt={post.title} className="h-44 w-full rounded-xl object-cover" />
+                <img
+                  src={post.image}
+                  alt={post.title}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-44 w-full rounded-xl object-cover"
+                />
                 <p className="mt-3 text-sm font-semibold text-slate-800 group-hover:text-slate-900">
                   {post.title}
                 </p>

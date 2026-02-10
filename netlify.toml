@@ -3,6 +3,81 @@
   publish = "dist"
 
 [[redirects]]
-  from = "/*"
+  from = "/particulier"
   to = "/index.html"
   status = 200
+
+[[redirects]]
+  from = "/particulier/*"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/entreprise"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/entreprise/*"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/a-propos"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin-cagnat"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/merci"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/mentions-legales"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/confidentialite"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/cgv-cgu"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/cgv"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/cgu"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
+
+[[headers]]
+  for = "/*"
+
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.googleadservices.com https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://*.googleapis.com wss://*.googleapis.com https://*.gstatic.com https://www.gstatic.com https://www.google.com https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com https://googleads.g.doubleclick.net https://www.googleadservices.com; frame-src 'self' https://www.google.com https://www.gstatic.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"

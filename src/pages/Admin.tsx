@@ -410,7 +410,7 @@ const Admin = () => {
 
   return (
     <div className="space-y-10 pt-3 sm:pt-4">
-      <SEO title="Admin — Devis" description="Administration des demandes de devis Transistor&CIE" />
+      <SEO title="Admin — Devis" description="Administration des demandes de devis Transistor&CIE" noIndex />
 
       <section className="container-page section-card p-8">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">

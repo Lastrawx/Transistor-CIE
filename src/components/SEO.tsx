@@ -27,9 +27,10 @@ type SEOProps = {
   title: string
   description: string
   image?: string
+  noIndex?: boolean
 }
 
-const SEO = ({ title, description, image }: SEOProps) => {
+const SEO = ({ title, description, image, noIndex = false }: SEOProps) => {
   useEffect(() => {
     const canonicalBase = site.websiteUrl.replace(/\/$/, '')
     const canonicalUrl = `${canonicalBase}${window.location.pathname}`
@@ -48,8 +49,9 @@ const SEO = ({ title, description, image }: SEOProps) => {
     ensureMeta('twitter:title', title, 'name')
     ensureMeta('twitter:description', description, 'name')
     ensureMeta('twitter:image', imageUrl, 'name')
+    ensureMeta('robots', noIndex ? 'noindex, nofollow' : 'index, follow', 'name')
     ensureLink('canonical', canonicalUrl)
-  }, [title, description, image])
+  }, [title, description, image, noIndex])
 
   return null
 }

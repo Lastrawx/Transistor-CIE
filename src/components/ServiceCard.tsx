@@ -14,8 +14,14 @@ const ServiceCard = ({
     <article className="section-card overflow-hidden p-6">
       <div className="flex flex-col gap-6">
         {service.image && (
-          <div className="overflow-hidden rounded-2xl border border-slate-100 bg-slate-900">
-            <img src={service.image} alt={service.title} className="w-full" />
+          <div className="aspect-[16/10] overflow-hidden rounded-2xl border border-slate-100 bg-slate-900">
+            <img
+              src={service.image}
+              alt={service.title}
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover"
+            />
           </div>
         )}
         <div className="space-y-3">
