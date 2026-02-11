@@ -58,6 +58,26 @@
     @apply inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-800;
   }
 
+  .btn-cyber-quiz {
+    @apply relative inline-flex items-center gap-3 overflow-hidden rounded-2xl border border-sky-300/70 bg-gradient-to-r from-sky-50 via-cyan-50 to-emerald-50 px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:-translate-y-0.5 hover:shadow-glow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-cyan;
+    background-size: 180% 180%;
+    animation: cyber-cta-shimmer 7s ease infinite;
+  }
+
+  .btn-cyber-quiz::before {
+    content: '';
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 9999px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #0ea5e9 0%, #14b8a6 100%);
+    box-shadow: 0 0 0 5px rgba(14, 165, 233, 0.16);
+  }
+
+  .btn-cyber-quiz-pill {
+    @apply inline-flex items-center rounded-full border border-emerald-200 bg-white/90 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-emerald-700;
+  }
+
   .glass {
     @apply rounded-2xl bg-white/70 backdrop-blur border border-white/60 shadow;
   }
@@ -78,6 +98,18 @@
 
   details summary::-webkit-details-marker {
     display: none;
+  }
+}
+
+@keyframes cyber-cta-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 

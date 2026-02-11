@@ -11,19 +11,21 @@ const ServiceCard = ({
   profile: 'particulier' | 'entreprise'
 }) => {
   return (
-    <article className="section-card overflow-hidden p-6">
-      <div className="flex flex-col gap-6">
-        {service.image && (
-          <div className="aspect-square overflow-hidden rounded-2xl border border-slate-100 bg-slate-50 p-2">
+    <article className="section-card flex h-full flex-col overflow-hidden p-6">
+      {service.image && (
+        <div className="aspect-square overflow-hidden rounded-2xl border border-slate-100 bg-slate-50 p-2">
+          <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-[1.05rem] bg-white/70">
             <img
               src={service.image}
               alt={service.title}
               loading="lazy"
               decoding="async"
-              className="h-full w-full rounded-xl object-contain"
+              className="h-full w-full rounded-[1.05rem] object-cover object-center"
             />
           </div>
-        )}
+        </div>
+      )}
+      <div className="mt-6 flex grow flex-col">
         <div className="space-y-3">
           <h3 className="text-xl font-semibold text-slate-900">{service.title}</h3>
           <p className="text-sm text-slate-600">{service.offer}</p>
@@ -37,7 +39,7 @@ const ServiceCard = ({
             </div>
           )}
         </div>
-        <div className="space-y-3">
+        <div className="mt-auto pt-6">
           <div className="flex flex-col gap-2">
             <Link to={`/${profile}/${service.id}`} className="btn-secondary w-full">
               Voir l&apos;offre

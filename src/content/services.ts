@@ -156,47 +156,6 @@ export const particulierServices: Service[] = [
     },
   },
   {
-    id: 'coaching-montage-pc',
-    title: 'Coaching Montage PC Sur-Mesure',
-    offer:
-      'Choix des composants, vérification de compatibilité, montage guidé en visio, configuration et premier démarrage.',
-    includes: [
-      'Sélection composants selon objectifs et budget',
-      'Validation de compatibilité complète',
-      'Montage assisté étape par étape',
-      'Configuration BIOS, pilotes et tests initiaux',
-    ],
-    benefits: [
-      'Un PC cohérent, stable et adapté à vos usages.',
-      'Un meilleur rapport performance/prix avec un accompagnement expert.',
-    ],
-    modalities: digitalModalities,
-    tags: commonTags,
-    defaultSubject: 'Demande de devis — Coaching Montage PC Sur-Mesure — Particulier',
-    image: coachingImg,
-    landing: {
-      heroTitle: 'Montez votre PC sur-mesure, accompagné de A à Z.',
-      heroSubtitle:
-        'Choix des composants, compatibilité, montage guidé en visio, configuration et premier démarrage.',
-      useCases: ['Gaming', 'Création', 'Bureautique', 'Budget optimisé', 'Upgrade d’un PC existant'],
-      processSteps: ['Sélection composants', 'Montage assisté', 'Configuration + tests'],
-      faq: [
-        {
-          question: 'Pouvez-vous valider un panier ?',
-          answer: 'Oui, nous validons la compatibilité et la cohérence globale avant achat.',
-        },
-        {
-          question: 'Que faire si un composant ne marche pas ?',
-          answer: 'Nous aidons à diagnostiquer la cause et à enclencher la bonne solution (SAV, échange, réglages).',
-        },
-        {
-          question: 'Vous aidez pour BIOS/pilotes ?',
-          answer: 'Oui, cela fait partie de la phase de configuration et de stabilisation.',
-        },
-      ],
-    },
-  },
-  {
     id: 'support-connectes-mobiles',
     title: 'Support Appareils Connectés & Mobiles',
     offer:
@@ -280,6 +239,47 @@ export const particulierServices: Service[] = [
         {
           question: 'Support après la séance ?',
           answer: 'Oui, un récapitulatif est fourni pour faciliter la mise en pratique.',
+        },
+      ],
+    },
+  },
+  {
+    id: 'coaching-montage-pc',
+    title: 'Coaching Montage PC Sur-Mesure',
+    offer:
+      'Choix des composants, vérification de compatibilité, montage guidé en visio, configuration et premier démarrage.',
+    includes: [
+      'Sélection composants selon objectifs et budget',
+      'Validation de compatibilité complète',
+      'Montage assisté étape par étape',
+      'Configuration BIOS, pilotes et tests initiaux',
+    ],
+    benefits: [
+      'Un PC cohérent, stable et adapté à vos usages.',
+      'Un meilleur rapport performance/prix avec un accompagnement expert.',
+    ],
+    modalities: digitalModalities,
+    tags: commonTags,
+    defaultSubject: 'Demande de devis — Coaching Montage PC Sur-Mesure — Particulier',
+    image: coachingImg,
+    landing: {
+      heroTitle: 'Montez votre PC sur-mesure, accompagné de A à Z.',
+      heroSubtitle:
+        'Choix des composants, compatibilité, montage guidé en visio, configuration et premier démarrage.',
+      useCases: ['Gaming', 'Création', 'Bureautique', 'Budget optimisé', 'Upgrade d’un PC existant'],
+      processSteps: ['Sélection composants', 'Montage assisté', 'Configuration + tests'],
+      faq: [
+        {
+          question: 'Pouvez-vous valider un panier ?',
+          answer: 'Oui, nous validons la compatibilité et la cohérence globale avant achat.',
+        },
+        {
+          question: 'Que faire si un composant ne marche pas ?',
+          answer: 'Nous aidons à diagnostiquer la cause et à enclencher la bonne solution (SAV, échange, réglages).',
+        },
+        {
+          question: 'Vous aidez pour BIOS/pilotes ?',
+          answer: 'Oui, cela fait partie de la phase de configuration et de stabilisation.',
         },
       ],
     },

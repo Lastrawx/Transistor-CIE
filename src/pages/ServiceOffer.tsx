@@ -56,21 +56,25 @@ const ServiceOffer = ({ profile }: ServiceOfferProps) => {
               {service.modalities}
             </span>
           </div>
-          <h1 className="text-4xl font-semibold leading-tight text-slate-900">{service.landing.heroTitle}</h1>
-          <p className="text-lg text-slate-600">{service.landing.heroSubtitle}</p>
+          <h1 className="text-3xl font-semibold leading-tight text-slate-900 md:text-4xl">{service.title}</h1>
+          <h2 className="text-2xl font-semibold leading-tight text-slate-900 md:text-3xl">{service.landing.heroTitle}</h2>
+          <p className="text-base text-slate-600 md:text-lg">{service.landing.heroSubtitle}</p>
           <div className="flex flex-wrap gap-3">
             <Link to={quoteLink} className="btn-primary">
               Demander un devis
             </Link>
-            {hasCyberQuiz && (
-              <a href="#quiz-cyber" className="btn-secondary">
-                Évaluer mon risque cyber
-              </a>
-            )}
             <Link to={`/${profile}`} className="btn-secondary">
               Retour aux offres
             </Link>
           </div>
+          {hasCyberQuiz && (
+            <div className="pt-1">
+              <a href="#quiz-cyber" className="btn-cyber-quiz">
+                <span>Évaluer mon risque cyber</span>
+                <span className="btn-cyber-quiz-pill">Diagnostic 2-4 min</span>
+              </a>
+            </div>
+          )}
         </div>
       </section>
 
@@ -163,17 +167,20 @@ const ServiceOffer = ({ profile }: ServiceOfferProps) => {
           <Link to={quoteLink} className="btn-primary">
             Demander un devis
           </Link>
-          {secondaryCtaToQuiz && finalSecondaryCta && (
-            <a href="#quiz-cyber" className="btn-secondary">
-              {finalSecondaryCta.label}
-            </a>
-          )}
           {secondaryQuoteLink && finalSecondaryCta && !secondaryCtaToQuiz && (
             <Link to={secondaryQuoteLink} className="btn-secondary">
               {finalSecondaryCta.label}
             </Link>
           )}
         </div>
+        {secondaryCtaToQuiz && finalSecondaryCta && (
+          <div className="mt-4 flex justify-center">
+            <a href="#quiz-cyber" className="btn-cyber-quiz">
+              <span>{finalSecondaryCta.label}</span>
+              <span className="btn-cyber-quiz-pill">Auto-évaluation</span>
+            </a>
+          </div>
+        )}
       </section>
     </div>
   )

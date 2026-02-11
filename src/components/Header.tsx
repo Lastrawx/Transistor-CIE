@@ -17,17 +17,10 @@ const Header = () => {
   const { profile } = useProfile()
   const location = useLocation()
   const menuRef = useRef<HTMLDetailsElement | null>(null)
-  const isHome = location.pathname === '/'
   const profileContactQuery = profile ? `?profile=${profile}` : ''
-  const ctaTarget = isHome
-    ? `/contact${profileContactQuery}`
-    : profile === 'entreprise'
-      ? '/entreprise'
-      : profile === 'particulier'
-        ? '/particulier'
-        : '/contact'
-  const ctaLabel = isHome ? 'Demander un devis' : profile ? 'Voir le pôle' : 'Demander un devis'
-  const ctaLabelShort = isHome ? 'Devis' : profile ? 'Pôle' : 'Devis'
+  const ctaTarget = `/contact${profileContactQuery}`
+  const ctaLabel = 'Demander un devis'
+  const ctaLabelShort = 'Devis'
 
   useEffect(() => {
     if (menuRef.current) {

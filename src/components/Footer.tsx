@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import logo from '../assets/logo.webp'
+import logoIcon from '../assets/logo-icon-header.png'
 import { instagram } from '../content/instagram'
 import { site } from '../content/site'
 import { resetAdsConsentStatus } from '../utils/cookie-consent'
@@ -10,15 +10,25 @@ const Footer = () => {
       <div className="container-page grid gap-10 py-12 md:grid-cols-[1.2fr_1fr_1fr]">
         <div className="space-y-4">
           <div className="flex items-center gap-3">
-            <img src={logo} alt="Transistor&CIE" width={80} height={80} className="h-10 w-auto" />
+            <img
+              src={logoIcon}
+              alt="Logo Transistor&CIE"
+              width={48}
+              height={48}
+              className="h-12 w-12 shrink-0 object-contain"
+            />
             <div>
               <p className="text-sm font-semibold text-slate-900">Transistor&CIE</p>
               <p className="text-xs text-slate-500">La tech au quotidien, simplifiée</p>
             </div>
           </div>
-          <p className="text-sm text-slate-600">
-            Particuliers & entreprises. Conseil, assistance et Green IT. 100% digital, partout en France. Devis gratuit.
-          </p>
+          <div className="space-y-1 text-sm text-slate-600">
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-700">
+              CYBERSECURITE - WEB - SUPPORT DIGITAL - RESEAU - GREEN IT
+            </p>
+            <p>Transistor&CIE accompagne particuliers et entreprises.</p>
+            <p>100% digital, partout en France. Devis gratuit.</p>
+          </div>
         </div>
 
         <div className="space-y-3 text-sm">
