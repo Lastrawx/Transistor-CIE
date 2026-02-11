@@ -2,6 +2,10 @@
   command = "npm run build"
   publish = "dist"
 
+  [build.environment]
+    # Firebase web API keys are public identifiers, but Netlify smart scan flags AIza* values.
+    SECRETS_SCAN_SMART_DETECTION_OMIT_VALUES = "AIzaSyA9IhkKYCleb072gj719HN3vPuLSIxr1Ds"
+
 [[redirects]]
   from = "/particulier"
   to = "/index.html"

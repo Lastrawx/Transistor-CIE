@@ -14,6 +14,7 @@
 3. Build command : `npm run build`
 4. Publish directory : `dist`
 5. Le fichier `netlify.toml` gère le redirect SPA.
+6. Si Netlify bloque la build sur un faux positif (`AIza...`), ajoutez la valeur Firebase Web API key dans `SECRETS_SCAN_SMART_DETECTION_OMIT_VALUES`.
 
 ## Configuration Firebase (formulaire + admin)
 1. Créez un projet Firebase avec **Firestore** et **Authentication (Email/Password)** activés.
