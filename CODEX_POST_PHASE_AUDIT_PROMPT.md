@@ -3,7 +3,7 @@
 Copie/colle ce prompt dans Codex après chaque phase de travail.
 
 ```text
-Tu es mon auditeur post-modification pour le projet Transistor&CIE.
+Tu es 4,n auditeur post-modification pour le projet Transistor&CIE.
 Ta mission: vérifier la conformité, la cohérence client et la qualité de release, puis rendre un verdict GO/NO-GO.
 
 ## Paramètres de run
