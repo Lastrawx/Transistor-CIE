@@ -67,45 +67,53 @@ const Home = () => {
           </div>
           <PillBanner />
         </div>
-        <div className="grid gap-6 lg:grid-cols-2">
-          <article className="section-card overflow-hidden p-6">
-            <div className="grid gap-6 md:grid-cols-[1.1fr_0.9fr]">
-              <div className="space-y-3">
+        <div className="grid items-stretch gap-6 lg:grid-cols-2">
+          <article className="section-card h-full overflow-hidden p-6">
+            <div className="grid h-full gap-6 md:grid-cols-[1.1fr_0.9fr] md:items-stretch">
+              <div className="flex h-full flex-col gap-3">
                 <h3 className="text-xl font-semibold text-slate-900">Particuliers</h3>
                 <p className="text-sm text-slate-600">
                   Assistance, optimisation, formation et Green IT pour la maison. Simple, rapide, sans déplacement.
                 </p>
-                <Link to="/particulier" className="btn-primary">
+                <Link to="/particulier" className="btn-primary mt-auto">
                   Voir les services
                 </Link>
               </div>
-              <img
-                src={heroParticulier}
-                alt="Pôle Particuliers"
-                loading="lazy"
-                decoding="async"
-                className="aspect-[4/3] h-full w-full rounded-2xl border border-slate-100 object-cover"
-              />
+              <div className="flex h-full items-center">
+                <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl border border-slate-100 bg-slate-50 p-2">
+                  <img
+                    src={heroParticulier}
+                    alt="Pôle Particuliers"
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full rounded-xl object-contain object-center"
+                  />
+                </div>
+              </div>
             </div>
           </article>
-          <article className="section-card overflow-hidden p-6">
-            <div className="grid gap-6 md:grid-cols-[1.1fr_0.9fr]">
-              <div className="space-y-3">
+          <article className="section-card h-full overflow-hidden p-6">
+            <div className="grid h-full gap-6 md:grid-cols-[1.1fr_0.9fr] md:items-stretch">
+              <div className="flex h-full flex-col gap-3">
                 <h3 className="text-xl font-semibold text-slate-900">Entreprises</h3>
                 <p className="text-sm text-slate-600">
                   Création de sites web essentiels, performance, RSE, cybersécurité et infrastructure IT pour sécuriser et accélérer votre activité.
                 </p>
-                <Link to="/entreprise" className="btn-primary">
+                <Link to="/entreprise" className="btn-primary mt-auto">
                   Voir les services
                 </Link>
               </div>
-              <img
-                src={heroEntreprise}
-                alt="Pôle Entreprises"
-                loading="lazy"
-                decoding="async"
-                className="aspect-[4/3] h-full w-full rounded-2xl border border-slate-100 object-cover"
-              />
+              <div className="flex h-full items-center">
+                <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl border border-slate-100 bg-slate-50 p-2">
+                  <img
+                    src={heroEntreprise}
+                    alt="Pôle Entreprises"
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full rounded-xl object-contain object-center"
+                  />
+                </div>
+              </div>
             </div>
           </article>
         </div>
