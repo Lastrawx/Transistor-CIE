@@ -1,14 +1,38 @@
+import { useMemo } from 'react'
 import SEO from '../components/SEO'
 import FAQ from '../components/FAQ'
 import { faqItems } from '../content/faq'
+import { site } from '../content/site'
 import iconChip from '../assets/icon-chip.webp'
 
 const About = () => {
+  const faqEntries = useMemo(() => faqItems.slice(0, 5), [])
+  const faqStructuredData = useMemo(
+    () => ({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqEntries.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
+        },
+      })),
+      publisher: {
+        '@type': 'Organization',
+        '@id': `${site.websiteUrl}/#organization`,
+      },
+    }),
+    [faqEntries],
+  )
+
   return (
     <div className="space-y-16 pt-3 sm:pt-4">
       <SEO
         title="Transistor&CIE — À propos"
         description="Vision, valeurs et mode d'intervention 100% digital, partout en France."
+        structuredData={faqStructuredData}
       />
 
       <section className="container-page section-card p-8">
@@ -56,7 +80,7 @@ const About = () => {
           <p className="text-xs font-semibold uppercase text-slate-500">FAQ</p>
           <h2 className="text-3xl font-semibold text-slate-900">Questions fréquentes</h2>
         </div>
-        <FAQ items={faqItems.slice(0, 5)} />
+        <FAQ items={faqEntries} />
       </section>
     </div>
   )

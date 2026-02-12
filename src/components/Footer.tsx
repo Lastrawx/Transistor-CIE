@@ -6,10 +6,10 @@ import { resetAdsConsentStatus } from '../utils/cookie-consent'
 
 const Footer = () => {
   return (
-    <footer className="mt-20 border-t border-slate-200 bg-white">
+    <footer className="mt-20 border-t border-slate-200 bg-white" aria-label="Pied de page Transistor&CIE">
       <div className="container-page grid gap-10 py-12 md:grid-cols-[1.2fr_1fr_1fr]">
         <div className="space-y-4">
-          <div className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-3 w-fit" aria-label="Accueil Transistor&CIE">
             <img
               src={logoIcon}
               alt="Logo Transistor&CIE"
@@ -21,7 +21,7 @@ const Footer = () => {
               <p className="text-sm font-semibold text-slate-900">Transistor&CIE</p>
               <p className="text-xs text-slate-500">La tech au quotidien, simplifiée</p>
             </div>
-          </div>
+          </Link>
           <div className="space-y-1 text-sm text-slate-600">
             <p className="text-xs font-semibold uppercase tracking-wide text-slate-700">
               CYBERSECURITE - WEB - SUPPORT DIGITAL - RESEAU - GREEN IT

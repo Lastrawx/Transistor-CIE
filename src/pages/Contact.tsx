@@ -35,16 +35,16 @@ const Contact = () => {
     <div className="space-y-16 pt-3 sm:pt-4">
       <SEO
         title="Transistor&CIE — Contact"
-        description="Demandez un devis gratuit, 100% digital, partout en France."
+        description="Contactez Transistor&CIE pour demander un devis gratuit, 100% digital, partout en France."
       />
 
       <section className="container-page section-card p-8">
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="space-y-4">
             <p className="text-xs font-semibold uppercase text-slate-500">Contact</p>
-            <h1 className="text-3xl font-semibold text-slate-900">Demandez votre devis gratuit</h1>
+            <h1 className="text-3xl font-semibold text-slate-900">Contact Transistor&CIE — Demandez votre devis gratuit</h1>
             <p className="text-sm text-slate-600">
-              Décrivez votre besoin et recevez une proposition claire. Interventions 100% digital, partout en France.
+              Décrivez votre besoin à Transistor&CIE et recevez une proposition claire. Interventions 100% digital, partout en France.
             </p>
             <PillBanner />
             <GuaranteeHighlight compact />

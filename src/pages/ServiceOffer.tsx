@@ -3,6 +3,7 @@ import { Link, Navigate, useParams } from 'react-router-dom'
 import SEO from '../components/SEO'
 import CyberRiskQuiz from '../components/CyberRiskQuiz'
 import { buildServiceQuoteLink, getServiceByProfileAndId, type ServiceProfile } from '../content/services'
+import { site } from '../content/site'
 import { useProfile } from '../utils/useProfile'
 
 type ServiceOfferProps = {
@@ -39,6 +40,41 @@ const ServiceOffer = ({ profile }: ServiceOfferProps) => {
   const relatedOffer = service.landing.relatedOffer
   const relatedOfferLink = relatedOffer ? `/${relatedOffer.profile}/${relatedOffer.serviceId}` : null
   const profileLabel = profile === 'particulier' ? 'Particuliers' : 'Entreprises'
+  const faqEntries = service.landing.faq.slice(0, 3)
+  const serviceUrl = `${site.websiteUrl}/${profile}/${service.id}`
+  const structuredData = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: service.title,
+      serviceType: service.title,
+      description: service.offer,
+      url: serviceUrl,
+      areaServed: 'FR',
+      audience: {
+        '@type': 'Audience',
+        audienceType: profileLabel,
+      },
+      provider: {
+        '@type': 'Organization',
+        '@id': `${site.websiteUrl}/#organization`,
+        name: site.brand,
+        url: site.websiteUrl,
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqEntries.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
+        },
+      })),
+    },
+  ]
 
   return (
     <div className="space-y-12 pt-3 sm:pt-4">
@@ -46,6 +82,7 @@ const ServiceOffer = ({ profile }: ServiceOfferProps) => {
         title={`Transistor&CIE — ${service.title}`}
         description={`${service.offer} ${service.modalities}.`}
         image={service.image}
+        structuredData={structuredData}
       />
 
       <section className="container-page section-card p-8">
@@ -148,7 +185,7 @@ const ServiceOffer = ({ profile }: ServiceOfferProps) => {
       <section className="container-page section-card p-6">
         <h2 className="text-2xl font-semibold text-slate-900">FAQ</h2>
         <div className="mt-4 grid gap-3">
-          {service.landing.faq.slice(0, 3).map((item) => (
+          {faqEntries.map((item) => (
             <details key={item.question} className="group rounded-2xl border border-slate-100 bg-white p-4">
               <summary className="flex cursor-pointer items-center justify-between gap-4 text-sm font-semibold text-slate-800">
                 {item.question}

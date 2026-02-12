@@ -28,13 +28,19 @@ type SEOProps = {
   description: string
   image?: string
   noIndex?: boolean
+  structuredData?: Record<string, unknown> | Array<Record<string, unknown>>
 }
 
-const SEO = ({ title, description, image, noIndex = false }: SEOProps) => {
+const removeRouteStructuredDataScripts = () => {
+  document.querySelectorAll('script[data-seo-ld="route"]').forEach((element) => element.remove())
+}
+
+const SEO = ({ title, description, image, noIndex = false, structuredData }: SEOProps) => {
   useEffect(() => {
     const canonicalBase = site.websiteUrl.replace(/\/$/, '')
     const canonicalUrl = `${canonicalBase}${window.location.pathname}`
     const imageUrl = image ? new URL(image, canonicalBase).toString() : `${canonicalBase}/og-home.webp`
+    const structuredDataEntries = structuredData ? (Array.isArray(structuredData) ? structuredData : [structuredData]) : []
 
     document.title = title
     ensureMeta('description', description, 'name')
@@ -51,7 +57,20 @@ const SEO = ({ title, description, image, noIndex = false }: SEOProps) => {
     ensureMeta('twitter:image', imageUrl, 'name')
     ensureMeta('robots', noIndex ? 'noindex, nofollow' : 'index, follow', 'name')
     ensureLink('canonical', canonicalUrl)
-  }, [title, description, image, noIndex])
+
+    removeRouteStructuredDataScripts()
+    structuredDataEntries.forEach((entry) => {
+      const script = document.createElement('script')
+      script.type = 'application/ld+json'
+      script.setAttribute('data-seo-ld', 'route')
+      script.text = JSON.stringify(entry)
+      document.head.appendChild(script)
+    })
+
+    return () => {
+      removeRouteStructuredDataScripts()
+    }
+  }, [title, description, image, noIndex, structuredData])
 
   return null
 }
