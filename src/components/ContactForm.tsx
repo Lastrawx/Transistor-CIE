@@ -1,6 +1,6 @@
 import { type FormEvent, useEffect, useMemo, useState } from 'react'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { db } from '../firebase'
 import { buildSubject, profileLabel } from '../utils/format'
 import { useProfile } from '../utils/useProfile'
@@ -308,7 +308,15 @@ const ContactForm = ({
       <label className="flex items-start gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-600">
         <input type="checkbox" name="consentement" required className="mt-1" />
         <span>
-          J’accepte que mes données soient utilisées pour me recontacter dans le cadre de ma demande.
+          J’accepte que mes données soient utilisées pour me recontacter dans le cadre de ma demande, conformément à la{' '}
+          <Link to="/confidentialite" className="font-medium text-sky-700 underline underline-offset-2 hover:text-sky-800">
+            Politique de confidentialité
+          </Link>{' '}
+          et aux{' '}
+          <Link to="/cgv-cgu" className="font-medium text-sky-700 underline underline-offset-2 hover:text-sky-800">
+            CGV/CGU
+          </Link>
+          .
         </span>
       </label>
 

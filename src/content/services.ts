@@ -600,7 +600,7 @@ export const entrepriseServices: Service[] = [
     defaultSubject: 'Demande de devis — Cybersécurité Essentielle — Entreprise',
     image: cyberImg,
     landing: {
-      heroTitle: 'Votre PME sécurisée en 1 mois.',
+      heroTitle: 'Objectif : renforcer la sécurité de votre PME en 1 mois (selon périmètre).',
       heroSubtitle:
         'Pour les PME/TPE peu équipées : mise à niveau rapide, concrète et sans jargon.',
       useCases: [

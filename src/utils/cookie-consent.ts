@@ -1,6 +1,14 @@
+import {
+  CONSENT_POLICY_VERSION,
+  CONSENT_SCHEMA_VERSION,
+  CONSENT_STORAGE_KEY_NAME,
+  logConsentAuditEvent,
+  type ConsentAuditContext,
+} from './consent-audit'
+
 export type AdsConsentStatus = 'unset' | 'granted' | 'denied'
 
-const ADS_CONSENT_STORAGE_KEY = 'tc_ads_consent_v1'
+const ADS_CONSENT_STORAGE_KEY = CONSENT_STORAGE_KEY_NAME
 const CONSENT_TTL_MS = 1000 * 60 * 60 * 24 * 180
 const ADS_GTAG_ID = 'AW-17935957032'
 export const ADS_CONSENT_EVENT = 'tc_ads_consent_change'
@@ -12,6 +20,13 @@ type ConsentWindow = Window & typeof globalThis & {
 }
 
 type StoredConsentPayload = {
+  status: Exclude<AdsConsentStatus, 'unset'>
+  savedAt: number
+  policyVersion: string
+  consentSchemaVersion: string
+}
+
+type LegacyStoredConsentPayload = {
   status: Exclude<AdsConsentStatus, 'unset'>
   savedAt: number
 }
@@ -33,9 +48,9 @@ const CONSENT_DENIED = {
 const isConsentStatus = (value: string | null): value is Exclude<AdsConsentStatus, 'unset'> =>
   value === 'granted' || value === 'denied'
 
-const isStoredConsentPayload = (value: unknown): value is StoredConsentPayload => {
+const isLegacyStoredConsentPayload = (value: unknown): value is LegacyStoredConsentPayload => {
   if (typeof value !== 'object' || value === null) return false
-  const payload = value as Partial<StoredConsentPayload>
+  const payload = value as Partial<LegacyStoredConsentPayload>
   return (
     typeof payload.savedAt === 'number' &&
     Number.isFinite(payload.savedAt) &&
@@ -44,13 +59,26 @@ const isStoredConsentPayload = (value: unknown): value is StoredConsentPayload =
   )
 }
 
+const isStoredConsentPayload = (value: unknown): value is StoredConsentPayload => {
+  if (!isLegacyStoredConsentPayload(value)) return false
+  const payload = value as Partial<StoredConsentPayload>
+  return (
+    typeof payload.policyVersion === 'string' &&
+    payload.policyVersion.length > 0 &&
+    typeof payload.consentSchemaVersion === 'string' &&
+    payload.consentSchemaVersion.length > 0
+  )
+}
+
 const isConsentExpired = (savedAt: number) => Date.now() - savedAt > CONSENT_TTL_MS
 
-const persistConsent = (status: Exclude<AdsConsentStatus, 'unset'>) => {
+const persistConsent = (status: Exclude<AdsConsentStatus, 'unset'>, savedAt = Date.now()) => {
   if (typeof window === 'undefined') return
   const payload: StoredConsentPayload = {
     status,
-    savedAt: Date.now(),
+    savedAt,
+    policyVersion: CONSENT_POLICY_VERSION,
+    consentSchemaVersion: CONSENT_SCHEMA_VERSION,
   }
   window.localStorage.setItem(ADS_CONSENT_STORAGE_KEY, JSON.stringify(payload))
 }
@@ -93,12 +121,13 @@ const readStoredConsentStatus = (): AdsConsentStatus => {
   // Legacy format migration: plain "granted"/"denied" string.
   if (isConsentStatus(rawValue)) {
     persistConsent(rawValue)
+    void logConsentAuditEvent(rawValue, 'legacy_migration')
     return rawValue
   }
 
   try {
     const parsed: unknown = JSON.parse(rawValue)
-    if (!isStoredConsentPayload(parsed)) {
+    if (!isLegacyStoredConsentPayload(parsed)) {
       window.localStorage.removeItem(ADS_CONSENT_STORAGE_KEY)
       return 'unset'
     }
@@ -106,6 +135,12 @@ const readStoredConsentStatus = (): AdsConsentStatus => {
     if (isConsentExpired(parsed.savedAt)) {
       window.localStorage.removeItem(ADS_CONSENT_STORAGE_KEY)
       return 'unset'
+    }
+
+    if (!isStoredConsentPayload(parsed)) {
+      persistConsent(parsed.status, parsed.savedAt)
+      void logConsentAuditEvent(parsed.status, 'storage_sync')
+      return parsed.status
     }
 
     return parsed.status
@@ -178,6 +213,8 @@ export const setAdsConsentStatus = (status: Exclude<AdsConsentStatus, 'unset'>) 
 
   applyConsentToGtag(status)
   emitConsentChange(status)
+  const context: ConsentAuditContext = status === 'granted' ? 'banner_accept' : 'banner_refuse'
+  void logConsentAuditEvent(status, context)
 }
 
 export const resetAdsConsentStatus = () => {
@@ -186,6 +223,7 @@ export const resetAdsConsentStatus = () => {
   clearAdsCookies()
   applyConsentToGtag('denied')
   emitConsentChange('unset')
+  void logConsentAuditEvent('unset', 'footer_reset')
 }
 
 export const initAdsTrackingFromConsent = () => {

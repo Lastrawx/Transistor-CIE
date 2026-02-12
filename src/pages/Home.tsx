@@ -80,15 +80,13 @@ const Home = () => {
                 </Link>
               </div>
               <div className="flex h-full items-center">
-                <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl border border-slate-100 bg-slate-50 p-2">
-                  <img
-                    src={heroParticulier}
-                    alt="Pôle Particuliers"
-                    loading="lazy"
-                    decoding="async"
-                    className="h-full w-full rounded-xl object-contain object-center"
-                  />
-                </div>
+                <img
+                  src={heroParticulier}
+                  alt="Pôle Particuliers"
+                  loading="lazy"
+                  decoding="async"
+                  className="aspect-square h-full w-full rounded-2xl border border-slate-100 object-cover object-center"
+                />
               </div>
             </div>
           </article>
@@ -104,15 +102,13 @@ const Home = () => {
                 </Link>
               </div>
               <div className="flex h-full items-center">
-                <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl border border-slate-100 bg-slate-50 p-2">
-                  <img
-                    src={heroEntreprise}
-                    alt="Pôle Entreprises"
-                    loading="lazy"
-                    decoding="async"
-                    className="h-full w-full rounded-xl object-contain object-center"
-                  />
-                </div>
+                <img
+                  src={heroEntreprise}
+                  alt="Pôle Entreprises"
+                  loading="lazy"
+                  decoding="async"
+                  className="aspect-square h-full w-full rounded-2xl border border-slate-100 object-cover object-center"
+                />
               </div>
             </div>
           </article>
@@ -207,7 +203,7 @@ const Home = () => {
               <div className="mt-4 grid gap-3 text-sm text-slate-600">
                 <div className="rounded-xl border border-slate-100 bg-white p-4">
                   <p className="font-medium text-slate-800">
-                    Licence sciences et technologies de la défense — Académies militaires de Saint-Cyr
+                    Licence sciences et technologies de la défense — Académie militaire de Saint-Cyr Coëtquidan
                   </p>
                 </div>
                 <div className="rounded-xl border border-slate-100 bg-white p-4">
@@ -227,7 +223,7 @@ const Home = () => {
                 </div>
                 <div className="rounded-xl border border-slate-100 bg-white p-4">
                   <p className="font-medium text-slate-800">
-                    Formation technique en mise en oeuvre de liaisons chiffrées — Crypsis
+                    Formation technique chiffreurs et mise en oeuvre de liaisons chiffrées — Crypsis
                   </p>
                 </div>
                 <div className="rounded-xl border border-slate-100 bg-white p-4">
@@ -244,7 +240,7 @@ const Home = () => {
 
             <details className="group rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
               <summary className="flex cursor-pointer items-center justify-between text-sm font-semibold text-slate-800">
-                Expériences professionnelles (synthèse orientée missions)
+                Expériences professionnelles
                 <span className="text-brand-cyan transition group-open:rotate-180">▾</span>
               </summary>
               <div className="mt-4 grid gap-3 text-sm text-slate-600">

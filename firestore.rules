@@ -58,6 +58,55 @@ service cloud.firestore {
       ]);
     }
 
+    function isValidConsentEventShape(data) {
+      return data.keys().hasOnly([
+        "type",
+        "source",
+        "status",
+        "context",
+        "consentAuditId",
+        "consentStorageKey",
+        "policyVersion",
+        "consentSchemaVersion",
+        "pagePath",
+        "clientRecordedAtMs",
+        "recordedAt"
+      ])
+      && data.keys().hasAll([
+        "type",
+        "source",
+        "status",
+        "context",
+        "consentAuditId",
+        "consentStorageKey",
+        "policyVersion",
+        "consentSchemaVersion",
+        "pagePath",
+        "clientRecordedAtMs",
+        "recordedAt"
+      ])
+      && data.type == "ads_cookie_consent"
+      && data.source == "site-netlify"
+      && data.status in ["granted", "denied", "unset"]
+      && data.context in ["banner_accept", "banner_refuse", "footer_reset", "legacy_migration", "storage_sync"]
+      && data.consentAuditId is string
+      && data.consentAuditId.size() >= 12
+      && data.consentAuditId.size() <= 64
+      && data.consentStorageKey == "tc_ads_consent_v1"
+      && data.policyVersion is string
+      && data.policyVersion.size() >= 6
+      && data.policyVersion.size() <= 32
+      && data.consentSchemaVersion is string
+      && data.consentSchemaVersion.size() >= 2
+      && data.consentSchemaVersion.size() <= 8
+      && data.pagePath is string
+      && data.pagePath.size() >= 1
+      && data.pagePath.size() <= 160
+      && data.clientRecordedAtMs is int
+      && data.clientRecordedAtMs > 0
+      && data.recordedAt == request.time;
+    }
+
     match /devis/{docId} {
       allow get, list, read: if isAdmin();
 
@@ -103,6 +152,12 @@ service cloud.firestore {
         && request.resource.data.updatedAt == request.time;
 
       allow delete: if isAdmin();
+    }
+
+    match /consent_events/{docId} {
+      allow get, list, read, update, delete: if isAdmin();
+
+      allow create: if isValidConsentEventShape(request.resource.data);
     }
   }
 }

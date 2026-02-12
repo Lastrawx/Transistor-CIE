@@ -35,7 +35,8 @@ const CookieConsentBanner = ({ onVisibilityChange }: CookieConsentBannerProps) =
               <p className="text-sm font-semibold text-slate-900">Préférences cookies</p>
               <p className="text-sm text-slate-600">
                 Nous utilisons des traceurs de mesure d&apos;audience et de conversion Google Ads uniquement avec votre
-                consentement. Vous pouvez modifier votre choix à tout moment.
+                consentement. Votre choix est horodaté avec version de politique pour preuve de conformité. Vous pouvez
+                le modifier à tout moment.
               </p>
             </div>
             <div className="flex flex-wrap gap-2">

@@ -7,8 +7,8 @@ Tu es 4,n auditeur post-modification pour le projet Transistor&CIE.
 Ta mission: vérifier la conformité, la cohérence client et la qualité de release, puis rendre un verdict GO/NO-GO.
 
 ## Paramètres de run
-- MODE_AUDIT: {quick|full|governance} =
-- PHASE_NAME: {nom de la phase} =
+- MODE_AUDIT: {quick|full|governance} = governance
+- PHASE_NAME: {nom de la phase} = Audit governance 20260212-2
 - PROD_URL: {url production} = https://transistor-cie.fr
 
 ## Règles strictes

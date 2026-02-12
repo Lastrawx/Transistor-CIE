@@ -1,6 +1,8 @@
 import { site } from './site'
 
-const LAST_UPDATED = '10 février 2026'
+const LAST_UPDATED = '12 février 2026'
+const CONSUMER_MEDIATOR =
+  'CM2C - Centre de la Médiation de la Consommation de Conciliateurs de Justice, 49 rue de Ponthieu, 75008 Paris - cm2c@cm2c.net - https://www.cm2c.net'
 
 export type LegalSection = {
   title: string
@@ -32,9 +34,9 @@ export const mentionsLegales: LegalSection[] = [
   {
     title: 'Éditeur du site',
     content: [
-      'Transistor&CIE - Entrepreneur individuel (micro-entreprise)',
+      'Transistor&CIE - Entrepreneur individuel (EI) au régime micro-entreprise',
       'Nom et prénom : Quentin Xavier Jérôme CAGNAT',
-      'Adresse : 3 boulevard Tourasse, 64000 Pau - France (domiciliation de l’entreprise)',
+      'Adresse professionnelle : 3 boulevard Tourasse, 64000 Pau - France (domiciliation de l’entreprise)',
       'SIREN : 100 810 647',
       'SIRET : 100 810 647 00014',
       'Ville d’immatriculation : Pau',
@@ -55,10 +57,18 @@ export const mentionsLegales: LegalSection[] = [
     content: ['Conseil et assistance informatique, cybersécurité, Green IT et accompagnement numérique en digital, partout en France.'],
   },
   {
+    title: 'Médiation de la consommation',
+    content: [
+      'Conformément aux articles L.612-1 et suivants du code de la consommation, le client consommateur peut recourir gratuitement à un médiateur après réclamation écrite restée sans solution amiable.',
+      `Médiateur compétent : ${CONSUMER_MEDIATOR}`,
+    ],
+  },
+  {
     title: 'Hébergement',
     content: [
       'Netlify, Inc.',
       '2325 3rd Street, Suite 296, San Francisco, California 94107, USA',
+      'Contact support : support@netlify.com',
       'Site web : https://www.netlify.com',
     ],
   },
@@ -81,8 +91,10 @@ export const confidentialite: PrivacySection[] = [
     paragraphs: [
       'Le responsable du traitement des données personnelles collectées sur le site Transistor&CIE est :',
       'Transistor&CIE - Entrepreneur individuel (micro-entreprise).',
+      'Adresse postale : 3 boulevard Tourasse, 64000 Pau - France.',
       `Email de contact : ${site.contactEmail}`,
       `Téléphone de contact : ${site.phoneDisplay}`,
+      'Délégué à la protection des données (DPO) : non désigné (désignation non obligatoire au regard de la nature et de l’échelle des traitements réalisés).',
     ],
   },
   {
@@ -94,8 +106,9 @@ export const confidentialite: PrivacySection[] = [
       'Profil (particulier / entreprise), service, objet de la demande.',
       'Identité et coordonnées : nom, prénom, adresse email, téléphone.',
       'Contenu des échanges : message libre et informations utiles à l’intervention.',
+      'Données de préqualification cyber (si questionnaire utilisé) : réponses, score, niveau de risque et synthèse transmise dans la demande de devis.',
       'Données techniques anti-abus et sécurité (horodatage, contrôles de sécurité, journaux techniques).',
-      'Consentements : consentement de contact, préférences cookies, preuve de choix.',
+      'Consentements : consentement de contact, préférences cookies, preuve de choix (date, statut, version des textes légaux applicables).',
       'Le cas échéant, justificatif d’identité strictement nécessaire en cas de contestation ou suspicion de fraude.',
     ],
   },
@@ -106,9 +119,11 @@ export const confidentialite: PrivacySection[] = [
     ],
     items: [
       'Gestion des demandes de devis et échanges précontractuels : exécution de mesures précontractuelles.',
+      'Préqualification des demandes cybersécurité via questionnaire optionnel : exécution de mesures précontractuelles et intérêt légitime d’orientation de la réponse.',
       'Exécution des prestations, gestion administrative, support client : exécution du contrat.',
       'Facturation, obligations comptables et fiscales : obligation légale.',
       'Prévention de la fraude, sécurité du site et défense des droits : intérêt légitime.',
+      'Amélioration du service et traçabilité opérationnelle interne : intérêt légitime.',
       'Mesure d’audience et conversion Google Ads : consentement (aucun chargement publicitaire avant consentement).',
     ],
     postParagraphs: [
@@ -127,8 +142,8 @@ export const confidentialite: PrivacySection[] = [
       'Mesure de conversion publicitaire : Google Ads (uniquement après consentement).',
     ],
     postParagraphs: [
-      'Certains sous-traitants pouvant opérer hors de l’Espace économique européen, des transferts hors UE peuvent exister selon les services activés.',
-      'Dans ce cas, Transistor&CIE s’appuie sur les mécanismes juridiques applicables (clauses contractuelles types ou garanties équivalentes selon la documentation des fournisseurs).',
+      'Certains sous-traitants pouvant opérer hors de l’Espace économique européen (notamment aux États-Unis), des transferts hors UE peuvent exister selon les services activés.',
+      'Dans ce cas, Transistor&CIE s’appuie sur les mécanismes juridiques prévus au chapitre V du RGPD (décision d’adéquation, clauses contractuelles types, ou garanties équivalentes selon le service activé).',
     ],
   },
   {
@@ -138,6 +153,7 @@ export const confidentialite: PrivacySection[] = [
       'Demandes de devis sans suite commerciale : 3 ans maximum à compter du dernier contact.',
       'Dossiers clients et pièces contractuelles/comptables : durée contractuelle puis archivage légal (jusqu’à 10 ans pour les pièces comptables).',
       'Journaux techniques de sécurité : jusqu’à 12 mois.',
+      'Journaux de preuve de consentement cookies (date, statut, version légale) : 13 mois maximum.',
       'Choix de consentement cookies : jusqu’à 6 mois avant nouvelle sollicitation.',
       'Justificatif d’identité en prévention de fraude : durée strictement nécessaire au traitement du dossier, puis suppression.',
     ],
@@ -148,6 +164,7 @@ export const confidentialite: PrivacySection[] = [
       'Le site utilise des mécanismes strictement nécessaires au fonctionnement (sécurité, préférences d’interface, continuité de service).',
       'Le stockage local du navigateur (localStorage/sessionStorage) peut être utilisé pour mémoriser des préférences (profil choisi, état de certains bandeaux, suivi du parcours de formulaire).',
       'Les traceurs Google Ads de mesure d’audience/conversion sont désactivés par défaut et ne sont activés qu’après consentement explicite via le bandeau cookies.',
+      'En cas de choix explicite sur le bandeau cookies, un journal technique minimal de preuve peut être conservé (statut, horodatage, version des textes légaux), sans donnée de contenu client.',
       'Le consentement peut être retiré à tout moment via l’option "Gérer mes cookies" en bas de page.',
     ],
   },
@@ -169,25 +186,32 @@ export const confidentialite: PrivacySection[] = [
   {
     title: '8. Exercice des droits',
     paragraphs: [
-      `Toute demande peut être adressée à ${site.contactEmail}.`,
-      'Une réponse est apportée dans les délais légaux en vigueur.',
-      'En cas de difficulté non résolue, vous pouvez introduire une réclamation auprès de la CNIL.',
+      `Toute demande peut être adressée à ${site.contactEmail}, ou par courrier postal à l’adresse du siège mentionnée dans les Mentions légales.`,
+      'Une réponse est apportée dans un délai d’un mois à compter de la réception de la demande (prolongeable de deux mois en cas de complexité).',
+      'En cas de difficulté non résolue, vous pouvez introduire une réclamation auprès de la CNIL : https://www.cnil.fr/fr/plaintes.',
     ],
   },
   {
-    title: '9. Sécurité des données',
+    title: '9. Caractère obligatoire des informations et absence de décision automatisée',
+    paragraphs: [
+      'Les champs marqués comme obligatoires dans les formulaires sont nécessaires pour traiter votre demande. Si ces informations ne sont pas fournies, la demande ne peut pas être instruite correctement.',
+      'Aucune décision automatisée produisant des effets juridiques ou significatifs n’est prise exclusivement sur la base des données collectées via le site.',
+    ],
+  },
+  {
+    title: '10. Sécurité des données',
     paragraphs: [
       'Transistor&CIE met en œuvre des mesures techniques et organisationnelles raisonnables (contrôles d’accès, validation des entrées, journalisation, mécanismes anti-abus) pour limiter les risques de perte, d’altération et d’accès non autorisé.',
     ],
   },
   {
-    title: '10. Mise à jour de la politique',
+    title: '11. Mise à jour de la politique',
     paragraphs: [
       `La présente politique peut évoluer en fonction des exigences légales, techniques ou organisationnelles. Dernière mise à jour : ${LAST_UPDATED}.`,
     ],
   },
   {
-    title: '11. Droit applicable',
+    title: '12. Droit applicable',
     paragraphs: [
       'La présente politique de confidentialité est soumise au droit français.',
     ],
@@ -246,6 +270,9 @@ export const cgvCguSections: TermsSection[] = [
       'Les prestations sont réalisées 100% digital, partout en France, par visioconférence, téléphone, prise en main à distance ou outils numériques adaptés.',
       'Avant toute intervention, un devis gratuit et personnalisé est remis au client.',
       'Aucune prestation n’est exécutée sans validation préalable du devis.',
+      'Transistor&CIE peut décider d’interrompre ou d’arrêter une intervention à tout moment, sans obligation de motivation.',
+      'En cas d’arrêt d’intervention à l’initiative de Transistor&CIE, les sommes versées par le client pour l’intervention concernée sont remboursées intégralement (y compris acompte), sans frais.',
+      'Le remboursement est effectué dans un délai maximal de 14 jours calendaires à compter de la notification d’arrêt.',
     ],
   },
   {
@@ -253,6 +280,7 @@ export const cgvCguSections: TermsSection[] = [
     paragraphs: [
       'Les tarifs et le périmètre d’intervention sont communiqués sur devis.',
       'Le devis accepté (signature, validation écrite ou tout autre accord explicite) vaut formation du contrat.',
+      'Pour les clients consommateurs, la confirmation du contrat est transmise sur support durable (email ou PDF), avec les informations précontractuelles utiles.',
       'Le devis fait foi pour le prix, le périmètre, les livrables et les modalités d’exécution.',
       'TVA non applicable, article 293 B du CGI.',
     ],
@@ -276,6 +304,9 @@ export const cgvCguSections: TermsSection[] = [
       'Pour les offres d’abonnement, les modalités de facturation, d’engagement, de fréquence de suivi et de niveau de service (SLA) sont définies au devis.',
       'La mention "Hotline 24/7 (H24)" signifie un canal de signalement disponible en continu pour incidents critiques.',
       'Les délais de prise en charge, canaux utilisables, priorisation, exclusions et engagements de résolution sont détaillés contractuellement au devis/SLA.',
+      'Transistor&CIE peut mettre fin à un abonnement en cours avec un préavis de 14 jours calendaires, notifié au client par écrit (email ou tout autre support durable).',
+      'En cas de résiliation à l’initiative de Transistor&CIE, la période mensuelle payée d’avance et non exécutée est remboursée au prorata temporis des jours calendaires non couverts.',
+      'Le remboursement prorata est versé dans un délai maximal de 14 jours calendaires suivant la date d’effet de la résiliation.',
     ],
   },
   {
@@ -284,17 +315,28 @@ export const cgvCguSections: TermsSection[] = [
       'Conformément au droit de la consommation, le client consommateur dispose d’un délai de rétractation de 14 jours à compter de la conclusion du contrat à distance.',
       'Pour exercer ce droit, le client adresse une déclaration dénuée d’ambiguïté (email ou courrier) ou utilise le formulaire type ci-dessous.',
       'Si le client demande expressément l’exécution avant la fin du délai de rétractation, il reste redevable du montant correspondant au service déjà exécuté jusqu’à la date de notification de rétractation.',
+      'Lorsque le client souhaite un démarrage avant la fin du délai de rétractation, sa demande expresse ainsi que la reconnaissance de la perte du droit de rétractation après exécution complète sont recueillies sur support durable.',
       'Le droit de rétractation ne peut plus être exercé lorsque la prestation de service a été pleinement exécutée avant la fin du délai de 14 jours, après demande expresse du client et reconnaissance de la perte de son droit de rétractation.',
     ],
     items: [
-      'Formulaire type : "À l’attention de Transistor&CIE - contact@transistor-cie.fr".',
+      'Formulaire type : "À l’attention de Transistor&CIE - 3 boulevard Tourasse, 64000 Pau - France - contact@transistor-cie.fr".',
       'Je vous notifie par la présente ma rétractation du contrat portant sur la prestation suivante : [à compléter].',
       'Commandé le : [date] / Nom du client : [nom] / Adresse : [adresse] / Date et signature (si envoi papier).',
     ],
   },
   {
+    title: '9. Réclamations et médiation de la consommation',
+    paragraphs: [
+      `Toute réclamation doit d’abord être adressée à Transistor&CIE par email (${site.contactEmail}) ou courrier postal.`,
+      'Une solution amiable est recherchée en priorité.',
+      'Conformément aux articles L.612-1 et suivants du code de la consommation, le client consommateur peut recourir gratuitement à un médiateur de la consommation après tentative de résolution amiable directe.',
+      `Médiateur de la consommation compétent : ${CONSUMER_MEDIATOR}`,
+      'La liste officielle des médiateurs référencés est disponible sur : https://www.economie.gouv.fr/mediation-conso.',
+    ],
+  },
+  {
     id: 'garantie-satisfaction',
-    title: '9. Garantie satisfaction (conditions)',
+    title: '10. Garantie satisfaction (conditions)',
     paragraphs: [
       'Transistor&CIE propose une garantie satisfaction sur certaines prestations à distance, conformément au périmètre défini au devis.',
       'La garantie s’apprécie au regard de critères objectifs mentionnés au devis (résultat attendu, livrables, actions prévues).',
@@ -304,7 +346,7 @@ export const cgvCguSections: TermsSection[] = [
     ],
   },
   {
-    title: '10. Obligations du client',
+    title: '11. Obligations du client',
     paragraphs: ['Le client s’engage à :'],
     items: [
       'fournir des informations exactes et complètes,',
@@ -316,7 +358,7 @@ export const cgvCguSections: TermsSection[] = [
     ],
   },
   {
-    title: '11. Responsabilité',
+    title: '12. Responsabilité',
     paragraphs: [
       'Transistor&CIE est tenue à une obligation de moyens et non de résultat, sauf engagement contractuel spécifique plus favorable.',
       'La responsabilité de Transistor&CIE ne peut être engagée en cas de :',
@@ -328,14 +370,14 @@ export const cgvCguSections: TermsSection[] = [
     ],
   },
   {
-    title: '12. Données personnelles',
+    title: '13. Données personnelles',
     paragraphs: [
       'Les données collectées dans le cadre des demandes de devis et prestations sont traitées uniquement pour la relation commerciale, l’exécution des services et le respect des obligations légales.',
       'Les modalités de traitement, bases légales, durées de conservation, droits des personnes et gestion des cookies sont détaillées dans la Politique de confidentialité.',
     ],
   },
   {
-    title: '13. Conditions générales d’utilisation du site (CGU)',
+    title: '14. Conditions générales d’utilisation du site (CGU)',
     paragraphs: [
       'L’utilisateur s’engage à utiliser le site de manière loyale et conforme aux lois en vigueur.',
       'Sont notamment interdits : les tentatives d’intrusion, l’extraction massive de données, l’usurpation d’identité, la diffusion de contenus illicites et l’usage détourné du formulaire de contact.',
@@ -344,10 +386,10 @@ export const cgvCguSections: TermsSection[] = [
     ],
   },
   {
-    title: '14. Droit applicable et litiges',
+    title: '15. Droit applicable et litiges',
     paragraphs: [
       'Les présentes CGV/CGU sont soumises au droit français.',
-      'Une solution amiable est recherchée en priorité.',
+      'Pour les clients consommateurs, le recours amiable (réclamation puis médiation) est privilégié avant toute action contentieuse.',
       'À défaut d’accord amiable, les juridictions françaises territorialement compétentes seront saisies selon la qualité des parties (consommateur ou professionnel).',
     ],
   },
