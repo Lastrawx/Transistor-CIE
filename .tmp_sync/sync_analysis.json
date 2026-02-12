@@ -1,0 +1,1412 @@
+{
+  "site_services_count": 12,
+  "site_has_explicit_price_in_offers": false,
+  "rows": [
+    {
+      "service": {
+        "profile": "particulier",
+        "id": "support-digital-familial-abonnement",
+        "title": "Support Digital Familial (Abonnement foyer)",
+        "offer": "Un abonnement mensuel pour tout le foyer : audit initial, assistance au quotidien, projets numériques et accompagnement personnalisé.",
+        "modalities": "100% digital, partout en France — Devis gratuit",
+        "defaultSubject": "Demande de devis — Support Digital Familial (Abonnement foyer) — Particulier",
+        "includes": [
+          "Audit initial des appareils et des usages",
+          "Sécurisation de base (comptes, sauvegardes, bonnes pratiques)",
+          "Accompagnement projets (nouvel appareil, organisation, cloud, imprimantes...)",
+          "Mini-formations adaptées (adultes/seniors/ados)",
+          "Hotline IT dédiée"
+        ]
+      },
+      "gen": {
+        "title_hits": [
+          [
+            "01_Offres",
+            "C2"
+          ],
+          [
+            "02_Interventions",
+            "D11"
+          ],
+          [
+            "02_Interventions",
+            "D12"
+          ],
+          [
+            "02_Interventions",
+            "D13"
+          ],
+          [
+            "02_Interventions",
+            "D14"
+          ]
+        ],
+        "offer_hits": [],
+        "modalities_hits": [
+          [
+            "01_Offres",
+            "F2"
+          ],
+          [
+            "01_Offres",
+            "F3"
+          ],
+          [
+            "01_Offres",
+            "F4"
+          ],
+          [
+            "01_Offres",
+            "F5"
+          ],
+          [
+            "01_Offres",
+            "F6"
+          ]
+        ],
+        "includes_coverage": 2,
+        "includes_total": 5,
+        "includes_locations": [
+          [
+            "01_Offres",
+            "E2"
+          ],
+          [
+            "01_Offres",
+            "E2"
+          ]
+        ]
+      },
+      "commercial": {
+        "01_Grilles_tarifaires_Transistor-CIE_2026.xlsx": [
+          [
+            "Synthese_offres",
+            "C10"
+          ],
+          [
+            "Grille_actions",
+            "D14"
+          ],
+          [
+            "Grille_actions",
+            "D15"
+          ],
+          [
+            "Grille_actions",
+            "D16"
+          ],
+          [
+            "Grille_actions",
+            "D17"
+          ]
+        ],
+        "02_Offres_Particuliers_Transistor-CIE_2026.xlsx": [
+          [
+            "Offres",
+            "B5"
+          ],
+          [
+            "Packs_actions",
+            "B5"
+          ],
+          [
+            "Packs_actions",
+            "B6"
+          ],
+          [
+            "Packs_actions",
+            "B7"
+          ],
+          [
+            "Packs_actions",
+            "B8"
+          ]
+        ],
+        "03_Offres_Entreprises_Transistor-CIE_2026.xlsx": []
+      }
+    },
+    {
+      "service": {
+        "profile": "particulier",
+        "id": "assistance-depannage",
+        "title": "Assistance & Dépannage Informatique",
+        "offer": "Diagnostic précis et résolution rapide des pannes logicielles. Assistance en visio ou prise en main à distance (TeamViewer ou équivalent).",
+        "modalities": "100% digital, partout en France — Devis gratuit",
+        "defaultSubject": "Demande de devis — Assistance & Dépannage Informatique — Particulier",
+        "includes": [
+          "Diagnostic de la panne logicielle",
+          "Suppression virus/malwares et nettoyage système",
+          "Corrections et rétablissement des fonctions critiques",
+          "Sécurisation de base après intervention"
+        ]
+      },
+      "gen": {
+        "title_hits": [
+          [
+            "01_Offres",
+            "C3"
+          ],
+          [
+            "02_Interventions",
+            "D17"
+          ],
+          [
+            "02_Interventions",
+            "D18"
+          ],
+          [
+            "02_Interventions",
+            "D19"
+          ],
+          [
+            "02_Interventions",
+            "D20"
+          ]
+        ],
+        "offer_hits": [
+          [
+            "01_Offres",
+            "D3"
+          ]
+        ],
+        "modalities_hits": [
+          [
+            "01_Offres",
+            "F2"
+          ],
+          [
+            "01_Offres",
+            "F3"
+          ],
+          [
+            "01_Offres",
+            "F4"
+          ],
+          [
+            "01_Offres",
+            "F5"
+          ],
+          [
+            "01_Offres",
+            "F6"
+          ]
+        ],
+        "includes_coverage": 0,
+        "includes_total": 4,
+        "includes_locations": []
+      },
+      "commercial": {
+        "01_Grilles_tarifaires_Transistor-CIE_2026.xlsx": [
+          [
+            "Synthese_offres",
+            "C11"
+          ],
+          [
+            "Grille_actions",
+            "D20"
+          ],
+          [
+            "Grille_actions",
+            "D21"
+          ],
+          [
+            "Grille_actions",
+            "D22"
+          ],
+          [
+            "Grille_actions",
+            "D23"
+          ]
+        ],
+        "02_Offres_Particuliers_Transistor-CIE_2026.xlsx": [
+          [
+            "Offres",
+            "B6"
+          ],
+          [
+            "Packs_actions",
+            "B15"
+          ],
+          [
+            "Packs_actions",
+            "B16"
+          ],
+          [
+            "Packs_actions",
+            "B17"
+          ],
+          [
+            "Packs_actions",
+            "B18"
+          ]
+        ],
+        "03_Offres_Entreprises_Transistor-CIE_2026.xlsx": []
+      }
+    },
+    {
+      "service": {
+        "profile": "particulier",
+        "id": "support-connectes-mobiles",
+        "title": "Support Appareils Connectés & Mobiles",
+        "offer": "Paramétrage, sécurité et dépannage smartphone, tablette, imprimante, TV, box et appareils connectés du quotidien.",
+        "modalities": "100% digital, partout en France — Devis gratuit",
+        "defaultSubject": "Demande de devis — Support Appareils Connectés & Mobiles — Particulier",
+        "includes": [
+          "Configuration initiale et synchronisation des appareils",
+          "Résolution des incidents de connexion",
+          "Optimisation des comptes, sauvegardes et sécurité de base",
+          "Accompagnement pratique pour l’usage quotidien"
+        ]
+      },
+      "gen": {
+        "title_hits": [
+          [
+            "01_Offres",
+            "C5"
+          ],
+          [
+            "02_Interventions",
+            "D28"
+          ],
+          [
+            "02_Interventions",
+            "D29"
+          ],
+          [
+            "02_Interventions",
+            "D30"
+          ],
+          [
+            "02_Interventions",
+            "D31"
+          ]
+        ],
+        "offer_hits": [],
+        "modalities_hits": [
+          [
+            "01_Offres",
+            "F2"
+          ],
+          [
+            "01_Offres",
+            "F3"
+          ],
+          [
+            "01_Offres",
+            "F4"
+          ],
+          [
+            "01_Offres",
+            "F5"
+          ],
+          [
+            "01_Offres",
+            "F6"
+          ]
+        ],
+        "includes_coverage": 0,
+        "includes_total": 4,
+        "includes_locations": []
+      },
+      "commercial": {
+        "01_Grilles_tarifaires_Transistor-CIE_2026.xlsx": [
+          [
+            "Synthese_offres",
+            "C13"
+          ],
+          [
+            "Grille_actions",
+            "D31"
+          ],
+          [
+            "Grille_actions",
+            "D32"
+          ],
+          [
+            "Grille_actions",
+            "D33"
+          ],
+          [
+            "Grille_actions",
+            "D34"
+          ]
+        ],
+        "02_Offres_Particuliers_Transistor-CIE_2026.xlsx": [
+          [
+            "Offres",
+            "B8"
+          ],
+          [
+            "Packs_actions",
+            "B33"
+          ],
+          [
+            "Packs_actions",
+            "B34"
+          ],
+          [
+            "Packs_actions",
+            "B35"
+          ],
+          [
+            "Packs_actions",
+            "B36"
+          ]
+        ],
+        "03_Offres_Entreprises_Transistor-CIE_2026.xlsx": []
+      }
+    },
+    {
+      "service": {
+        "profile": "particulier",
+        "id": "formation-culture-numerique",
+        "title": "Formation & Culture Numérique",
+        "offer": "Ateliers clairs et concrets sur l’IA utile, la cybersécurité et les outils numériques du quotidien.",
+        "modalities": "100% digital, partout en France — Devis gratuit",
+        "defaultSubject": "Demande de devis — Formation & Culture Numérique — Particulier",
+        "includes": [
+          "Évaluation du niveau et des objectifs",
+          "Session guidée (individuelle ou petit groupe)",
+          "Cas pratiques concrets",
+          "Support récapitulatif après session"
+        ]
+      },
+      "gen": {
+        "title_hits": [
+          [
+            "01_Offres",
+            "C6"
+          ],
+          [
+            "02_Interventions",
+            "D33"
+          ],
+          [
+            "02_Interventions",
+            "D34"
+          ],
+          [
+            "02_Interventions",
+            "D35"
+          ],
+          [
+            "02_Interventions",
+            "D36"
+          ]
+        ],
+        "offer_hits": [],
+        "modalities_hits": [
+          [
+            "01_Offres",
+            "F2"
+          ],
+          [
+            "01_Offres",
+            "F3"
+          ],
+          [
+            "01_Offres",
+            "F4"
+          ],
+          [
+            "01_Offres",
+            "F5"
+          ],
+          [
+            "01_Offres",
+            "F6"
+          ]
+        ],
+        "includes_coverage": 1,
+        "includes_total": 4,
+        "includes_locations": [
+          [
+            "01_Offres",
+            "E6"
+          ]
+        ]
+      },
+      "commercial": {
+        "01_Grilles_tarifaires_Transistor-CIE_2026.xlsx": [
+          [
+            "Synthese_offres",
+            "C14"
+          ],
+          [
+            "Grille_actions",
+            "D36"
+          ],
+          [
+            "Grille_actions",
+            "D37"
+          ],
+          [
+            "Grille_actions",
+            "D38"
+          ],
+          [
+            "Grille_actions",
+            "D39"
+          ]
+        ],
+        "02_Offres_Particuliers_Transistor-CIE_2026.xlsx": [
+          [
+            "Offres",
+            "B9"
+          ],
+          [
+            "Packs_actions",
+            "B42"
+          ],
+          [
+            "Packs_actions",
+            "B43"
+          ],
+          [
+            "Packs_actions",
+            "B44"
+          ],
+          [
+            "Packs_actions",
+            "B45"
+          ]
+        ],
+        "03_Offres_Entreprises_Transistor-CIE_2026.xlsx": []
+      }
+    },
+    {
+      "service": {
+        "profile": "particulier",
+        "id": "coaching-montage-pc",
+        "title": "Coaching Montage PC Sur-Mesure",
+        "offer": "Choix des composants, vérification de compatibilité, montage guidé en visio, configuration et premier démarrage.",
+        "modalities": "100% digital, partout en France — Devis gratuit",
+        "defaultSubject": "Demande de devis — Coaching Montage PC Sur-Mesure — Particulier",
+        "includes": [
+          "Sélection composants selon objectifs et budget",
+          "Validation de compatibilité complète",
+          "Montage assisté étape par étape",
+          "Configuration BIOS, pilotes et tests initiaux"
+        ]
+      },
+      "gen": {
+        "title_hits": [
+          [
+            "01_Offres",
+            "C4"
+          ],
+          [
+            "02_Interventions",
+            "D23"
+          ],
+          [
+            "02_Interventions",
+            "D24"
+          ],
+          [
+            "02_Interventions",
+            "D25"
+          ],
+          [
+            "02_Interventions",
+            "D26"
+          ]
+        ],
+        "offer_hits": [],
+        "modalities_hits": [
+          [
+            "01_Offres",
+            "F2"
+          ],
+          [
+            "01_Offres",
+            "F3"
+          ],
+          [
+            "01_Offres",
+            "F4"
+          ],
+          [
+            "01_Offres",
+            "F5"
+          ],
+          [
+            "01_Offres",
+            "F6"
+          ]
+        ],
+        "includes_coverage": 1,
+        "includes_total": 4,
+        "includes_locations": [
+          [
+            "01_Offres",
+            "E4"
+          ]
+        ]
+      },
+      "commercial": {
+        "01_Grilles_tarifaires_Transistor-CIE_2026.xlsx": [
+          [
+            "Synthese_offres",
+            "C12"
+          ],
+          [
+            "Grille_actions",
+            "D26"
+          ],
+          [
+            "Grille_actions",
+            "D27"
+          ],
+          [
+            "Grille_actions",
+            "D28"
+          ],
+          [
+            "Grille_actions",
+            "D29"
+          ]
+        ],
+        "02_Offres_Particuliers_Transistor-CIE_2026.xlsx": [
+          [
+            "Offres",
+            "B7"
+          ],
+          [
+            "Packs_actions",
+            "B24"
+          ],
+          [
+            "Packs_actions",
+            "B25"
+          ],
+          [
+            "Packs_actions",
+            "B26"
+          ],
+          [
+            "Packs_actions",
+            "B27"
+          ]
+        ],
+        "03_Offres_Entreprises_Transistor-CIE_2026.xlsx": []
+      }
+    },
+    {
+      "service": {
+        "profile": "particulier",
+        "id": "optimisation-budget-reseau",
+        "title": "Optimisation Budget Internet & Réseau",
+        "offer": "Réduction de votre facture Internet et optimisation de votre installation : objectif moyen jusqu’à -30% selon votre situation.",
+        "modalities": "100% digital, partout en France — Devis gratuit",
+        "defaultSubject": "Demande de devis — Optimisation Budget Internet & Réseau — Particulier",
+        "includes": [
+          "Analyse de votre contrat et de vos options",
+          "Comparatif des meilleures alternatives selon votre adresse",
+          "Accompagnement au changement d’offre si pertinent",
+          "Optimisation des réglages box/Wi-Fi (si nécessaire)"
+        ]
+      },
+      "gen": {
+        "title_hits": [
+          [
+            "01_Offres",
+            "C7"
+          ],
+          [
+            "02_Interventions",
+            "D37"
+          ],
+          [
+            "02_Interventions",
+            "D38"
+          ],
+          [
+            "02_Interventions",
+            "D39"
+          ],
+          [
+            "02_Interventions",
+            "D40"
+          ]
+        ],
+        "offer_hits": [],
+        "modalities_hits": [
+          [
+            "01_Offres",
+            "F2"
+          ],
+          [
+            "01_Offres",
+            "F3"
+          ],
+          [
+            "01_Offres",
+            "F4"
+          ],
+          [
+            "01_Offres",
+            "F5"
+          ],
+          [
+            "01_Offres",
+            "F6"
+          ]
+        ],
+        "includes_coverage": 0,
+        "includes_total": 4,
+        "includes_locations": []
+      },
+      "commercial": {
+        "01_Grilles_tarifaires_Transistor-CIE_2026.xlsx": [
+          [
+            "Synthese_offres",
+            "C15"
+          ],
+          [
+            "Grille_actions",
+            "D40"
+          ],
+          [
+            "Grille_actions",
+            "D41"
+          ],
+          [
+            "Grille_actions",
+            "D42"
+          ],
+          [
+            "Grille_actions",
+            "D43"
+          ]
+        ],
+        "02_Offres_Particuliers_Transistor-CIE_2026.xlsx": [
+          [
+            "Offres",
+            "B10"
+          ],
+          [
+            "Packs_actions",
+            "B50"
+          ],
+          [
+            "Packs_actions",
+            "B51"
+          ],
+          [
+            "Packs_actions",
+            "B52"
+          ],
+          [
+            "Packs_actions",
+            "B53"
+          ]
+        ],
+        "03_Offres_Entreprises_Transistor-CIE_2026.xlsx": []
+      }
+    },
+    {
+      "service": {
+        "profile": "particulier",
+        "id": "conseil-energie-green-it",
+        "title": "Conseil Énergie & Green IT (Maison)",
+        "offer": "Conseils conso, équipements plus sobres et mini-audit sobriété numérique pour réduire facture et impact.",
+        "modalities": "100% digital, partout en France — Devis gratuit",
+        "defaultSubject": "Demande de devis — Conseil Énergie & Green IT (Maison) — Particulier",
+        "includes": [
+          "État des lieux conso numérique et usages",
+          "Mini-audit sobriété numérique (appareils, usages, stockage)",
+          "Recommandations pour réduire l’impact et la consommation",
+          "Plan d’action simple et priorisé"
+        ]
+      },
+      "gen": {
+        "title_hits": [
+          [
+            "01_Offres",
+            "C8"
+          ],
+          [
+            "02_Interventions",
+            "D41"
+          ],
+          [
+            "02_Interventions",
+            "D42"
+          ],
+          [
+            "02_Interventions",
+            "D43"
+          ],
+          [
+            "02_Interventions",
+            "D44"
+          ]
+        ],
+        "offer_hits": [
+          [
+            "01_Offres",
+            "D8"
+          ]
+        ],
+        "modalities_hits": [
+          [
+            "01_Offres",
+            "F2"
+          ],
+          [
+            "01_Offres",
+            "F3"
+          ],
+          [
+            "01_Offres",
+            "F4"
+          ],
+          [
+            "01_Offres",
+            "F5"
+          ],
+          [
+            "01_Offres",
+            "F6"
+          ]
+        ],
+        "includes_coverage": 1,
+        "includes_total": 4,
+        "includes_locations": [
+          [
+            "01_Offres",
+            "E8"
+          ]
+        ]
+      },
+      "commercial": {
+        "01_Grilles_tarifaires_Transistor-CIE_2026.xlsx": [
+          [
+            "Synthese_offres",
+            "C16"
+          ],
+          [
+            "Grille_actions",
+            "D44"
+          ],
+          [
+            "Grille_actions",
+            "D45"
+          ],
+          [
+            "Grille_actions",
+            "D46"
+          ],
+          [
+            "Grille_actions",
+            "D47"
+          ]
+        ],
+        "02_Offres_Particuliers_Transistor-CIE_2026.xlsx": [
+          [
+            "Offres",
+            "B11"
+          ],
+          [
+            "Packs_actions",
+            "B58"
+          ],
+          [
+            "Packs_actions",
+            "B59"
+          ],
+          [
+            "Packs_actions",
+            "B60"
+          ],
+          [
+            "Packs_actions",
+            "B61"
+          ]
+        ],
+        "03_Offres_Entreprises_Transistor-CIE_2026.xlsx": []
+      }
+    },
+    {
+      "service": {
+        "profile": "entreprise",
+        "id": "abonnement-cybersecurite-pme",
+        "title": "Abonnement Cybersécurité PME (Service continu)",
+        "offer": "Abonnement mensuel de cybersécurité adapté à votre taille : audit initial, plan de sécurisation, suivi régulier et assistance continue.",
+        "modalities": "100% digital, partout en France — Devis gratuit",
+        "defaultSubject": "Demande de devis — Abonnement Cybersécurité PME (Service continu) — Entreprise",
+        "includes": [
+          "Audit initial et plan de sécurisation",
+          "Sensibilisation phishing (formation + simulations si possible)",
+          "Mises à jour des protections et contrôles réguliers",
+          "Recommandations d’amélioration continue",
+          "Hotline 24/7 (H24) pour incidents critiques (SLA contractuel au devis)"
+        ]
+      },
+      "gen": {
+        "title_hits": [
+          [
+            "01_Offres",
+            "C9"
+          ],
+          [
+            "02_Interventions",
+            "D45"
+          ],
+          [
+            "02_Interventions",
+            "D46"
+          ],
+          [
+            "02_Interventions",
+            "D47"
+          ],
+          [
+            "02_Interventions",
+            "D48"
+          ]
+        ],
+        "offer_hits": [],
+        "modalities_hits": [
+          [
+            "01_Offres",
+            "F2"
+          ],
+          [
+            "01_Offres",
+            "F3"
+          ],
+          [
+            "01_Offres",
+            "F4"
+          ],
+          [
+            "01_Offres",
+            "F5"
+          ],
+          [
+            "01_Offres",
+            "F6"
+          ]
+        ],
+        "includes_coverage": 0,
+        "includes_total": 5,
+        "includes_locations": []
+      },
+      "commercial": {
+        "01_Grilles_tarifaires_Transistor-CIE_2026.xlsx": [
+          [
+            "Synthese_offres",
+            "C5"
+          ],
+          [
+            "Grille_actions",
+            "D48"
+          ],
+          [
+            "Grille_actions",
+            "D49"
+          ],
+          [
+            "Grille_actions",
+            "D50"
+          ],
+          [
+            "Grille_actions",
+            "D51"
+          ]
+        ],
+        "02_Offres_Particuliers_Transistor-CIE_2026.xlsx": [],
+        "03_Offres_Entreprises_Transistor-CIE_2026.xlsx": [
+          [
+            "Offres",
+            "B5"
+          ],
+          [
+            "Packs_actions",
+            "B5"
+          ],
+          [
+            "Packs_actions",
+            "B6"
+          ],
+          [
+            "Packs_actions",
+            "B7"
+          ],
+          [
+            "Packs_actions",
+            "B8"
+          ]
+        ]
+      }
+    },
+    {
+      "service": {
+        "profile": "entreprise",
+        "id": "creation-site-web",
+        "title": "Création de sites Web Essentiels",
+        "offer": "Un site web clair, professionnel et orienté conversion pour lancer ou renforcer votre présence en ligne rapidement.",
+        "modalities": "100% digital, partout en France — Devis gratuit",
+        "defaultSubject": "Demande de devis — Création de sites Web Essentiels — Entreprise",
+        "includes": [
+          "Cadrage du besoin et structure des pages",
+          "Design moderne et responsive",
+          "Développement et intégration des fonctionnalités clés",
+          "Optimisation SEO de base",
+          "Mise en ligne et prise en main"
+        ]
+      },
+      "gen": {
+        "title_hits": [
+          [
+            "01_Offres",
+            "C10"
+          ],
+          [
+            "02_Interventions",
+            "D51"
+          ],
+          [
+            "02_Interventions",
+            "D52"
+          ],
+          [
+            "02_Interventions",
+            "D53"
+          ],
+          [
+            "02_Interventions",
+            "D54"
+          ]
+        ],
+        "offer_hits": [],
+        "modalities_hits": [
+          [
+            "01_Offres",
+            "F2"
+          ],
+          [
+            "01_Offres",
+            "F3"
+          ],
+          [
+            "01_Offres",
+            "F4"
+          ],
+          [
+            "01_Offres",
+            "F5"
+          ],
+          [
+            "01_Offres",
+            "F6"
+          ]
+        ],
+        "includes_coverage": 1,
+        "includes_total": 5,
+        "includes_locations": [
+          [
+            "01_Offres",
+            "E10"
+          ]
+        ]
+      },
+      "commercial": {
+        "01_Grilles_tarifaires_Transistor-CIE_2026.xlsx": [
+          [
+            "Synthese_offres",
+            "C6"
+          ],
+          [
+            "Grille_actions",
+            "D54"
+          ],
+          [
+            "Grille_actions",
+            "D55"
+          ],
+          [
+            "Grille_actions",
+            "D56"
+          ],
+          [
+            "Grille_actions",
+            "D57"
+          ]
+        ],
+        "02_Offres_Particuliers_Transistor-CIE_2026.xlsx": [],
+        "03_Offres_Entreprises_Transistor-CIE_2026.xlsx": [
+          [
+            "Offres",
+            "B6"
+          ],
+          [
+            "Packs_actions",
+            "B16"
+          ],
+          [
+            "Packs_actions",
+            "B17"
+          ],
+          [
+            "Packs_actions",
+            "B18"
+          ],
+          [
+            "Packs_actions",
+            "B19"
+          ]
+        ]
+      }
+    },
+    {
+      "service": {
+        "profile": "entreprise",
+        "id": "transition-numerique-verte",
+        "title": "Transition Numérique Verte (Green IT)",
+        "offer": "Audit de vos usages numériques, estimation des émissions carbone et plan d’actions pour réduire coûts et impact.",
+        "modalities": "100% digital, partout en France — Devis gratuit",
+        "defaultSubject": "Demande de devis — Transition Numérique Verte (Green IT) — Entreprise",
+        "includes": [
+          "Audit des émissions carbone numériques (poste, usages, stockage, outils)",
+          "Plan d’actions sobriété numérique (quick wins + long terme)",
+          "Optimisation des équipements et des pratiques",
+          "Accompagnement RSE et suivi d’indicateurs"
+        ]
+      },
+      "gen": {
+        "title_hits": [
+          [
+            "01_Offres",
+            "C11"
+          ],
+          [
+            "02_Interventions",
+            "D61"
+          ],
+          [
+            "02_Interventions",
+            "D62"
+          ],
+          [
+            "02_Interventions",
+            "D63"
+          ],
+          [
+            "02_Interventions",
+            "D64"
+          ]
+        ],
+        "offer_hits": [],
+        "modalities_hits": [
+          [
+            "01_Offres",
+            "F2"
+          ],
+          [
+            "01_Offres",
+            "F3"
+          ],
+          [
+            "01_Offres",
+            "F4"
+          ],
+          [
+            "01_Offres",
+            "F5"
+          ],
+          [
+            "01_Offres",
+            "F6"
+          ]
+        ],
+        "includes_coverage": 0,
+        "includes_total": 4,
+        "includes_locations": []
+      },
+      "commercial": {
+        "01_Grilles_tarifaires_Transistor-CIE_2026.xlsx": [
+          [
+            "Synthese_offres",
+            "C7"
+          ],
+          [
+            "Grille_actions",
+            "D64"
+          ],
+          [
+            "Grille_actions",
+            "D65"
+          ],
+          [
+            "Grille_actions",
+            "D66"
+          ],
+          [
+            "Grille_actions",
+            "D67"
+          ]
+        ],
+        "02_Offres_Particuliers_Transistor-CIE_2026.xlsx": [],
+        "03_Offres_Entreprises_Transistor-CIE_2026.xlsx": [
+          [
+            "Offres",
+            "B7"
+          ],
+          [
+            "Packs_actions",
+            "B28"
+          ],
+          [
+            "Packs_actions",
+            "B29"
+          ],
+          [
+            "Packs_actions",
+            "B30"
+          ],
+          [
+            "Packs_actions",
+            "B31"
+          ]
+        ]
+      }
+    },
+    {
+      "service": {
+        "profile": "entreprise",
+        "id": "conseil-infrastructure-it",
+        "title": "Conseil en Infrastructure IT",
+        "offer": "Architecture réseau/serveurs, choix cloud ou local, organisation et bonnes pratiques pour une base IT fiable.",
+        "modalities": "100% digital, partout en France — Devis gratuit",
+        "defaultSubject": "Demande de devis — Conseil en Infrastructure IT — Entreprise",
+        "includes": [
+          "Analyse de l’existant et des besoins métiers",
+          "Recommandations d’architecture réseau/systèmes",
+          "Choix cloud, local ou hybride",
+          "Plan de mise en œuvre et documentation"
+        ]
+      },
+      "gen": {
+        "title_hits": [
+          [
+            "01_Offres",
+            "C12"
+          ],
+          [
+            "02_Interventions",
+            "D66"
+          ],
+          [
+            "02_Interventions",
+            "D67"
+          ],
+          [
+            "02_Interventions",
+            "D68"
+          ],
+          [
+            "02_Interventions",
+            "D69"
+          ]
+        ],
+        "offer_hits": [],
+        "modalities_hits": [
+          [
+            "01_Offres",
+            "F2"
+          ],
+          [
+            "01_Offres",
+            "F3"
+          ],
+          [
+            "01_Offres",
+            "F4"
+          ],
+          [
+            "01_Offres",
+            "F5"
+          ],
+          [
+            "01_Offres",
+            "F6"
+          ]
+        ],
+        "includes_coverage": 0,
+        "includes_total": 4,
+        "includes_locations": []
+      },
+      "commercial": {
+        "01_Grilles_tarifaires_Transistor-CIE_2026.xlsx": [
+          [
+            "Synthese_offres",
+            "C8"
+          ],
+          [
+            "Grille_actions",
+            "D69"
+          ],
+          [
+            "Grille_actions",
+            "D70"
+          ],
+          [
+            "Grille_actions",
+            "D71"
+          ],
+          [
+            "Grille_actions",
+            "D72"
+          ]
+        ],
+        "02_Offres_Particuliers_Transistor-CIE_2026.xlsx": [],
+        "03_Offres_Entreprises_Transistor-CIE_2026.xlsx": [
+          [
+            "Offres",
+            "B8"
+          ],
+          [
+            "Packs_actions",
+            "B38"
+          ],
+          [
+            "Packs_actions",
+            "B39"
+          ],
+          [
+            "Packs_actions",
+            "B40"
+          ],
+          [
+            "Packs_actions",
+            "B41"
+          ]
+        ]
+      }
+    },
+    {
+      "service": {
+        "profile": "entreprise",
+        "id": "cybersecurite-essentielle",
+        "title": "Cybersécurité Essentielle",
+        "offer": "Pour les PME/TPE peu équipées : sécurisation rapide et structurée des accès, postes, données et usages.",
+        "modalities": "100% digital, partout en France — Devis gratuit",
+        "defaultSubject": "Demande de devis — Cybersécurité Essentielle — Entreprise",
+        "includes": [
+          "Audit sécurité initial",
+          "Mise en place MFA",
+          "Gestion des droits & comptes (AD/équivalents)",
+          "VPN et sécurisation des accès distants",
+          "Segmentation réseau (VLAN si pertinent) et sécurisation routeur/box",
+          "Sauvegardes et sensibilisation phishing"
+        ]
+      },
+      "gen": {
+        "title_hits": [
+          [
+            "01_Offres",
+            "C13"
+          ],
+          [
+            "02_Interventions",
+            "D71"
+          ],
+          [
+            "02_Interventions",
+            "D72"
+          ],
+          [
+            "02_Interventions",
+            "D73"
+          ],
+          [
+            "02_Interventions",
+            "D74"
+          ]
+        ],
+        "offer_hits": [],
+        "modalities_hits": [
+          [
+            "01_Offres",
+            "F2"
+          ],
+          [
+            "01_Offres",
+            "F3"
+          ],
+          [
+            "01_Offres",
+            "F4"
+          ],
+          [
+            "01_Offres",
+            "F5"
+          ],
+          [
+            "01_Offres",
+            "F6"
+          ]
+        ],
+        "includes_coverage": 1,
+        "includes_total": 6,
+        "includes_locations": [
+          [
+            "01_Offres",
+            "E13"
+          ]
+        ]
+      },
+      "commercial": {
+        "01_Grilles_tarifaires_Transistor-CIE_2026.xlsx": [
+          [
+            "Synthese_offres",
+            "C9"
+          ],
+          [
+            "Grille_actions",
+            "D74"
+          ],
+          [
+            "Grille_actions",
+            "D75"
+          ],
+          [
+            "Grille_actions",
+            "D76"
+          ],
+          [
+            "Grille_actions",
+            "D77"
+          ]
+        ],
+        "02_Offres_Particuliers_Transistor-CIE_2026.xlsx": [],
+        "03_Offres_Entreprises_Transistor-CIE_2026.xlsx": [
+          [
+            "Offres",
+            "B9"
+          ],
+          [
+            "Packs_actions",
+            "B48"
+          ],
+          [
+            "Packs_actions",
+            "B49"
+          ],
+          [
+            "Packs_actions",
+            "B50"
+          ],
+          [
+            "Packs_actions",
+            "B51"
+          ]
+        ]
+      }
+    }
+  ],
+  "missing_expected_titles_in_commercial": []
+}
