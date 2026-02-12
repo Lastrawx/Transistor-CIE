@@ -22,6 +22,7 @@ type DevisItem = {
   prenom?: string
   email?: string
   telephone?: string
+  preferenceRecontact?: string
   service?: string
   message?: string
   statut?: string
@@ -88,6 +89,23 @@ const toDate = (value?: Timestamp | null) => {
 
 const normalize = (value?: string | null) => {
   return value?.toString().trim() ?? ''
+}
+
+type ContactChannel = 'mail' | 'appel' | 'sms' | 'whatsapp'
+
+const contactChannelLabelMap: Record<ContactChannel, string> = {
+  mail: 'Mail',
+  appel: 'Appel',
+  sms: 'SMS',
+  whatsapp: 'WhatsApp',
+}
+
+const formatContactChannel = (value?: string | null) => {
+  const normalized = normalize(value).toLowerCase()
+  if (normalized === 'appel' || normalized === 'sms' || normalized === 'whatsapp') {
+    return contactChannelLabelMap[normalized]
+  }
+  return contactChannelLabelMap.mail
 }
 
 const Admin = () => {
@@ -312,6 +330,7 @@ const Admin = () => {
         { header: 'Prénom', key: 'prenom', width: 18 },
         { header: 'Email', key: 'email', width: 34 },
         { header: 'Téléphone', key: 'telephone', width: 18 },
+        { header: 'Canal recontact', key: 'preferenceRecontact', width: 18 },
         { header: 'Message', key: 'message', width: 62 },
         { header: 'Consentement', key: 'consentement', width: 14 },
         { header: 'Source', key: 'source', width: 18 },
@@ -357,6 +376,7 @@ const Admin = () => {
           prenom: normalize(item.prenom),
           email: normalize(item.email),
           telephone: normalize(item.telephone),
+          preferenceRecontact: formatContactChannel(item.preferenceRecontact),
           message: normalize(item.message),
           consentement: item.consentement ? 'Oui' : 'Non',
           source: normalize(item.source),
@@ -375,10 +395,10 @@ const Admin = () => {
         const row = sheet.getRow(rowNumber)
         row.getCell(1).numFmt = 'dd/mm/yyyy hh:mm'
         row.getCell(2).numFmt = 'dd/mm/yyyy hh:mm'
-        row.getCell(11).alignment = { vertical: 'top', wrapText: true }
+        row.getCell(12).alignment = { vertical: 'top', wrapText: true }
         row.alignment = { vertical: 'top' }
 
-        const messageText = row.getCell(11).value?.toString() ?? ''
+        const messageText = row.getCell(12).value?.toString() ?? ''
         if (messageText.length > 0) {
           row.height = Math.min(120, Math.max(20, Math.ceil(messageText.length / 95) * 18))
         }
@@ -517,6 +537,7 @@ const Admin = () => {
                       </span>
                       <span>— {item.email || 'Sans email'}</span>
                       {item.telephone && <span>— {item.telephone}</span>}
+                      <span>— Recontact : {formatContactChannel(item.preferenceRecontact)}</span>
                       {(item.statut || 'nouveau') === 'nouveau' && (
                         <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-700">
                           Nouveau
