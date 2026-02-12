@@ -35,7 +35,7 @@ const Home = () => {
               <a href={`tel:${site.phoneHref}`} className="btn-ghost px-4 py-2 text-xs sm:text-sm">
                 Appeler {site.phoneDisplay}
               </a>
-              <a href={site.whatsappUrl} target="_blank" rel="noreferrer" className="btn-secondary px-4 py-2 text-xs sm:text-sm">
+              <a href={site.whatsappUrl} target="_blank" rel="noreferrer" className="btn-whatsapp-soft px-4 py-2 text-xs sm:text-sm">
                 WhatsApp
               </a>
             </div>

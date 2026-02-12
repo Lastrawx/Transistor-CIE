@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Hero from '../components/Hero'
 import PillBanner from '../components/PillBanner'
 import ServiceGrid from '../components/ServiceGrid'
@@ -22,6 +22,17 @@ const Entreprise = () => {
     setSelectedService(service)
     setModalOpen(true)
   }
+
+  const orderedEntrepriseServices = useMemo(() => {
+    const services = [...entrepriseServices]
+    const cyberEssentielleIndex = services.findIndex((service) => service.id === 'cybersecurite-essentielle')
+
+    if (cyberEssentielleIndex === -1) return services
+
+    const [cyberEssentielle] = services.splice(cyberEssentielleIndex, 1)
+    services.splice(2, 0, cyberEssentielle)
+    return services
+  }, [])
 
   return (
     <div className="space-y-16 pt-3 sm:pt-4">
@@ -51,7 +62,7 @@ const Entreprise = () => {
           <p className="text-sm text-slate-600">
             Une approche claire pour des résultats mesurables : sites web essentiels, sobriété numérique, infrastructure et sécurité.
           </p>
-          <ServiceGrid services={entrepriseServices} onQuote={handleQuote} profile="entreprise" />
+          <ServiceGrid services={orderedEntrepriseServices} onQuote={handleQuote} profile="entreprise" />
         </div>
       </section>
 

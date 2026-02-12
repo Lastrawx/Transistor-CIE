@@ -1,8 +1,6 @@
 import { site } from './site'
 
 const LAST_UPDATED = '12 février 2026'
-const CONSUMER_MEDIATOR =
-  'CM2C - Centre de la Médiation de la Consommation de Conciliateurs de Justice, 49 rue de Ponthieu, 75008 Paris - cm2c@cm2c.net - https://www.cm2c.net'
 
 export type LegalSection = {
   title: string
@@ -55,13 +53,6 @@ export const mentionsLegales: LegalSection[] = [
   {
     title: 'Activité',
     content: ['Conseil et assistance informatique, cybersécurité, Green IT et accompagnement numérique en digital, partout en France.'],
-  },
-  {
-    title: 'Médiation de la consommation',
-    content: [
-      'Conformément aux articles L.612-1 et suivants du code de la consommation, le client consommateur peut recourir gratuitement à un médiateur après réclamation écrite restée sans solution amiable.',
-      `Médiateur compétent : ${CONSUMER_MEDIATOR}`,
-    ],
   },
   {
     title: 'Hébergement',
@@ -325,18 +316,8 @@ export const cgvCguSections: TermsSection[] = [
     ],
   },
   {
-    title: '9. Réclamations et médiation de la consommation',
-    paragraphs: [
-      `Toute réclamation doit d’abord être adressée à Transistor&CIE par email (${site.contactEmail}) ou courrier postal.`,
-      'Une solution amiable est recherchée en priorité.',
-      'Conformément aux articles L.612-1 et suivants du code de la consommation, le client consommateur peut recourir gratuitement à un médiateur de la consommation après tentative de résolution amiable directe.',
-      `Médiateur de la consommation compétent : ${CONSUMER_MEDIATOR}`,
-      'La liste officielle des médiateurs référencés est disponible sur : https://www.economie.gouv.fr/mediation-conso.',
-    ],
-  },
-  {
     id: 'garantie-satisfaction',
-    title: '10. Garantie satisfaction (conditions)',
+    title: '9. Garantie satisfaction (conditions)',
     paragraphs: [
       'Transistor&CIE propose une garantie satisfaction sur certaines prestations à distance, conformément au périmètre défini au devis.',
       'La garantie s’apprécie au regard de critères objectifs mentionnés au devis (résultat attendu, livrables, actions prévues).',
@@ -346,7 +327,7 @@ export const cgvCguSections: TermsSection[] = [
     ],
   },
   {
-    title: '11. Obligations du client',
+    title: '10. Obligations du client',
     paragraphs: ['Le client s’engage à :'],
     items: [
       'fournir des informations exactes et complètes,',
@@ -358,7 +339,7 @@ export const cgvCguSections: TermsSection[] = [
     ],
   },
   {
-    title: '12. Responsabilité',
+    title: '11. Responsabilité',
     paragraphs: [
       'Transistor&CIE est tenue à une obligation de moyens et non de résultat, sauf engagement contractuel spécifique plus favorable.',
       'La responsabilité de Transistor&CIE ne peut être engagée en cas de :',
@@ -370,14 +351,14 @@ export const cgvCguSections: TermsSection[] = [
     ],
   },
   {
-    title: '13. Données personnelles',
+    title: '12. Données personnelles',
     paragraphs: [
       'Les données collectées dans le cadre des demandes de devis et prestations sont traitées uniquement pour la relation commerciale, l’exécution des services et le respect des obligations légales.',
       'Les modalités de traitement, bases légales, durées de conservation, droits des personnes et gestion des cookies sont détaillées dans la Politique de confidentialité.',
     ],
   },
   {
-    title: '14. Conditions générales d’utilisation du site (CGU)',
+    title: '13. Conditions générales d’utilisation du site (CGU)',
     paragraphs: [
       'L’utilisateur s’engage à utiliser le site de manière loyale et conforme aux lois en vigueur.',
       'Sont notamment interdits : les tentatives d’intrusion, l’extraction massive de données, l’usurpation d’identité, la diffusion de contenus illicites et l’usage détourné du formulaire de contact.',
@@ -386,10 +367,10 @@ export const cgvCguSections: TermsSection[] = [
     ],
   },
   {
-    title: '15. Droit applicable et litiges',
+    title: '14. Droit applicable et litiges',
     paragraphs: [
       'Les présentes CGV/CGU sont soumises au droit français.',
-      'Pour les clients consommateurs, le recours amiable (réclamation puis médiation) est privilégié avant toute action contentieuse.',
+      'Pour les clients consommateurs, le recours amiable (réclamation préalable) est privilégié avant toute action contentieuse.',
       'À défaut d’accord amiable, les juridictions françaises territorialement compétentes seront saisies selon la qualité des parties (consommateur ou professionnel).',
     ],
   },

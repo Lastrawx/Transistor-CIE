@@ -430,11 +430,12 @@ export const entrepriseServices: Service[] = [
             'Le périmètre exact est défini au devis (inclus, exclusions, niveau de service, fréquence de suivi).',
         },
         {
-          question: 'Délais de mise en route ?',
-          answer: 'Le démarrage est planifié après validation du devis, avec un calendrier clair.',
+          question: 'Quel est le délai de mise en route ?',
+          answer:
+            'Le démarrage est planifié après validation du devis, avec un calendrier de mise en œuvre partagé dès le cadrage.',
         },
         {
-          question: 'Engagement ?',
+          question: 'Y a-t-il un engagement de durée ?',
           answer:
             'Les engagements (fréquence, canaux, priorisation, délais de prise en charge et périmètre) sont précisés dans le devis/SLA et les CGV/CGU.',
         },
@@ -522,7 +523,7 @@ export const entrepriseServices: Service[] = [
       processSteps: ['Audit + état des lieux', 'Plan sobriété (quick wins + structurel)', 'Suivi & mesure'],
       faq: [
         {
-          question: 'Quel livrable ?',
+          question: 'Quels livrables recevez-vous ?',
           answer:
             'Un état des lieux, un plan d’actions priorisé et des recommandations opérationnelles adaptées à votre contexte.',
         },
@@ -531,8 +532,8 @@ export const entrepriseServices: Service[] = [
           answer: 'Le délai dépend du périmètre, généralement précisé dès le devis.',
         },
         {
-          question: 'Intervention sur site nécessaire ? (non)',
-          answer: 'Non, l’offre est pilotée en digital, partout en France.',
+          question: 'Une intervention sur site est-elle nécessaire ?',
+          answer: 'Non. Cette offre est pilotée en 100% digital, partout en France.',
         },
       ],
     },
@@ -572,8 +573,8 @@ export const entrepriseServices: Service[] = [
           answer: 'Oui, la documentation fait partie des livrables recommandés.',
         },
         {
-          question: 'Possibilité d’accompagnement ?',
-          answer: 'Oui, un accompagnement à la mise en œuvre peut être prévu au devis.',
+          question: 'Peut-on ajouter un accompagnement à la mise en œuvre ?',
+          answer: 'Oui, un accompagnement opérationnel peut être prévu dans le devis.',
         },
       ],
     },
@@ -627,8 +628,9 @@ export const entrepriseServices: Service[] = [
           answer: 'Oui, l’accompagnement est justement conçu pour ce cas.',
         },
         {
-          question: 'Délais ?',
-          answer: 'Un planning de déploiement est proposé dès validation du devis.',
+          question: 'En combien de temps peut-on démarrer ?',
+          answer:
+            'Un cadrage rapide est organisé après validation du devis, puis un planning de déploiement par étapes est partagé.',
         },
       ],
     },

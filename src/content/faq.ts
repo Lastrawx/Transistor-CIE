@@ -7,31 +7,31 @@ export const faqItems: FAQItem[] = [
   {
     question: 'Combien de temps pour recevoir un devis ?',
     answer:
-      'Le devis est gratuit et envoyé rapidement après votre demande. Comptez généralement 24 à 48h ouvrées.',
+      'Le devis est gratuit. Dans la majorité des cas, vous recevez une réponse sous 24 à 48h ouvrées après réception des éléments utiles.',
   },
   {
     question: 'Les interventions sont-elles vraiment 100% digital, partout en France ?',
     answer:
-      'Oui. Les diagnostics, conseils et accompagnements se font en visio ou prise en main à distance, sans déplacement.',
+      'Oui. Les diagnostics, conseils et accompagnements se font en visio et/ou prise en main à distance, sans déplacement.',
   },
   {
     question: 'Quels outils utilisez-vous pour intervenir ?',
     answer:
-      'Des outils sécurisés de visio et de prise en main à distance, choisis selon votre contexte (particulier ou entreprise).',
+      'Des outils sécurisés de visio et, si nécessaire, de prise en main à distance (TeamViewer ou équivalent), uniquement avec votre accord.',
   },
   {
     question: 'Mes données sont-elles protégées ?',
     answer:
-      'La confidentialité est une priorité. Les accès sont sécurisés et limités à l’intervention convenue.',
+      'Oui. Seules les données nécessaires au traitement de la demande sont utilisées, avec des accès limités au périmètre convenu. Les détails sont précisés dans la politique de confidentialité.',
   },
   {
     question: 'Puis-je demander un accompagnement récurrent ?',
     answer:
-      'Oui. Il est possible de planifier un suivi régulier, selon vos besoins et votre budget.',
+      'Oui. Vous pouvez choisir une intervention ponctuelle ou un accompagnement récurrent (abonnement), selon vos besoins et le périmètre défini au devis.',
   },
   {
-    question: 'Travaillez-vous partout en France ?',
+    question: 'Comment arrêter un abonnement ?',
     answer:
-      'Oui, l’accompagnement à distance permet d’intervenir partout en France et au-delà.',
+      'Les modalités de résiliation (préavis, date de fin, prorata éventuel) sont précisées dans le devis et les CGV/CGU.',
   },
 ]
