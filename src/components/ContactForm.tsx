@@ -12,6 +12,15 @@ const profileOptions: { value: UserProfile; label: string }[] = [
   { value: 'entreprise', label: 'Entreprise' },
 ]
 
+const contactPreferenceOptions = [
+  { value: 'mail', label: 'mail' },
+  { value: 'appel', label: 'appel' },
+  { value: 'sms', label: 'sms' },
+  { value: 'whatsapp', label: 'whatsapp' },
+] as const
+
+type ContactPreference = (typeof contactPreferenceOptions)[number]['value']
+
 type ContactFormProps = {
   prefillProfile?: UserProfile | null
   prefillService?: string
@@ -43,6 +52,8 @@ const ContactForm = ({
   const initialProfile = prefillProfile ?? storedProfile ?? 'particulier'
   const [profile, setProfile] = useState<UserProfile>(() => initialProfile)
   const [service, setService] = useState(() => prefillService ?? '')
+  const [phoneValue, setPhoneValue] = useState('')
+  const [contactPreference, setContactPreference] = useState<ContactPreference>('mail')
   const [subjectTouched, setSubjectTouched] = useState(() => Boolean(prefillSubject))
   const [subject, setSubject] = useState(
     () => prefillSubject ?? buildSubject(prefillService || 'Demande de devis', initialProfile),
@@ -58,6 +69,12 @@ const ContactForm = ({
     const timer = window.setTimeout(() => setReady(true), 1200)
     return () => window.clearTimeout(timer)
   }, [])
+
+  useEffect(() => {
+    if (phoneValue.trim().length === 0 && contactPreference !== 'mail') {
+      setContactPreference('mail')
+    }
+  }, [contactPreference, phoneValue])
 
   const subjectValue = subjectTouched
     ? subject
@@ -84,6 +101,7 @@ const ContactForm = ({
     const lastName = (formData.get('nom') ?? '').toString().trim()
     const serviceValue = (formData.get('service') ?? '').toString().trim()
     const phone = (formData.get('telephone') ?? '').toString().trim()
+    const contactPreferenceValue = (formData.get('preferenceRecontact') ?? '').toString().trim()
     const message = (formData.get('message') ?? '').toString().trim()
 
     if (email.length < MIN_EMAIL_LENGTH || email.length > MAX_EMAIL_LENGTH) {
@@ -128,6 +146,11 @@ const ContactForm = ({
       return
     }
 
+    const preferredContactMethod: ContactPreference =
+      phone.length > 0 && contactPreferenceOptions.some((option) => option.value === contactPreferenceValue)
+        ? (contactPreferenceValue as ContactPreference)
+        : 'mail'
+
     const payload = {
       type: 'devis',
       createdAt: serverTimestamp(),
@@ -140,6 +163,7 @@ const ContactForm = ({
       prenom: firstName,
       email,
       telephone: phone,
+      preferenceRecontact: preferredContactMethod,
       message,
       statut: 'nouveau',
       consentement: Boolean(formData.get('consentement')),
@@ -284,12 +308,32 @@ const ContactForm = ({
           <input
             type="tel"
             name="telephone"
+            value={phoneValue}
+            onChange={(event) => setPhoneValue(event.target.value)}
             maxLength={MAX_PHONE_LENGTH}
             className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3"
             placeholder="Optionnel mais recommandé"
           />
         </label>
       </div>
+
+      {phoneValue.trim().length > 0 && (
+        <label className="space-y-2">
+          <span className="text-sm font-semibold text-slate-700">Je préfère être recontacté(e) par</span>
+          <select
+            name="preferenceRecontact"
+            value={contactPreference}
+            onChange={(event) => setContactPreference(event.target.value as ContactPreference)}
+            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3"
+          >
+            {contactPreferenceOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
 
       <label className="space-y-2">
         <span className="text-sm font-semibold text-slate-700">Message *</span>

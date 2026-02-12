@@ -34,6 +34,7 @@ service cloud.firestore {
         "prenom",
         "email",
         "telephone",
+        "preferenceRecontact",
         "message",
         "statut",
         "consentement",
@@ -51,6 +52,7 @@ service cloud.firestore {
         "prenom",
         "email",
         "telephone",
+        "preferenceRecontact",
         "message",
         "statut",
         "consentement",
@@ -132,6 +134,13 @@ service cloud.firestore {
         && request.resource.data.telephone is string
         && request.resource.data.telephone.size() <= 30
         && request.resource.data.telephone.matches('^$|^[0-9+(). -]{6,25}$')
+        && request.resource.data.preferenceRecontact is string
+        && request.resource.data.preferenceRecontact in ["mail", "appel", "sms", "whatsapp"]
+        && (
+          request.resource.data.telephone == ""
+            ? request.resource.data.preferenceRecontact == "mail"
+            : true
+        )
         && request.resource.data.email is string
         && request.resource.data.email.size() >= 5
         && request.resource.data.email.size() <= 200
