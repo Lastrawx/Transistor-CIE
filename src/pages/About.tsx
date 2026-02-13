@@ -6,7 +6,7 @@ import { site } from '../content/site'
 import iconChip from '../assets/icon-chip.webp'
 
 const About = () => {
-  const faqEntries = useMemo(() => faqItems.slice(0, 5), [])
+  const faqEntries = useMemo(() => faqItems.slice(0, 6), [])
   const faqStructuredData = useMemo(
     () => ({
       '@context': 'https://schema.org',

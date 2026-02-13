@@ -30,6 +30,11 @@ export const faqItems: FAQItem[] = [
       'Oui. Vous pouvez choisir une intervention ponctuelle ou un accompagnement récurrent (abonnement), selon vos besoins et le périmètre défini au devis.',
   },
   {
+    question: 'L’acompte est-il toujours demandé ?',
+    answer:
+      'Non. Si le montant TTC du devis est strictement inférieur à 150 euros, aucun acompte n’est demandé et la totalité reste à payer selon l’échéance prévue.',
+  },
+  {
     question: 'Comment arrêter un abonnement ?',
     answer:
       'Les modalités de résiliation (préavis, date de fin, prorata éventuel) sont précisées dans le devis et les CGV/CGU.',

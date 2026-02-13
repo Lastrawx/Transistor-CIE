@@ -280,6 +280,7 @@ export const cgvCguSections: TermsSection[] = [
     title: '6. Conditions de règlement et retards de paiement (clients professionnels)',
     paragraphs: [
       'Les modalités de règlement (acompte, échéance, paiement unique ou périodique) sont précisées au devis et/ou à la facture.',
+      'Pour tout devis dont le montant TTC est strictement inférieur à 150 euros, aucun acompte n’est appliqué : la totalité du montant reste à payer selon l’échéance indiquée au devis/facture.',
       'Pour les clients professionnels, tout retard de paiement entraîne, de plein droit et sans rappel, des pénalités de retard exigibles dès le lendemain de la date d’échéance.',
     ],
     items: [
