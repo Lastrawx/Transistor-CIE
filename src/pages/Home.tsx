@@ -331,14 +331,25 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="container-page section-card p-8 text-center">
-        <h2 className="text-3xl font-semibold text-slate-900">Prêt à simplifier votre tech ?</h2>
-        <p className="mt-2 text-sm text-slate-600">Demandez un devis gratuit. Réponse rapide et accompagnement 100% digital, partout en France.</p>
-        <div className="mt-6 flex justify-center">
-          <Link to={ctaLink} className="btn-primary">
-            {ctaLabel}
-          </Link>
-        </div>
+      <section className="container-page section-card p-8">
+        <figure className="mx-auto max-w-4xl text-center">
+          <blockquote className="relative rounded-2xl border border-slate-100 bg-white/70 px-6 py-8 shadow-sm sm:px-10">
+            <span aria-hidden="true" className="pointer-events-none absolute left-4 top-1 text-6xl leading-none text-brand-cyan/30 sm:left-6 sm:text-7xl">
+              “
+            </span>
+            <p className="mx-auto max-w-3xl font-serif text-2xl italic leading-relaxed text-slate-900 sm:text-3xl">
+              <span className="bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent">
+                La simplicité est la condition préalable de la fiabilité.
+              </span>
+            </p>
+            <span aria-hidden="true" className="pointer-events-none absolute bottom-1 right-4 text-6xl leading-none text-brand-cyan/30 sm:right-6 sm:text-7xl">
+              ”
+            </span>
+          </blockquote>
+          <figcaption className="mt-5 text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
+            Edsger W. Dijkstra
+          </figcaption>
+        </figure>
       </section>
     </div>
   )
