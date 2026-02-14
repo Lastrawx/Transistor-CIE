@@ -115,7 +115,7 @@ export const confidentialite: PrivacySection[] = [
       'Facturation, obligations comptables et fiscales : obligation légale.',
       'Prévention de la fraude, sécurité du site et défense des droits : intérêt légitime.',
       'Amélioration du service et traçabilité opérationnelle interne : intérêt légitime.',
-      'Mesure d’audience et conversion Google Ads : consentement (aucun chargement publicitaire avant consentement).',
+      'Mesure d’audience et conversion Google Ads / Meta Ads : consentement (aucun chargement publicitaire avant consentement).',
     ],
     postParagraphs: [
       'Les données ne sont ni vendues, ni cédées à des tiers à des fins commerciales.',
@@ -130,7 +130,7 @@ export const confidentialite: PrivacySection[] = [
     items: [
       'Hébergement et infrastructure web : Netlify.',
       'Base de données et sécurité applicative : Firebase / Google Cloud (Firestore, App Check).',
-      'Mesure de conversion publicitaire : Google Ads (uniquement après consentement).',
+      'Mesure de conversion publicitaire : Google Ads / Meta Ads (uniquement après consentement).',
     ],
     postParagraphs: [
       'Certains sous-traitants pouvant opérer hors de l’Espace économique européen (notamment aux États-Unis), des transferts hors UE peuvent exister selon les services activés.',
@@ -154,7 +154,7 @@ export const confidentialite: PrivacySection[] = [
     paragraphs: [
       'Le site utilise des mécanismes strictement nécessaires au fonctionnement (sécurité, préférences d’interface, continuité de service).',
       'Le stockage local du navigateur (localStorage/sessionStorage) peut être utilisé pour mémoriser des préférences (profil choisi, état de certains bandeaux, suivi du parcours de formulaire).',
-      'Les traceurs Google Ads de mesure d’audience/conversion sont désactivés par défaut et ne sont activés qu’après consentement explicite via le bandeau cookies.',
+      'Les traceurs Google Ads / Meta Ads de mesure d’audience/conversion sont désactivés par défaut et ne sont activés qu’après consentement explicite via le bandeau cookies.',
       'En cas de choix explicite sur le bandeau cookies, un journal technique minimal de preuve peut être conservé (statut, horodatage, version des textes légaux), sans donnée de contenu client.',
       'Le consentement peut être retiré à tout moment via l’option "Gérer mes cookies" en bas de page.',
     ],

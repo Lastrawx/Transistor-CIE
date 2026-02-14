@@ -6,6 +6,7 @@ const ADS_CONSENT_EVENT = 'tc_ads_consent_change'
 
 type AnalyticsWindow = Window & typeof globalThis & {
   gtag?: (...args: unknown[]) => void
+  fbq?: (...args: unknown[]) => void
   dataLayer?: unknown[]
   __tcQuoteAutoFlushInitialized?: boolean
 }
@@ -65,18 +66,29 @@ const tryFlushPendingConversion = () => {
   }
 
   const analyticsWindow = window as AnalyticsWindow
-  if (typeof analyticsWindow.gtag !== 'function') return false
+  const canSendGoogle = typeof analyticsWindow.gtag === 'function'
+  const canSendMeta = typeof analyticsWindow.fbq === 'function'
+  if (!canSendGoogle && !canSendMeta) return false
 
-  analyticsWindow.gtag('event', 'conversion', {
-    send_to: QUOTE_CONVERSION_SEND_TO,
-  })
+  if (canSendGoogle) {
+    analyticsWindow.gtag?.('event', 'conversion', {
+      send_to: QUOTE_CONVERSION_SEND_TO,
+    })
 
-  if (Array.isArray(analyticsWindow.dataLayer)) {
-    analyticsWindow.dataLayer.push({
-      event: 'devis_submit',
+    if (Array.isArray(analyticsWindow.dataLayer)) {
+      analyticsWindow.dataLayer.push({
+        event: 'devis_submit',
+        lead_type: 'devis',
+        source: 'site-netlify',
+        sent_at: new Date().toISOString(),
+      })
+    }
+  }
+
+  if (canSendMeta) {
+    analyticsWindow.fbq?.('track', 'Lead', {
       lead_type: 'devis',
       source: 'site-netlify',
-      sent_at: new Date().toISOString(),
     })
   }
 

@@ -1,6 +1,6 @@
-import iconChip from '../assets/icon-chip.webp'
-import serviceGreenIt from '../assets/service-greenit.webp'
-import serviceFormation from '../assets/service-formation.webp'
+import postDUvQY15AZ2E from '../assets/instagram/instagram-duvqy15az2e.jpg'
+import postDUsrnPj1sJ from '../assets/instagram/instagram-dusrnpj1sj.jpg'
+import postDUpum7HDoDh from '../assets/instagram/instagram-dupum7hdodh.jpg'
 
 export type InstagramPost = {
   id: string
@@ -11,26 +11,26 @@ export type InstagramPost = {
 
 export const instagram = {
   handle: '@Transistor_CIE',
-  url: 'https://www.instagram.com/Transistor_CIE/',
-  ctaText: 'Suivez-nous sur Instagram pour nos conseils et actus.',
+  url: 'https://www.instagram.com/transistor_cie/',
+  ctaText: 'Conseils concrets, cybersécurité et coulisses Transistor&CIE.',
   posts: [
     {
-      id: 'duy97-pjfzg',
-      title: 'Publication Instagram récente #1',
-      image: iconChip,
-      url: 'https://www.instagram.com/p/DUY97-pjFzg/',
+      id: 'duvqy15az2e',
+      title: 'Deepfake: 4 réflexes simples',
+      image: postDUvQY15AZ2E,
+      url: 'https://www.instagram.com/p/DUvQY15AZ2E/',
     },
     {
-      id: 'duvxytodj3r',
-      title: 'Publication Instagram récente #2',
-      image: serviceGreenIt,
-      url: 'https://www.instagram.com/p/DUVxytODJ3R/?img_index=1',
+      id: 'dusrnpj1sj',
+      title: 'Une faille peut tout arrêter',
+      image: postDUsrnPj1sJ,
+      url: 'https://www.instagram.com/p/DUsrnP_j1sJ/',
     },
     {
-      id: 'duvv-ildgto',
-      title: 'Publication Instagram récente #3',
-      image: serviceFormation,
-      url: 'https://www.instagram.com/p/DUVv-IlDGTO/?img_index=1',
+      id: 'dupum7hdodh',
+      title: 'Météo: sécuriser le foyer connecté',
+      image: postDUpum7HDoDh,
+      url: 'https://www.instagram.com/p/DUpum7HDoDh/',
     },
   ],
 }

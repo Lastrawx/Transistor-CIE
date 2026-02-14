@@ -306,25 +306,27 @@ const Home = () => {
               {instagram.handle}
             </a>
           </div>
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
-            {instagram.posts.map((post) => (
+          <div className="mt-6 grid gap-3 md:grid-cols-3">
+            {instagram.posts.map((post, index) => (
               <a
                 key={post.id}
                 href={post.url}
                 target="_blank"
                 rel="noreferrer"
-                className="group rounded-2xl border border-slate-100 bg-white p-3 transition hover:-translate-y-1"
+                className="group relative overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition hover:-translate-y-1"
               >
                 <img
                   src={post.image}
                   alt={post.title}
                   loading="lazy"
                   decoding="async"
-                  className="h-44 w-full rounded-xl object-cover"
+                  className="h-44 w-full object-cover transition duration-500 group-hover:scale-105"
                 />
-                <p className="mt-3 text-sm font-semibold text-slate-800 group-hover:text-slate-900">
-                  {post.title}
-                </p>
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent" />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 p-3">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-white/80">Publication {index + 1}</p>
+                  <p className="mt-1 text-sm font-semibold leading-snug text-white">{post.title}</p>
+                </div>
               </a>
             ))}
           </div>
