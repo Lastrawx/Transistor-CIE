@@ -9,14 +9,20 @@ Ta mission: vérifier la conformité, la cohérence client et la qualité de rel
 ## Paramètres de run
 - MODE_AUDIT: {quick|full|governance} = governance
 - PHASE_NAME: {nom de la phase} = Audit governance 20260212-2
+- AUDIT_CONTEXT: {pre_push_local|post_push_prod} = pre_push_local
+- LOCAL_URL: {url local} = http://localhost:5173
 - PROD_URL: {url production} = https://transistor-cie.fr
 
 ## Règles strictes
-1) NO-GO immédiat si un point Critique est KO.
-2) GO uniquement si tous les Critiques + Majeurs sont OK.
+1) NO-GO immédiat si un point Critique KO est applicable au contexte d’audit.
+2) GO uniquement si tous les Critiques + Majeurs applicables sont OK.
 3) Chaque point doit inclure une preuve factuelle (commande/sortie, URL, capture, extrait fichier).
 4) Si une preuve manque, le statut doit être "A confirmer" (pas "OK").
 5) N’écris pas de code pendant cet audit (lecture + vérification uniquement), sauf si je te demande explicitement de corriger.
+6) Si AUDIT_CONTEXT=pre_push_local:
+   - l’écart local/prod (non-push) n’est pas un KO,
+   - il doit être marqué NA (non applicable) ou INFO,
+   - il ne doit jamais, à lui seul, entraîner un NO-GO.
 
 ## Méthode attendue
 1) Inventorier le contexte:
@@ -28,7 +34,9 @@ Ta mission: vérifier la conformité, la cohérence client et la qualité de rel
 
 ## Contrôles
 ### N1 (quick, 5-10 min)
-- C1 [Critique] Le site en ligne reflète le dernier build (pas d’écart local/prod).
+- C1 [Critique | conditionnel contexte]
+  - si AUDIT_CONTEXT=pre_push_local: le rendu local (LOCAL_URL) reflète bien les modifications locales et le dernier build local.
+  - si AUDIT_CONTEXT=post_push_prod: le site en ligne reflète le dernier build déployé (pas d’écart local/prod).
 - C2 [Critique] Balise Google + consentement (Tag Assistant): denied avant acceptation, granted après acceptation.
 - C3 [Critique] Conversion “Demande de devis” testée sur scénario réel.
 - M1 [Majeur] robots.txt, sitemap.xml, 404 réelle disponibles.
@@ -75,7 +83,7 @@ Si changement:
 - Identité/contact -> vérifier mentions légales + header/footer + devis/facture + signatures.
 
 ## Preuves minimales à fournir
-- Capture/trace consent denied + granted.
+- Capture/trace consent denied + granted (local ou prod selon AUDIT_CONTEXT).
 - Trace test conversion “Demande de devis”.
 - Vérif robots/sitemap/404.
 - Extraits des pages légales publiées (avec date/version).

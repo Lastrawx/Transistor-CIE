@@ -307,26 +307,26 @@ const Home = () => {
             </a>
           </div>
           <div className="mt-6 grid gap-3 md:grid-cols-3">
-            {instagram.posts.map((post, index) => (
+            {instagram.posts.map((post) => (
               <a
                 key={post.id}
                 href={post.url}
                 target="_blank"
                 rel="noreferrer"
-                className="group relative overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition hover:-translate-y-1"
+                className="group overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition hover:-translate-y-1"
               >
-                <img
-                  src={post.image}
-                  alt={post.title}
-                  loading="lazy"
-                  decoding="async"
-                  className="h-44 w-full object-cover transition duration-500 group-hover:scale-105"
-                />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent" />
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 p-3">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-white/80">Publication {index + 1}</p>
-                  <p className="mt-1 text-sm font-semibold leading-snug text-white">{post.title}</p>
+                <div className="aspect-square w-full bg-slate-50">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full object-contain transition duration-500 group-hover:scale-[1.02]"
+                  />
                 </div>
+                <p className="px-3 pb-3 pt-2 text-sm font-semibold text-slate-800 group-hover:text-slate-900">
+                  {post.title}
+                </p>
               </a>
             ))}
           </div>
