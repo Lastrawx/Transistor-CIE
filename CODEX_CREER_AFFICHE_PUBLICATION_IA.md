@@ -18,7 +18,9 @@ Entree:
 - [CTA] : Demander un devis
 - [STYLE_OPTIONNEL] (facultatif)
 - [NIVEAU_DETAILS_VISUEL] : standard | detaille-propre (defaut: standard)
-- [REFERENCE_ARTISTIQUE] : auto | transistor-mascotte-3d | embleme-tech-premium (defaut: auto)
+- [REFERENCE_ARTISTIQUE] : [auto | transistor-mascotte-3d | embleme-tech-premium | 3d-chaleureux-premium (defaut: auto)] : transistor-mascotte-3d
+- [TON_EMOTIONNEL] : rassurant-chaleureux (defaut) | neutre-pro
+- [STYLE_GRAPHIQUE_LOCK] : on|off (defaut: on)
 
 Memoire canonique (site) - services proposes
 Particuliers:
@@ -70,6 +72,8 @@ Cibles de rendu visuel (references style a privilegier)
   visuel hero autour du logo/symbole Transistor&CIE, composition nette, rendu pro, ambiance innovation + confiance.
 - Style 3 - Prevention detaillee propre:
   mise en page type mini-infographie claire, plus d'elements visuels et de micro-messages, mais toujours structuree et sans surcharge.
+- Style 4 - 3D chaleureux premium (style graphique):
+  grammaire visuelle douce et rassurante (eclairage chaud, materiaux propres, volumes lisibles, ambiance positive), applicable a differents sujets/compositions sans imposer une scene type.
 
 Ancrage artistique prioritaire (obligatoire)
 - Esprit visuel cible: affiche 3D premium, nette, moderne, "hero shot" publicitaire.
@@ -77,11 +81,20 @@ Ancrage artistique prioritaire (obligatoire)
 - Identite de marque visible: "Transistor&CIE" lisible + symbole marque coherent.
 - Eviter tout rendu "cheap": pictos generiques plats, collage brouillon, style amateur.
 
+Preset graphique de convergence rapide (obligatoire si STYLE_GRAPHIQUE_LOCK=on)
+- Look global: 3D stylisee premium, formes douces et arrondies, rendu propre "studio publicitaire".
+- Matiere: semi-mat propre, legeres specularites, textures douces (pas de grain sale).
+- Lumiere: high-key chaleureuse, ombres douces, contraste modere, ambiance positive.
+- Couleur: palette rassurante (bleu/vert marque + neutres chauds), saturation maitrisee.
+- Camera/compo: sujet principal lisible immediatement, profondeur nette, pas de fouillis.
+- Lisibilite mobile: elements cles visibles en 1 seconde, typographie nette, hierarchie simple.
+
 Regle de selection style
 - Si [STYLE_OPTIONNEL] est renseigne et coherent: l'appliquer.
 - Si [REFERENCE_ARTISTIQUE] est renseignee (hors auto), elle est prioritaire sur l'angle visuel.
 - Sinon choisir automatiquement le style le plus adapte:
-  - education/famille/accompagnement -> Style 1
+  - education/famille/accompagnement/support familial -> Style 1 ou Style 4 selon message
+  - accompagnement pedagogique avec mascotte explicite -> Style 1
   - marque/positionnement/prestige -> Style 2
   - sensibilisation cyber/reflexes pratiques -> Style 3
 
@@ -90,10 +103,11 @@ Regles de creation affiche
 - Interdiction d'utiliser un autre ratio (4:5, 9:16, 16:9, etc.).
 - Le prompt image doit explicitement mentionner "aspect ratio 1:1" ou equivalent du generateur.
 - Integrer discretement le logo + nom "Transistor&CIE".
-- Personnification transistor (fortement recommandee):
+- Personnification transistor (optionnelle, selon style choisi):
   - reutiliser la grammaire visuelle du transistor du logo (boitier bleu + tete metal + pattes);
   - visage/bras possibles pour humaniser la scene, sans perdre la forme transistor;
   - posture confiante, pedagogique, accessible (jamais agressive).
+  - pour Style 4, la mascotte peut etre absente si le message est mieux servi par une autre composition.
 - Style moderne tech + humain + confiance + sobriete (pas agressif).
 - Direction visuelle obligatoire: rendu clair/lumineux, simple, attractif, familial, tout public.
 - Eviter les rendus trop dark: pas de scene sombre dominante, pas de contraste dramatique anxiogene.
@@ -121,6 +135,13 @@ Regles de creation affiche
   - rendu 3D propre, haute definition, contours nets, composition equilibree,
   - lumiere volumetrique legere, reflets maitrises, lisibilite mobile immediate.
 
+Garde-fous anti-rendu "deprimant" (obligatoires)
+- Interdit: ambiance froide/triste, expressions inquietes, posture anxieuse, codes visuels alarmistes.
+- Eviter: capuches, menace cyber dramatisee, rouge agressif, ambiance "attaque/panique".
+- Preferer: lumiere naturelle chaude, expressions sereines, contexte domestique rassurant, posture confiante.
+- Si [TON_EMOTIONNEL]=rassurant-chaleureux, imposer une ambiance "safe, calme, positive, pedagogique".
+- Important: ces garde-fous definissent le style graphique et l'ambiance, pas une composition fixe.
+
 Procedure
 1) Identifier le service reel le plus coherent avec [TEXTE_PUBLICATION].
 2) Si le texte demande quelque chose hors perimetre:
@@ -129,11 +150,18 @@ Procedure
 3) Verifier la conformite du CTA:
    - si CTA implique une offre non cataloguee, le remplacer par un CTA autorise.
    - si le texte contient "DM mot-cle pour recevoir X" et que X n'existe pas sur le site, supprimer cette mecanique.
-4) Choisir le style cible (1, 2 ou 3) selon [STYLE_OPTIONNEL], [OBJECTIF_POST], [PUBLIC_CIBLE], [NIVEAU_DETAILS_VISUEL].
+4) Choisir le style cible (1, 2, 3 ou 4) selon [STYLE_OPTIONNEL], [OBJECTIF_POST], [PUBLIC_CIBLE], [NIVEAU_DETAILS_VISUEL], [REFERENCE_ARTISTIQUE].
 4bis) Choisir le mode identitaire:
    - Mascotte transistor personnifiee
    - ou Embleme/logo hero premium
+   - ou Scene humaine/objet premium sans mascotte
    selon [REFERENCE_ARTISTIQUE] et le message.
+4ter) Controle emotionnel avant sortie:
+   - verifier que le rendu n'est ni sombre ni anxiogene;
+   - si risque "deprimant", conserver le sujet/composition mais reorienter le style visuel vers Style 4 + palette chaude/lumineuse.
+4quater) Appliquer le verrou de style:
+   - si [STYLE_GRAPHIQUE_LOCK]=on, injecter obligatoirement le "Preset graphique de convergence rapide" dans le prompt final.
+   - ne jamais imposer un contenu de scene specifique: verrouiller le style, pas le sujet.
 5) Extraire le message cle de [TEXTE_PUBLICATION] et le condenser en phrase visuelle courte (sans reprendre le texte brut).
 6) Generer le prompt image final avec:
    - direction artistique,
@@ -147,8 +175,10 @@ Procedure
 
 Format de sortie obligatoire
 1) Service cible retenu: [nom exact]
-2) Style retenu: Style 1 | Style 2 | Style 3
-2bis) Mode identitaire retenu: Mascotte transistor | Embleme hero
+2) Style retenu: Style 1 | Style 2 | Style 3 | Style 4
+2bis) Mode identitaire retenu: Mascotte transistor | Embleme hero | Scene humaine/objet sans mascotte
+2ter) Controle emotionnel: Conforme (rassurant/chaleureux) | Corrige
+2quater) Style graphique lock: ON|OFF + resume du preset applique
 3) Verification conformite:
    - Offre existante: OK/KO
    - Promesse hors perimetre: NON/OUI (si OUI, correction appliquee)
@@ -158,6 +188,11 @@ Format de sortie obligatoire
    - Texte long repris depuis la publication: NON (obligatoire)
 4) Prompt image principal (pret a coller dans un generateur d'images)
 5) Prompt image variante A/B
+5bis) Prompt de correction rapide (si rendu trop deprimant), en conservant le meme sujet:
+   - augmenter chaleur et douceur de lumiere,
+   - reduire contraste dramatique,
+   - renforcer lisibilite des volumes,
+   - conserver composition et message.
 6) Texte affiche recommande:
    - standard: max 12 mots + CTA max 5 mots
    - detaille-propre: titre + 3/4 reflexes courts + CTA conforme
@@ -177,4 +212,6 @@ Maintenant traite:
 [CTA]
 [STYLE_OPTIONNEL]
 [REFERENCE_ARTISTIQUE]
+[TON_EMOTIONNEL]
+[STYLE_GRAPHIQUE_LOCK]
 ```
