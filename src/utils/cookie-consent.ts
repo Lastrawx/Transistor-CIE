@@ -11,7 +11,13 @@ export type AdsConsentStatus = 'unset' | 'granted' | 'denied'
 const ADS_CONSENT_STORAGE_KEY = CONSENT_STORAGE_KEY_NAME
 const CONSENT_TTL_MS = 1000 * 60 * 60 * 24 * 180
 const ADS_GTAG_ID = 'AW-17935957032'
-const META_PIXEL_ID = import.meta.env.VITE_META_PIXEL_ID?.trim() ?? ''
+const META_PIXEL_ID_FALLBACK = '1345052483956830'
+const META_PIXEL_ID = (() => {
+  // Prefer deployment env var, fallback to configured business pixel id.
+  const envPixelId = import.meta.env.VITE_META_PIXEL_ID?.trim() ?? ''
+  const resolved = envPixelId || META_PIXEL_ID_FALLBACK
+  return /^\d{8,20}$/.test(resolved) ? resolved : ''
+})()
 export const ADS_CONSENT_EVENT = 'tc_ads_consent_change'
 
 type FbqFunction = ((...args: unknown[]) => void) & {
