@@ -16,6 +16,13 @@
 5. Le fichier `netlify.toml` gère le redirect SPA.
 6. Si Netlify bloque la build sur un faux positif (`AIza...`), ajoutez la valeur Firebase Web API key dans `SECRETS_SCAN_SMART_DETECTION_OMIT_VALUES`.
 
+## Suivi publicitaire (Google Ads + Meta Pixel)
+1. Le site charge Google Ads et Meta Pixel uniquement après consentement cookies (bandeau en bas de page).
+2. Le Pixel Meta est configuré dans `src/utils/cookie-consent.ts` avec l'ID par défaut `1345052483956830`.
+3. Pour changer d'ID selon l'environnement, définissez `VITE_META_PIXEL_ID` (ex: dans `.env.production`).
+4. Le `PageView` Meta est envoyé après consentement accordé.
+5. Le snippet brut Meta dans `index.html` n'est pas nécessaire ici, pour éviter doublons et chargement sans consentement.
+
 ## Configuration Firebase (formulaire + admin)
 1. Créez un projet Firebase avec **Firestore** et **Authentication (Email/Password)** activés.
 2. Collez les règles depuis `firestore.rules` dans **Firestore > Rules**.
