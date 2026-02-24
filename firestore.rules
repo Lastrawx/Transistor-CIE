@@ -155,8 +155,8 @@ service cloud.firestore {
         && request.resource.data.prenom is string
         && request.resource.data.prenom.size() >= 1
         && request.resource.data.prenom.size() <= 100
-        && request.resource.data.service is string
-        && request.resource.data.service.size() <= 160
+        && request.resource.data["service"] is string
+        && request.resource.data["service"].size() <= 160
         && request.resource.data.telephone is string
         && request.resource.data.telephone.size() <= 30
         && request.resource.data.telephone.matches('^$|^[0-9+(). -]{6,25}$')

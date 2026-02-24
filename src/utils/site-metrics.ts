@@ -35,8 +35,9 @@ export const createEmptySiteMetricCounters = (): SiteMetricCounters => ({
 })
 
 const SITE_METRICS_DOC = doc(db, 'site_metrics', 'global')
-const SITE_OPEN_SESSION_KEY = 'tc_site_open_tracked_v1'
 const FLUSH_INTERVAL_MS = 8000
+const HOME_OPEN_LAST_AT_KEY = 'tc_home_open_last_at_v1'
+const HOME_OPEN_THROTTLE_MS = 1500
 
 type PendingMetricMap = Partial<Record<SiteMetricField, number>>
 type SiteMetricsWindow = Window & typeof globalThis & {
@@ -172,16 +173,25 @@ export const flushPendingSiteMetrics = async () => {
   }
 }
 
+export const trackHomePageOpen = () => {
+  if (typeof window !== 'undefined') {
+    const now = Date.now()
+    const lastTrackedAt = Number(window.sessionStorage.getItem(HOME_OPEN_LAST_AT_KEY) ?? '0')
+    if (Number.isFinite(lastTrackedAt) && now - lastTrackedAt < HOME_OPEN_THROTTLE_MS) {
+      return
+    }
+    window.sessionStorage.setItem(HOME_OPEN_LAST_AT_KEY, String(now))
+  }
+
+  trackSiteMetric('siteOpens')
+  void flushPendingSiteMetrics()
+}
+
 export const initSiteMetricsTracking = () => {
   if (typeof window === 'undefined' || typeof document === 'undefined') return
   const siteWindow = window as SiteMetricsWindow
   if (siteWindow.__tcSiteMetricsInitialized) return
   siteWindow.__tcSiteMetricsInitialized = true
-
-  if (!window.sessionStorage.getItem(SITE_OPEN_SESSION_KEY)) {
-    trackSiteMetric('siteOpens')
-    window.sessionStorage.setItem(SITE_OPEN_SESSION_KEY, '1')
-  }
 
   const onClick = (event: MouseEvent) => {
     trackSiteMetric('totalClicks')
