@@ -1,6 +1,6 @@
-import postDUvQY15AZ2E from '../assets/instagram/instagram-duvqy15az2e.jpg'
-import postDUsrnPj1sJ from '../assets/instagram/instagram-dusrnpj1sj.jpg'
-import postDUpum7HDoDh from '../assets/instagram/instagram-dupum7hdodh.jpg'
+import postDVIXLfPjlXY from '../assets/instagram/instagram-dvixlfpjlxy.jpg'
+import postDVGsxbOjd3H from '../assets/instagram/instagram-dvgsxbojd3h.jpg'
+import postDVEIENgDeOQ from '../assets/instagram/instagram-dveiengdeoq.jpg'
 
 export type InstagramPost = {
   id: string
@@ -15,22 +15,22 @@ export const instagram = {
   ctaText: 'Conseils concrets, cybersécurité et coulisses Transistor&CIE.',
   posts: [
     {
-      id: 'duvqy15az2e',
-      title: 'Deepfake: 4 réflexes simples',
-      image: postDUvQY15AZ2E,
-      url: 'https://www.instagram.com/p/DUvQY15AZ2E/',
+      id: 'dvixlfpjlxy',
+      title: 'Accessibilité numérique: levier business',
+      image: postDVIXLfPjlXY,
+      url: 'https://www.instagram.com/p/DVIXLfPjlXY/',
     },
     {
-      id: 'dusrnpj1sj',
-      title: 'Une faille peut tout arrêter',
-      image: postDUsrnPj1sJ,
-      url: 'https://www.instagram.com/p/DUsrnP_j1sJ/',
+      id: 'dvgsxbojd3h',
+      title: 'Électricité: réduire le gaspillage numérique',
+      image: postDVGsxbOjd3H,
+      url: 'https://www.instagram.com/p/DVGsxbOjd3H/',
     },
     {
-      id: 'dupum7hdodh',
-      title: 'Météo: sécuriser le foyer connecté',
-      image: postDUpum7HDoDh,
-      url: 'https://www.instagram.com/p/DUpum7HDoDh/',
+      id: 'dveiengdeoq',
+      title: 'Wi-Fi maison: optimiser budget réseau',
+      image: postDVEIENgDeOQ,
+      url: 'https://www.instagram.com/p/DVEIENgDeOQ/',
     },
   ],
 }

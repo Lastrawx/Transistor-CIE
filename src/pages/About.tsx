@@ -65,13 +65,108 @@ const About = () => {
         </div>
       </section>
 
-      <section className="container-page section-card p-8">
-        <div className="space-y-4">
-          <h2 className="text-2xl font-semibold text-slate-900">Zone d'intervention</h2>
-          <p className="text-sm text-slate-600">
-            Les interventions se font 100% digital, partout en France. Vous gagnez du temps, évitez les
-            déplacements et bénéficiez d'un accompagnement flexible.
-          </p>
+      <section className="container-page section-card space-y-6 p-8">
+        <div>
+          <p className="text-xs font-semibold uppercase text-slate-500">Qualification & expérience</p>
+          <h3 className="text-2xl font-semibold text-slate-900">Détails & références</h3>
+        </div>
+
+        <div className="grid gap-4">
+          <details className="group rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+            <summary className="flex cursor-pointer items-center justify-between text-sm font-semibold text-slate-800">
+              Diplômes & formation
+              <span className="text-brand-cyan transition group-open:rotate-180">▾</span>
+            </summary>
+            <div className="mt-4 grid gap-3 text-sm text-slate-600">
+              <div className="rounded-xl border border-slate-100 bg-white p-4">
+                <p className="font-medium text-slate-800">
+                  Licence sciences et technologies de la défense — Académie militaire de Saint-Cyr Coëtquidan
+                </p>
+              </div>
+              <div className="rounded-xl border border-slate-100 bg-white p-4">
+                <p className="font-medium text-slate-800">
+                  Diplôme de spécialité, emplois des systèmes réseaux — École nationale des transmissions
+                </p>
+              </div>
+              <div className="rounded-xl border border-slate-100 bg-white p-4">
+                <p className="font-medium text-slate-800">
+                  Formation technique en administration de routeurs — Allied Telesis
+                </p>
+              </div>
+              <div className="rounded-xl border border-slate-100 bg-white p-4">
+                <p className="font-medium text-slate-800">
+                  Formation en administration de serveurs Windows (Windows Server)
+                </p>
+              </div>
+              <div className="rounded-xl border border-slate-100 bg-white p-4">
+                <p className="font-medium text-slate-800">
+                  Formation technique chiffreurs et mise en oeuvre de liaisons chiffrées — Crypsis
+                </p>
+              </div>
+              <div className="rounded-xl border border-slate-100 bg-white p-4">
+                <p className="font-medium text-slate-800">Formation Java orientée objet</p>
+              </div>
+              <div className="rounded-xl border border-slate-100 bg-white p-4">
+                <p className="font-medium text-slate-800">Formation développement web — HTML / CSS</p>
+              </div>
+              <div className="rounded-xl border border-slate-100 bg-white p-4">
+                <p className="font-medium text-slate-800">Formation aux fondamentaux des bases de données</p>
+              </div>
+            </div>
+          </details>
+
+          <details className="group rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+            <summary className="flex cursor-pointer items-center justify-between text-sm font-semibold text-slate-800">
+              Expériences professionnelles
+              <span className="text-brand-cyan transition group-open:rotate-180">▾</span>
+            </summary>
+            <div className="mt-4 grid gap-3 text-sm text-slate-600">
+              <div className="rounded-xl border border-slate-100 bg-white p-4">
+                <p className="font-medium text-slate-800">Administrateur de réseaux informatiques</p>
+                <p className="mt-2">
+                  Administration, sécurisation et maintenance de réseaux ; conception d’infrastructures ; gestion de
+                  projets de déploiement de nouveaux réseaux.
+                </p>
+              </div>
+              <div className="rounded-xl border border-slate-100 bg-white p-4">
+                <p className="font-medium text-slate-800">
+                  Administrateur des systèmes d’informations
+                </p>
+                <p className="mt-2">
+                  Gestion de serveurs et systèmes d’exploitation ; sécurité et sauvegarde des données utilisateur ;
+                  optimisation et évolution des infrastructures.
+                </p>
+              </div>
+              <div className="rounded-xl border border-slate-100 bg-white p-4">
+                <p className="font-medium text-slate-800">Pilotage & coordination opérationnelle</p>
+                <p className="mt-2">
+                  Management opérationnel, suivi de compétences, mises en formation, planification et gestion de
+                  projets, garant de la sécurité des personnes et des biens.
+                </p>
+                <p className="mt-2">Volume en gestion : 30 à 50 personnes</p>
+              </div>
+            </div>
+          </details>
+
+          <details className="group rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+            <summary className="flex cursor-pointer items-center justify-between text-sm font-semibold text-slate-800">
+              Méthode d’intervention (comment l’entreprise travaille)
+              <span className="text-brand-cyan transition group-open:rotate-180">▾</span>
+            </summary>
+            <div className="mt-4 grid gap-3 text-sm text-slate-600 md:grid-cols-2">
+              {[
+                { title: 'Diagnostic', text: 'Symptômes, contexte, priorités.' },
+                { title: 'Résolution', text: 'Actions ciblées, explication simple.' },
+                { title: 'Sécurisation', text: 'Mises à jour, sauvegarde, bonnes pratiques.' },
+                { title: 'Prévention', text: 'Conseils et plan d’entretien.' },
+              ].map((step) => (
+                <div key={step.title} className="rounded-xl border border-slate-100 bg-white p-4">
+                  <p className="font-medium text-slate-800">{step.title}</p>
+                  <p className="mt-2">{step.text}</p>
+                </div>
+              ))}
+            </div>
+          </details>
         </div>
       </section>
 

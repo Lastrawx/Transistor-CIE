@@ -42,9 +42,6 @@ const Home = () => {
               <a href={site.whatsappUrl} target="_blank" rel="noreferrer" className="btn-whatsapp-soft px-4 py-2 text-xs sm:text-sm">
                 WhatsApp
               </a>
-              <Link to="/contact" className="btn-primary px-4 py-2 text-xs sm:text-sm">
-                Demander un devis
-              </Link>
             </div>
           </div>
         </section>
@@ -65,28 +62,6 @@ const Home = () => {
           </div>
         </Hero>
       </div>
-
-      <section className="container-page">
-        <div className="section-card flex flex-col gap-5 p-6 md:flex-row md:items-center md:justify-between md:p-8">
-          <div className="space-y-2">
-            <p className="text-xs font-semibold uppercase text-slate-500">Objectif conversion</p>
-            <h2 className="text-2xl font-semibold text-slate-900">Un devis clair en quelques clics</h2>
-            <ul className="list-disc space-y-1 pl-5 text-sm text-slate-600">
-              <li>Intervention 100% digital partout en France</li>
-              <li>Réponse généralement sous 24 à 48h ouvrées</li>
-              <li>Devis gratuit avant toute intervention</li>
-            </ul>
-          </div>
-          <div className="flex shrink-0 flex-wrap gap-3">
-            <Link to="/contact" className="btn-primary">
-              Demander un devis
-            </Link>
-            <Link to="/particulier" className="btn-secondary">
-              Voir le pôle particuliers
-            </Link>
-          </div>
-        </div>
-      </section>
 
       <section id="poles" className="container-page space-y-8">
         <div className="flex items-center justify-between">

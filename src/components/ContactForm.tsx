@@ -59,6 +59,7 @@ const ContactForm = ({
 
   const profileLocked = Boolean(prefillProfile)
   const serviceLocked = Boolean(prefillService)
+  const hasObjectPrefill = Boolean(prefillSubject || prefillService)
 
   useEffect(() => {
     if (phoneValue.trim().length === 0 && contactPreference !== 'mail') {
@@ -87,7 +88,8 @@ const ContactForm = ({
     }
 
     const email = (formData.get('email') ?? '').toString().trim()
-    const subject = (formData.get('objet') ?? '').toString().trim()
+    const rawSubject = (formData.get('objet') ?? '').toString().trim()
+    const subject = rawSubject.length > 0 ? rawSubject : subjectValue
     const firstName = (formData.get('prenom') ?? '').toString().trim()
     const lastName = (formData.get('nom') ?? '').toString().trim()
     const serviceValue = (formData.get('service') ?? '').toString().trim()
@@ -221,11 +223,28 @@ const ContactForm = ({
       )}
 
       <input type="hidden" name="service" value={service} />
-      <input type="hidden" name="objet" value={subjectValue} />
-
-      <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
-        {serviceLocked ? `Service sélectionné : ${service}` : 'Objet prérempli automatiquement pour accélérer votre demande.'}
-      </div>
+      {hasObjectPrefill ? (
+        <>
+          <input type="hidden" name="objet" value={subjectValue} />
+          <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
+            {serviceLocked
+              ? `Service sélectionné : ${service}`
+              : 'Objet prérempli automatiquement pour accélérer votre demande.'}
+          </div>
+        </>
+      ) : (
+        <label className="space-y-2">
+          <span className="text-sm font-semibold text-slate-700">Objet (optionnel)</span>
+          <input
+            name="objet"
+            minLength={MIN_SUBJECT_LENGTH}
+            maxLength={MAX_SUBJECT_LENGTH}
+            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3"
+            placeholder="Ex: Besoin d'assistance informatique"
+          />
+          <p className="text-xs text-slate-500">Si vide, un objet sera généré automatiquement.</p>
+        </label>
+      )}
 
       <div className="grid gap-4 md:grid-cols-2">
         <label className="space-y-2">

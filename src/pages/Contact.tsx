@@ -46,9 +46,6 @@ const Contact = () => {
             <p className="text-sm text-slate-600">
               Décrivez votre besoin à Transistor&CIE et recevez une proposition claire. Interventions 100% digital, partout en France.
             </p>
-            <div className="rounded-2xl border border-cyan-200 bg-cyan-50 p-4 text-sm text-cyan-900">
-              Vous venez de Facebook ou d&apos;Instagram ? Le formulaire ci-contre est prévu pour une demande rapide.
-            </div>
             <PillBanner />
             <GuaranteeHighlight compact />
             <div className="rounded-2xl border border-slate-100 bg-white p-5">
