@@ -51,14 +51,9 @@ const ContactForm = ({
   const { profile: storedProfile } = useProfile()
   const initialProfile = prefillProfile ?? storedProfile ?? 'particulier'
   const [profile, setProfile] = useState<UserProfile>(() => initialProfile)
-  const [service, setService] = useState(() => prefillService ?? '')
+  const service = prefillService ?? ''
   const [phoneValue, setPhoneValue] = useState('')
   const [contactPreference, setContactPreference] = useState<ContactPreference>('mail')
-  const [subjectTouched, setSubjectTouched] = useState(() => Boolean(prefillSubject))
-  const [subject, setSubject] = useState(
-    () => prefillSubject ?? buildSubject(prefillService || 'Demande de devis', initialProfile),
-  )
-  const [ready, setReady] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
 
@@ -66,19 +61,15 @@ const ContactForm = ({
   const serviceLocked = Boolean(prefillService)
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setReady(true), 1200)
-    return () => window.clearTimeout(timer)
-  }, [])
-
-  useEffect(() => {
     if (phoneValue.trim().length === 0 && contactPreference !== 'mail') {
       setContactPreference('mail')
     }
   }, [contactPreference, phoneValue])
 
-  const subjectValue = subjectTouched
-    ? subject
-    : prefillSubject ?? buildSubject(service || 'Demande de devis', profile)
+  const subjectValue = useMemo(
+    () => prefillSubject ?? buildSubject(service || 'Demande de devis', profile),
+    [prefillSubject, profile, service],
+  )
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -182,13 +173,6 @@ const ContactForm = ({
     }
   }
 
-  const helperText = useMemo(() => {
-    if (serviceLocked) {
-      return `Service sélectionné : ${service}`
-    }
-    return 'Précisez votre besoin, nous vous répondons rapidement.'
-  }, [service, serviceLocked])
-
   const messagePrefill = useMemo(() => {
     if (!prefillMessage) return ''
     return prefillMessage.slice(0, MAX_MESSAGE_LENGTH)
@@ -236,40 +220,12 @@ const ContactForm = ({
         </label>
       )}
 
-      {serviceLocked ? (
-        <div className="rounded-xl bg-slate-100 px-4 py-3 text-sm text-slate-700">
-          {helperText}
-          <input type="hidden" name="service" value={service} />
-        </div>
-      ) : (
-        <label className="space-y-2">
-          <span className="text-sm font-semibold text-slate-700">Service (optionnel)</span>
-          <input
-            name="service"
-            value={service}
-            onChange={(event) => setService(event.target.value)}
-            maxLength={MAX_SERVICE_LENGTH}
-            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3"
-            placeholder="Ex: Assistance & dépannage"
-          />
-        </label>
-      )}
+      <input type="hidden" name="service" value={service} />
+      <input type="hidden" name="objet" value={subjectValue} />
 
-      <label className="space-y-2">
-        <span className="text-sm font-semibold text-slate-700">Objet *</span>
-        <input
-          name="objet"
-          required
-          value={subjectValue}
-          minLength={MIN_SUBJECT_LENGTH}
-          maxLength={MAX_SUBJECT_LENGTH}
-          onChange={(event) => {
-            setSubjectTouched(true)
-            setSubject(event.target.value)
-          }}
-          className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3"
-        />
-      </label>
+      <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
+        {serviceLocked ? `Service sélectionné : ${service}` : 'Objet prérempli automatiquement pour accélérer votre demande.'}
+      </div>
 
       <div className="grid gap-4 md:grid-cols-2">
         <label className="space-y-2">
@@ -364,8 +320,8 @@ const ContactForm = ({
         </span>
       </label>
 
-      <button type="submit" className="btn-primary" disabled={!ready || isSubmitting}>
-        {ready ? (isSubmitting ? 'Envoi en cours...' : 'Envoyer ma demande') : 'Préparation...'}
+      <button type="submit" data-track-metric="quoteClicks" className="btn-primary" disabled={isSubmitting}>
+        {isSubmitting ? 'Envoi en cours...' : 'Demander mon devis'}
       </button>
       {submitError && <p className="text-sm text-rose-600">{submitError}</p>}
     </form>

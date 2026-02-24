@@ -8,13 +8,11 @@ import { instagram } from '../content/instagram'
 import heroHome from '../assets/hero-home.webp'
 import heroParticulier from '../assets/hero-particulier.webp'
 import heroEntreprise from '../assets/hero-entreprise.webp'
-import { useProfile } from '../utils/useProfile'
 import { site } from '../content/site'
 
 const Home = () => {
-  const { profile } = useProfile()
-  const ctaLink = profile === 'entreprise' ? '/entreprise' : profile === 'particulier' ? '/particulier' : '/contact'
-  const ctaLabel = profile ? 'Voir mon pôle' : 'Demander un devis'
+  const ctaLink = '/contact'
+  const ctaLabel = 'Demander un devis'
 
   return (
     <div className="space-y-20 pt-3 sm:pt-4">
@@ -38,6 +36,9 @@ const Home = () => {
               <a href={site.whatsappUrl} target="_blank" rel="noreferrer" className="btn-whatsapp-soft px-4 py-2 text-xs sm:text-sm">
                 WhatsApp
               </a>
+              <Link to="/contact" className="btn-primary px-4 py-2 text-xs sm:text-sm">
+                Demander un devis
+              </Link>
             </div>
           </div>
         </section>
@@ -48,7 +49,7 @@ const Home = () => {
           kicker="Transistor&CIE"
           ctaLabel={ctaLabel}
           ctaLink={ctaLink}
-          secondaryLabel="Découvrir les services"
+          secondaryLabel="Voir les pôles"
           secondaryLink="/#poles"
           image={heroHome}
           imageAlt="Bienvenue chez Transistor&CIE"
@@ -58,6 +59,28 @@ const Home = () => {
           </div>
         </Hero>
       </div>
+
+      <section className="container-page">
+        <div className="section-card flex flex-col gap-5 p-6 md:flex-row md:items-center md:justify-between md:p-8">
+          <div className="space-y-2">
+            <p className="text-xs font-semibold uppercase text-slate-500">Objectif conversion</p>
+            <h2 className="text-2xl font-semibold text-slate-900">Un devis clair en quelques clics</h2>
+            <ul className="list-disc space-y-1 pl-5 text-sm text-slate-600">
+              <li>Intervention 100% digital partout en France</li>
+              <li>Réponse généralement sous 24 à 48h ouvrées</li>
+              <li>Devis gratuit avant toute intervention</li>
+            </ul>
+          </div>
+          <div className="flex shrink-0 flex-wrap gap-3">
+            <Link to="/contact" className="btn-primary">
+              Demander un devis
+            </Link>
+            <Link to="/particulier" className="btn-secondary">
+              Voir le pôle particuliers
+            </Link>
+          </div>
+        </div>
+      </section>
 
       <section id="poles" className="container-page space-y-8">
         <div className="flex items-center justify-between">
@@ -75,9 +98,14 @@ const Home = () => {
                 <p className="text-sm text-slate-600">
                   Assistance, optimisation, formation et Green IT pour la maison. Simple, rapide, sans déplacement.
                 </p>
-                <Link to="/particulier" className="btn-primary mt-auto">
-                  Voir les services
-                </Link>
+                <div className="mt-auto flex flex-wrap gap-2 pt-2">
+                  <Link to="/particulier" className="btn-secondary">
+                    Voir les services
+                  </Link>
+                  <Link to="/contact?profile=particulier" className="btn-primary">
+                    Demander un devis
+                  </Link>
+                </div>
               </div>
               <div className="flex h-full items-center">
                 <img
@@ -97,9 +125,14 @@ const Home = () => {
                 <p className="text-sm text-slate-600">
                   Création de sites web essentiels, performance, RSE, cybersécurité et infrastructure IT pour sécuriser et accélérer votre activité.
                 </p>
-                <Link to="/entreprise" className="btn-primary mt-auto">
-                  Voir les services
-                </Link>
+                <div className="mt-auto flex flex-wrap gap-2 pt-2">
+                  <Link to="/entreprise" className="btn-secondary">
+                    Voir les services
+                  </Link>
+                  <Link to="/contact?profile=entreprise" className="btn-primary">
+                    Demander un devis
+                  </Link>
+                </div>
               </div>
               <div className="flex h-full items-center">
                 <img

@@ -2,9 +2,16 @@ import { type FormEvent, useEffect, useMemo, useState } from 'react'
 import type { User } from 'firebase/auth'
 import { getIdTokenResult, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import type { Timestamp } from 'firebase/firestore'
-import { collection, deleteDoc, doc, getDocs, limit, orderBy, query, serverTimestamp, updateDoc } from 'firebase/firestore'
+import { collection, deleteDoc, doc, getDocs, limit, onSnapshot, orderBy, query, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore'
 import { auth, db } from '../firebase'
 import SEO from '../components/SEO'
+import {
+  SITE_METRIC_FIELDS,
+  SITE_METRIC_LABELS,
+  createEmptySiteMetricCounters,
+  type SiteMetricCounters,
+  type SiteMetricField,
+} from '../utils/site-metrics'
 
 const formatDate = (value?: Timestamp | null) => {
   if (!value) return ''
@@ -91,6 +98,18 @@ const normalize = (value?: string | null) => {
   return value?.toString().trim() ?? ''
 }
 
+type SiteMetricsState = SiteMetricCounters & {
+  updatedAt?: Timestamp | null
+}
+
+const createEmptySiteMetricsState = (): SiteMetricsState => ({
+  ...createEmptySiteMetricCounters(),
+  updatedAt: null,
+})
+
+const toMetricCounter = (value: unknown) =>
+  typeof value === 'number' && Number.isFinite(value) && value >= 0 ? Math.floor(value) : 0
+
 type ContactChannel = 'mail' | 'appel' | 'sms' | 'whatsapp'
 
 const contactChannelLabelMap: Record<ContactChannel, string> = {
@@ -123,6 +142,9 @@ const Admin = () => {
   const [updatingIds, setUpdatingIds] = useState<Record<string, boolean>>({})
   const [deletingIds, setDeletingIds] = useState<Record<string, boolean>>({})
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('all')
+  const [siteMetrics, setSiteMetrics] = useState<SiteMetricsState>(() => createEmptySiteMetricsState())
+  const [metricsError, setMetricsError] = useState<string | null>(null)
+  const [resettingMetric, setResettingMetric] = useState<SiteMetricField | 'all' | null>(null)
 
   const counts = useMemo(() => {
     return items.reduce(
@@ -257,6 +279,45 @@ const Admin = () => {
     }
   }, [])
 
+  useEffect(() => {
+    if (!user || hasAdminClaim !== true) {
+      setSiteMetrics(createEmptySiteMetricsState())
+      setMetricsError(null)
+      return
+    }
+
+    const metricsRef = doc(db, 'site_metrics', 'global')
+    const unsubscribe = onSnapshot(
+      metricsRef,
+      (snapshot) => {
+        if (!snapshot.exists()) {
+          setSiteMetrics(createEmptySiteMetricsState())
+          setMetricsError(null)
+          return
+        }
+
+        const data = snapshot.data()
+        setSiteMetrics({
+          siteOpens: toMetricCounter(data.siteOpens),
+          totalClicks: toMetricCounter(data.totalClicks),
+          quoteClicks: toMetricCounter(data.quoteClicks),
+          poleParticulierClicks: toMetricCounter(data.poleParticulierClicks),
+          poleEntrepriseClicks: toMetricCounter(data.poleEntrepriseClicks),
+          updatedAt: (data.updatedAt as Timestamp | undefined) ?? null,
+        })
+        setMetricsError(null)
+      },
+      (error) => {
+        console.error('Site metrics subscription failed', error)
+        setMetricsError('Impossible de charger les compteurs du site.')
+      },
+    )
+
+    return () => {
+      unsubscribe()
+    }
+  }, [hasAdminClaim, user])
+
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setAuthError(null)
@@ -299,6 +360,36 @@ const Admin = () => {
       setListError('Impossible de supprimer ce devis. Vérifiez vos droits.')
     } finally {
       setDeletingIds((current) => ({ ...current, [id]: false }))
+    }
+  }
+
+  const handleResetMetric = async (metric: SiteMetricField | 'all') => {
+    const metricLabel = metric === 'all' ? 'tous les compteurs' : SITE_METRIC_LABELS[metric]
+    const confirmed = window.confirm(`Réinitialiser ${metricLabel} ?`)
+    if (!confirmed) return
+
+    setResettingMetric(metric)
+    setMetricsError(null)
+
+    const payload: Record<string, unknown> = {
+      updatedAt: serverTimestamp(),
+    }
+
+    if (metric === 'all') {
+      SITE_METRIC_FIELDS.forEach((field) => {
+        payload[field] = 0
+      })
+    } else {
+      payload[metric] = 0
+    }
+
+    try {
+      await setDoc(doc(db, 'site_metrics', 'global'), payload, { merge: true })
+    } catch (error) {
+      console.error('Site metrics reset failed', error)
+      setMetricsError('Impossible de réinitialiser les compteurs.')
+    } finally {
+      setResettingMetric(null)
     }
   }
 
@@ -433,11 +524,11 @@ const Admin = () => {
       <SEO title="Admin — Devis" description="Administration des demandes de devis Transistor&CIE" noIndex />
 
       <section className="container-page section-card p-8">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div>
-              <p className="text-xs font-semibold uppercase text-slate-500">Administration</p>
-              <h1 className="text-3xl font-semibold text-slate-900">Demandes de devis</h1>
-            </div>
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="text-xs font-semibold uppercase text-slate-500">Administration</p>
+            <h1 className="text-3xl font-semibold text-slate-900">Demandes de devis</h1>
+          </div>
           {user && (
             <button type="button" onClick={handleLogout} className="btn-secondary">
               Se déconnecter
@@ -482,6 +573,47 @@ const Admin = () => {
           </div>
         ) : (
           <div className="mt-6 space-y-4">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <p className="text-xs font-semibold uppercase text-slate-500">Module compteurs</p>
+                  <h2 className="text-xl font-semibold text-slate-900">Compteurs du site (base de données)</h2>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleResetMetric('all')}
+                  className="btn-ghost text-rose-600 hover:text-rose-700"
+                  disabled={resettingMetric !== null}
+                >
+                  {resettingMetric === 'all' ? 'Réinitialisation...' : 'Réinitialiser tous les compteurs'}
+                </button>
+              </div>
+
+              <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+                {SITE_METRIC_FIELDS.map((field) => (
+                  <article key={field} className="rounded-2xl border border-slate-200 bg-white p-4">
+                    <p className="text-xs font-semibold uppercase text-slate-500">{SITE_METRIC_LABELS[field]}</p>
+                    <p className="mt-2 text-2xl font-semibold text-slate-900">
+                      {siteMetrics[field].toLocaleString('fr-FR')}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => handleResetMetric(field)}
+                      className="btn-ghost mt-3 w-full text-xs"
+                      disabled={resettingMetric !== null}
+                    >
+                      {resettingMetric === field ? 'Réinitialisation...' : 'Réinitialiser'}
+                    </button>
+                  </article>
+                ))}
+              </div>
+
+              <div className="mt-3 text-xs text-slate-500">
+                Dernière mise à jour : {siteMetrics.updatedAt ? formatDate(siteMetrics.updatedAt) : 'aucune donnée'}
+              </div>
+              {metricsError && <p className="mt-2 text-sm text-rose-600">{metricsError}</p>}
+            </div>
+
             <div className="flex flex-wrap items-center gap-3">
               <button type="button" onClick={loadDevis} className="btn-secondary" disabled={isLoadingList}>
                 {isLoadingList ? 'Chargement...' : 'Rafraîchir la liste'}

@@ -17,6 +17,7 @@ const ProfileChoice = () => {
         <button
           type="button"
           onClick={() => handleChoice('particulier')}
+          data-track-metric="poleParticulierClicks"
           className="group flex flex-col items-start gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-4 text-left transition hover:-translate-y-0.5 hover:border-brand-cyan"
         >
           <span className="text-lg font-semibold text-slate-900">Je suis un particulier</span>
@@ -27,6 +28,7 @@ const ProfileChoice = () => {
         <button
           type="button"
           onClick={() => handleChoice('entreprise')}
+          data-track-metric="poleEntrepriseClicks"
           className="group flex flex-col items-start gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-4 text-left transition hover:-translate-y-0.5 hover:border-brand-cyan"
         >
           <span className="text-lg font-semibold text-slate-900">Je suis une entreprise</span>
