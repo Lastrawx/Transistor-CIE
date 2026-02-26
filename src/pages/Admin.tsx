@@ -355,6 +355,13 @@ const Admin = () => {
       (error) => {
         console.error('Site openings subscription failed', error)
         setSiteOpenings([])
+        const code = (error as { code?: string } | undefined)?.code
+        if (code === 'permission-denied') {
+          setSiteOpeningsError(
+            "Accès refusé à l'historique des ouvertures. Déployez les règles Firestore mises à jour.",
+          )
+          return
+        }
         setSiteOpeningsError("Impossible de charger l'historique des ouvertures du site.")
       },
     )
