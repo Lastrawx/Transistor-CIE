@@ -1,4 +1,4 @@
-import { type FormEvent, useEffect, useMemo, useState } from 'react'
+import { type FormEvent, useEffect, useMemo, useRef, useState } from 'react'
 import type { User } from 'firebase/auth'
 import { getIdTokenResult, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import type { Timestamp } from 'firebase/firestore'
@@ -115,6 +115,8 @@ type SiteOpeningEvent = {
   openedAt?: Timestamp | null
 }
 
+type SiteOpeningsMode = 'collection' | 'fallback'
+
 type ContactChannel = 'mail' | 'appel' | 'sms' | 'whatsapp'
 
 const contactChannelLabelMap: Record<ContactChannel, string> = {
@@ -152,6 +154,8 @@ const Admin = () => {
   const [resettingMetric, setResettingMetric] = useState<SiteMetricField | 'all' | null>(null)
   const [siteOpenings, setSiteOpenings] = useState<SiteOpeningEvent[]>([])
   const [siteOpeningsError, setSiteOpeningsError] = useState<string | null>(null)
+  const [siteOpeningsMode, setSiteOpeningsMode] = useState<SiteOpeningsMode>('collection')
+  const previousSiteOpensRef = useRef<number | null>(null)
 
   const counts = useMemo(() => {
     return items.reduce(
@@ -290,6 +294,7 @@ const Admin = () => {
     if (!user || hasAdminClaim !== true) {
       setSiteMetrics(createEmptySiteMetricsState())
       setMetricsError(null)
+      previousSiteOpensRef.current = null
       return
     }
 
@@ -304,15 +309,54 @@ const Admin = () => {
         }
 
         const data = snapshot.data()
+        const nextSiteOpens = toMetricCounter(data.siteOpens)
+        const nextUpdatedAt = (data.updatedAt as Timestamp | undefined) ?? null
         setSiteMetrics({
-          siteOpens: toMetricCounter(data.siteOpens),
+          siteOpens: nextSiteOpens,
           totalClicks: toMetricCounter(data.totalClicks),
           quoteClicks: toMetricCounter(data.quoteClicks),
           poleParticulierClicks: toMetricCounter(data.poleParticulierClicks),
           poleEntrepriseClicks: toMetricCounter(data.poleEntrepriseClicks),
-          updatedAt: (data.updatedAt as Timestamp | undefined) ?? null,
+          updatedAt: nextUpdatedAt,
         })
         setMetricsError(null)
+
+        if (siteOpeningsMode !== 'fallback') {
+          previousSiteOpensRef.current = nextSiteOpens
+          return
+        }
+
+        setSiteOpenings((current) => {
+          const previousSiteOpens = previousSiteOpensRef.current
+          previousSiteOpensRef.current = nextSiteOpens
+
+          if (!nextUpdatedAt || nextSiteOpens <= 0) {
+            return []
+          }
+
+          const buildOpening = (suffix: string): SiteOpeningEvent => ({
+            id: `fallback-${nextUpdatedAt.toMillis()}-${suffix}`,
+            openedAt: nextUpdatedAt,
+          })
+
+          if (previousSiteOpens === null) {
+            return [buildOpening('initial')]
+          }
+
+          if (nextSiteOpens < previousSiteOpens) {
+            return [buildOpening('reset')]
+          }
+
+          const delta = nextSiteOpens - previousSiteOpens
+          if (delta <= 0) {
+            return current
+          }
+
+          const newEvents = Array.from({ length: Math.min(delta, 50) }, (_, index) =>
+            buildOpening(`delta-${index}-${nextSiteOpens}`),
+          )
+          return [...newEvents, ...current].slice(0, 50)
+        })
       },
       (error) => {
         console.error('Site metrics subscription failed', error)
@@ -323,12 +367,14 @@ const Admin = () => {
     return () => {
       unsubscribe()
     }
-  }, [hasAdminClaim, user])
+  }, [hasAdminClaim, siteOpeningsMode, user])
 
   useEffect(() => {
     if (!user || hasAdminClaim !== true) {
       setSiteOpenings([])
       setSiteOpeningsError(null)
+      setSiteOpeningsMode('collection')
+      previousSiteOpensRef.current = null
       return
     }
 
@@ -350,6 +396,8 @@ const Admin = () => {
           })
         })
         setSiteOpenings(nextOpenings)
+        setSiteOpeningsMode('collection')
+        previousSiteOpensRef.current = null
         setSiteOpeningsError(null)
       },
       (error) => {
@@ -357,11 +405,13 @@ const Admin = () => {
         setSiteOpenings([])
         const code = (error as { code?: string } | undefined)?.code
         if (code === 'permission-denied') {
-          setSiteOpeningsError(
-            "Accès refusé à l'historique des ouvertures. Déployez les règles Firestore mises à jour.",
-          )
+          setSiteOpeningsMode('fallback')
+          previousSiteOpensRef.current = null
+          setSiteOpeningsError(null)
           return
         }
+        setSiteOpeningsMode('collection')
+        previousSiteOpensRef.current = null
         setSiteOpeningsError("Impossible de charger l'historique des ouvertures du site.")
       },
     )
@@ -651,8 +701,12 @@ const Admin = () => {
                     </p>
                     {field === 'siteOpens' && (
                       <p className="mt-2 text-xs text-slate-500">
-                        Dernière ouverture :{' '}
-                        {siteOpenings[0]?.openedAt ? formatDate(siteOpenings[0].openedAt) : 'aucune donnée'}
+                        {siteOpeningsMode === 'fallback' ? 'Dernière activité :' : 'Dernière ouverture :'}{' '}
+                        {siteOpenings[0]?.openedAt
+                          ? formatDate(siteOpenings[0].openedAt)
+                          : siteOpeningsMode === 'fallback' && siteMetrics.updatedAt
+                            ? formatDate(siteMetrics.updatedAt)
+                            : 'aucune donnée'}
                       </p>
                     )}
                     <button
@@ -676,8 +730,18 @@ const Admin = () => {
                 <summary className="cursor-pointer text-sm font-semibold text-slate-800">
                   Voir date/heure des 50 dernières ouvertures du site
                 </summary>
+                {siteOpeningsMode === 'fallback' && (
+                  <p className="mt-3 text-xs text-amber-700">
+                    Historique détaillé non lisible dans la configuration actuelle; affichage reconstruit depuis le
+                    compteur global.
+                  </p>
+                )}
                 {siteOpenings.length === 0 ? (
-                  <p className="mt-3 text-sm text-slate-500">Aucune ouverture enregistrée.</p>
+                  <p className="mt-3 text-sm text-slate-500">
+                    {siteOpeningsMode === 'fallback'
+                      ? 'Aucune ouverture détectée depuis le chargement de cette page.'
+                      : 'Aucune ouverture enregistrée.'}
+                  </p>
                 ) : (
                   <div className="mt-3 max-h-64 overflow-auto rounded-xl border border-slate-100">
                     <ul className="divide-y divide-slate-100">

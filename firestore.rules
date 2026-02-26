@@ -118,6 +118,20 @@ service cloud.firestore {
         );
     }
 
+    function metricValue(data, key) {
+      return key in data ? data[key] : 0;
+    }
+
+    function hasValidMetricDelta(nextData, previousData, key, maxDelta) {
+      let previousValue = metricValue(previousData, key);
+      let nextValue = metricValue(nextData, key);
+      return previousValue is int
+        && previousValue >= 0
+        && nextValue is int
+        && nextValue >= previousValue
+        && nextValue - previousValue <= maxDelta;
+    }
+
     function isValidSiteMetricsShape(data) {
       return data.keys().hasOnly([
         "siteOpens",
@@ -133,6 +147,24 @@ service cloud.firestore {
       && hasValidNonNegativeMetricValue(data, "quoteClicks")
       && hasValidNonNegativeMetricValue(data, "poleParticulierClicks")
       && hasValidNonNegativeMetricValue(data, "poleEntrepriseClicks");
+    }
+
+    function isValidPublicSiteMetricsCreate(data) {
+      return isValidSiteMetricsShape(data)
+        && hasValidMetricDelta(data, {}, "siteOpens", 200)
+        && hasValidMetricDelta(data, {}, "totalClicks", 2000)
+        && hasValidMetricDelta(data, {}, "quoteClicks", 200)
+        && hasValidMetricDelta(data, {}, "poleParticulierClicks", 500)
+        && hasValidMetricDelta(data, {}, "poleEntrepriseClicks", 500);
+    }
+
+    function isValidPublicSiteMetricsUpdate(nextData, previousData) {
+      return isValidSiteMetricsShape(nextData)
+        && hasValidMetricDelta(nextData, previousData, "siteOpens", 200)
+        && hasValidMetricDelta(nextData, previousData, "totalClicks", 2000)
+        && hasValidMetricDelta(nextData, previousData, "quoteClicks", 200)
+        && hasValidMetricDelta(nextData, previousData, "poleParticulierClicks", 500)
+        && hasValidMetricDelta(nextData, previousData, "poleEntrepriseClicks", 500);
     }
 
     function isValidSiteOpeningShape(data) {
@@ -203,9 +235,19 @@ service cloud.firestore {
     match /site_metrics/{docId} {
       allow get, list, read: if isAdmin();
 
-      allow create, update: if
+      allow create: if
         docId == "global"
-        && isValidSiteMetricsShape(request.resource.data);
+        && (
+          (isAdmin() && isValidSiteMetricsShape(request.resource.data))
+          || isValidPublicSiteMetricsCreate(request.resource.data)
+        );
+
+      allow update: if
+        docId == "global"
+        && (
+          (isAdmin() && isValidSiteMetricsShape(request.resource.data))
+          || isValidPublicSiteMetricsUpdate(request.resource.data, resource.data)
+        );
 
       allow delete: if isAdmin();
     }

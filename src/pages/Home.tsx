@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Hero from '../components/Hero'
 import ProfileChoice from '../components/ProfileChoice'
@@ -10,15 +9,10 @@ import heroHome from '../assets/hero-home.webp'
 import heroParticulier from '../assets/hero-particulier.webp'
 import heroEntreprise from '../assets/hero-entreprise.webp'
 import { site } from '../content/site'
-import { trackHomePageOpen } from '../utils/site-metrics'
 
 const Home = () => {
   const ctaLink = '/contact'
   const ctaLabel = 'Demander un devis'
-
-  useEffect(() => {
-    trackHomePageOpen()
-  }, [])
 
   return (
     <div className="space-y-20 pt-3 sm:pt-4">

@@ -192,7 +192,7 @@ const injectMetaScript = () => {
   document.head.appendChild(script)
 }
 
-const ensureAdsGtag = () => {
+const ensureAdsGtag = (loadExternalScript: boolean) => {
   if (typeof window === 'undefined') return
   const consentWindow = window as ConsentWindow
 
@@ -211,7 +211,9 @@ const ensureAdsGtag = () => {
     consentWindow.__tcAdsConfigured = true
   }
 
-  injectAdsScript()
+  if (loadExternalScript) {
+    injectAdsScript()
+  }
 }
 
 const ensureMetaPixel = () => {
@@ -282,9 +284,10 @@ export const setAdsConsentStatus = (status: Exclude<AdsConsentStatus, 'unset'>) 
   persistConsent(status)
 
   if (status === 'granted') {
-    ensureAdsGtag()
+    ensureAdsGtag(true)
     ensureMetaPixel()
   } else {
+    ensureAdsGtag(false)
     clearAdsCookies()
   }
 
@@ -298,6 +301,7 @@ export const setAdsConsentStatus = (status: Exclude<AdsConsentStatus, 'unset'>) 
 export const resetAdsConsentStatus = () => {
   if (typeof window === 'undefined') return
   window.localStorage.removeItem(ADS_CONSENT_STORAGE_KEY)
+  ensureAdsGtag(false)
   clearAdsCookies()
   applyConsentToGtag('denied')
   applyConsentToMeta('denied')
@@ -308,9 +312,9 @@ export const resetAdsConsentStatus = () => {
 export const initAdsTrackingFromConsent = () => {
   if (typeof window === 'undefined') return
   const status = readStoredConsentStatus()
+  ensureAdsGtag(status === 'granted')
 
   if (status === 'granted') {
-    ensureAdsGtag()
     ensureMetaPixel()
     applyConsentToGtag('granted')
     applyConsentToMeta('granted')

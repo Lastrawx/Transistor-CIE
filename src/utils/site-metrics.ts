@@ -38,7 +38,9 @@ const SITE_METRICS_DOC = doc(db, 'site_metrics', 'global')
 const SITE_OPENINGS_COLLECTION = collection(db, 'site_metrics', 'global', 'openings')
 const FLUSH_INTERVAL_MS = 8000
 const HOME_OPEN_LAST_AT_KEY = 'tc_home_open_last_at_v1'
+const HOME_OPEN_SESSION_KEY = 'tc_home_open_tracked_v1'
 const HOME_OPEN_THROTTLE_MS = 1500
+const EXCLUDED_SITE_OPEN_PATHS = ['/admin-cagnat']
 
 type PendingMetricMap = Partial<Record<SiteMetricField, number>>
 type SiteMetricsWindow = Window & typeof globalThis & {
@@ -49,6 +51,12 @@ const pendingMetrics: PendingMetricMap = {}
 let flushTimer: number | null = null
 let flushInFlight = false
 let flushRequestedAfterFlight = false
+let canWriteOpeningHistory = true
+
+const isPermissionDeniedError = (error: unknown) => {
+  const code = (error as { code?: string } | undefined)?.code
+  return code === 'permission-denied'
+}
 
 const parseTrackedMetric = (value?: string): SiteMetricField | null => {
   if (!value) return null
@@ -175,21 +183,40 @@ export const flushPendingSiteMetrics = async () => {
 }
 
 export const trackHomePageOpen = () => {
-  if (typeof window !== 'undefined') {
-    const now = Date.now()
-    const lastTrackedAt = Number(window.sessionStorage.getItem(HOME_OPEN_LAST_AT_KEY) ?? '0')
-    if (Number.isFinite(lastTrackedAt) && now - lastTrackedAt < HOME_OPEN_THROTTLE_MS) {
-      return
-    }
-    window.sessionStorage.setItem(HOME_OPEN_LAST_AT_KEY, String(now))
+  trackSiteOpenOncePerSession()
+}
+
+const trackSiteOpenOncePerSession = () => {
+  if (typeof window === 'undefined') return
+  if (window.sessionStorage.getItem(HOME_OPEN_SESSION_KEY) === '1') return
+
+  const normalizedPath = normalizePathname(window.location.pathname)
+  if (EXCLUDED_SITE_OPEN_PATHS.some((path) => normalizedPath.startsWith(path))) {
+    return
   }
+
+  const now = Date.now()
+  const lastTrackedAt = Number(window.sessionStorage.getItem(HOME_OPEN_LAST_AT_KEY) ?? '0')
+  if (Number.isFinite(lastTrackedAt) && now - lastTrackedAt < HOME_OPEN_THROTTLE_MS) {
+    return
+  }
+  window.sessionStorage.setItem(HOME_OPEN_LAST_AT_KEY, String(now))
+  window.sessionStorage.setItem(HOME_OPEN_SESSION_KEY, '1')
 
   trackSiteMetric('siteOpens')
   void flushPendingSiteMetrics()
 
+  if (!canWriteOpeningHistory) {
+    return
+  }
+
   void addDoc(SITE_OPENINGS_COLLECTION, {
     openedAt: serverTimestamp(),
   }).catch((error) => {
+    if (isPermissionDeniedError(error)) {
+      canWriteOpeningHistory = false
+      return
+    }
     console.warn('Site opening tracking failed', error)
   })
 }
@@ -199,35 +226,38 @@ export const initSiteMetricsTracking = () => {
   const siteWindow = window as SiteMetricsWindow
   if (siteWindow.__tcSiteMetricsInitialized) return
   siteWindow.__tcSiteMetricsInitialized = true
+  trackSiteOpenOncePerSession()
 
   const onClick = (event: MouseEvent) => {
-    trackSiteMetric('totalClicks')
+    const trackedInEvent = new Set<SiteMetricField>()
+    const trackUniqueMetric = (field: SiteMetricField) => {
+      if (trackedInEvent.has(field)) return
+      trackedInEvent.add(field)
+      trackSiteMetric(field)
+    }
+
+    trackUniqueMetric('totalClicks')
 
     const action = getActionElement(event.target)
     if (!action) return
 
-    let hasTrackedQuoteClick = false
-
     const explicitMetric = parseTrackedMetric(action.dataset.trackMetric)
     if (explicitMetric) {
-      trackSiteMetric(explicitMetric)
-      hasTrackedQuoteClick = explicitMetric === 'quoteClicks'
+      trackUniqueMetric(explicitMetric)
     }
 
-    if (!hasTrackedQuoteClick) {
-      const text = (action.textContent ?? '').toLowerCase()
-      if (text.includes('devis')) {
-        trackSiteMetric('quoteClicks')
-      }
+    const text = (action.textContent ?? '').toLowerCase()
+    if (text.includes('devis')) {
+      trackUniqueMetric('quoteClicks')
     }
 
     const pathname = getPathnameFromAction(action)
     if (!pathname) return
     if (pathname.startsWith('/particulier')) {
-      trackSiteMetric('poleParticulierClicks')
+      trackUniqueMetric('poleParticulierClicks')
     }
     if (pathname.startsWith('/entreprise')) {
-      trackSiteMetric('poleEntrepriseClicks')
+      trackUniqueMetric('poleEntrepriseClicks')
     }
   }
 

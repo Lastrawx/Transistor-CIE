@@ -1,4 +1,4 @@
-import { type FormEvent, useEffect, useMemo, useState } from 'react'
+import { type FormEvent, useMemo, useState } from 'react'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { Link, useNavigate } from 'react-router-dom'
 import { db } from '../firebase'
@@ -60,12 +60,6 @@ const ContactForm = ({
   const profileLocked = Boolean(prefillProfile)
   const serviceLocked = Boolean(prefillService)
   const hasObjectPrefill = Boolean(prefillSubject || prefillService)
-
-  useEffect(() => {
-    if (phoneValue.trim().length === 0 && contactPreference !== 'mail') {
-      setContactPreference('mail')
-    }
-  }, [contactPreference, phoneValue])
 
   const subjectValue = useMemo(
     () => prefillSubject ?? buildSubject(service || 'Demande de devis', profile),

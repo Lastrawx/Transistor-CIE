@@ -1,3 +1,5 @@
+import { getAdsConsentStatus } from './cookie-consent'
+
 const QUOTE_CONVERSION_SEND_TO = 'AW-17935957032/8enxCOSW4_UbEKj4w-hC'
 const QUOTE_CONVERSION_PENDING_KEY = 'quote_conversion_pending_v2'
 const LEGACY_QUOTE_CONVERSION_PENDING_KEY = 'quote_conversion_pending'
@@ -57,6 +59,7 @@ const isPendingConversionExpired = (payload: PendingConversionPayload) =>
 
 const tryFlushPendingConversion = () => {
   if (typeof window === 'undefined') return false
+  if (getAdsConsentStatus() !== 'granted') return false
   const pendingPayload = readPendingConversion()
   if (!pendingPayload) return false
 
