@@ -1,5 +1,15 @@
 export const site = {
   brand: 'Transistor&CIE',
+  brandAliases: [
+    'Transistor et CIE',
+    'Transistor & CIE',
+    'Transistor CIE',
+    'Transistor-cie',
+    'Transistor et compagnie',
+    'Transistor & compagnie',
+    'Transistor compagnie',
+    'Transistor&compagnie',
+  ],
   heroTitle: 'La tech au quotidien, simplifiée',
   heroSubtitle: 'Performance & Responsabilité',
   remotePromise: '100% digital, partout en France — Devis gratuit',

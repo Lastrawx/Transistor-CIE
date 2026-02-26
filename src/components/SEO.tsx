@@ -23,6 +23,18 @@ const ensureLink = (rel: string, href: string) => {
   element.setAttribute('href', href)
 }
 
+const ensureAlternateLink = (hrefLang: string, href: string) => {
+  if (!href) return
+  let element = document.querySelector(`link[rel="alternate"][hreflang="${hrefLang}"]`)
+  if (!element) {
+    element = document.createElement('link')
+    element.setAttribute('rel', 'alternate')
+    element.setAttribute('hreflang', hrefLang)
+    document.head.appendChild(element)
+  }
+  element.setAttribute('href', href)
+}
+
 type SEOProps = {
   title: string
   description: string
@@ -51,12 +63,16 @@ const SEO = ({ title, description, image, noIndex = false, structuredData }: SEO
     ensureMeta('og:locale', 'fr_FR', 'property')
     ensureMeta('og:url', canonicalUrl, 'property')
     ensureMeta('og:image', imageUrl, 'property')
+    ensureMeta('og:image:alt', title, 'property')
     ensureMeta('twitter:card', 'summary_large_image', 'name')
     ensureMeta('twitter:title', title, 'name')
     ensureMeta('twitter:description', description, 'name')
     ensureMeta('twitter:image', imageUrl, 'name')
+    ensureMeta('twitter:site', site.instagramHandle, 'name')
     ensureMeta('robots', noIndex ? 'noindex, nofollow' : 'index, follow', 'name')
     ensureLink('canonical', canonicalUrl)
+    ensureAlternateLink('fr-FR', canonicalUrl)
+    ensureAlternateLink('x-default', canonicalUrl)
 
     removeRouteStructuredDataScripts()
     structuredDataEntries.forEach((entry) => {

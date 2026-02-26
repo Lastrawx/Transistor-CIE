@@ -10,6 +10,11 @@ export const faqItems: FAQItem[] = [
       'Le devis est gratuit. Dans la majorité des cas, vous recevez une réponse sous 24 à 48h ouvrées après réception des éléments utiles.',
   },
   {
+    question: 'Comment écrire le nom Transistor&CIE ?',
+    answer:
+      'Le nom officiel est Transistor&CIE. Selon les usages, vous pouvez aussi voir : Transistor et CIE, Transistor CIE, Transistor et compagnie, Transistor & compagnie.',
+  },
+  {
     question: 'Les interventions sont-elles vraiment 100% digital, partout en France ?',
     answer:
       'Oui. Les diagnostics, conseils et accompagnements se font en visio et/ou prise en main à distance, sans déplacement.',

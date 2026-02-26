@@ -41,6 +41,8 @@ const ServiceOffer = ({ profile }: ServiceOfferProps) => {
   const relatedOfferLink = relatedOffer ? `/${relatedOffer.profile}/${relatedOffer.serviceId}` : null
   const profileLabel = profile === 'particulier' ? 'Particuliers' : 'Entreprises'
   const faqEntries = service.landing.faq.slice(0, 3)
+  const profilePath = `/${profile}`
+  const profileUrl = `${site.websiteUrl}${profilePath}`
   const serviceUrl = `${site.websiteUrl}/${profile}/${service.id}`
   const structuredData = [
     {
@@ -74,6 +76,30 @@ const ServiceOffer = ({ profile }: ServiceOfferProps) => {
         },
       })),
     },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Accueil',
+          item: site.websiteUrl,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: `Pôle ${profileLabel}`,
+          item: profileUrl,
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: service.title,
+          item: serviceUrl,
+        },
+      ],
+    },
   ]
 
   return (
@@ -100,7 +126,7 @@ const ServiceOffer = ({ profile }: ServiceOfferProps) => {
             <Link to={quoteLink} className="btn-primary">
               Demander un devis
             </Link>
-            <Link to={`/${profile}`} className="btn-secondary">
+            <Link to={profilePath} className="btn-secondary">
               Retour aux offres
             </Link>
           </div>

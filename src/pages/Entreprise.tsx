@@ -6,6 +6,7 @@ import ContactModal from '../components/ContactModal'
 import GuaranteeHighlight from '../components/GuaranteeHighlight'
 import SEO from '../components/SEO'
 import { entrepriseServices, type Service } from '../content/services'
+import { site } from '../content/site'
 import heroEntreprise from '../assets/hero-entreprise.webp'
 import { useProfile } from '../utils/useProfile'
 
@@ -34,12 +35,29 @@ const Entreprise = () => {
     return services
   }, [])
 
+  const structuredData = useMemo(
+    () => ({
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: 'Services Entreprises Transistor&CIE',
+      numberOfItems: orderedEntrepriseServices.length,
+      itemListElement: orderedEntrepriseServices.map((service, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        url: `${site.websiteUrl}/entreprise/${service.id}`,
+        name: service.title,
+      })),
+    }),
+    [orderedEntrepriseServices],
+  )
+
   return (
     <div className="space-y-16 pt-3 sm:pt-4">
       <SEO
         title="Transistor&CIE — Entreprises"
         description="Création de sites web, Green IT, cybersécurité et infrastructure IT pour les entreprises. 100% digital, partout en France. Devis gratuit."
         image={heroEntreprise}
+        structuredData={structuredData}
       />
 
       <Hero

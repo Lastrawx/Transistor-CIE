@@ -6,24 +6,35 @@ import { site } from '../content/site'
 import iconChip from '../assets/icon-chip.webp'
 
 const About = () => {
-  const faqEntries = useMemo(() => faqItems.slice(0, 6), [])
+  const faqEntries = useMemo(() => faqItems.slice(0, 7), [])
+  const brandAliasesText = site.brandAliases.join(' , ')
   const faqStructuredData = useMemo(
-    () => ({
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: faqEntries.map((item) => ({
-        '@type': 'Question',
-        name: item.question,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: item.answer,
+    () => [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faqEntries.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer,
+          },
+        })),
+        publisher: {
+          '@type': 'Organization',
+          '@id': `${site.websiteUrl}/#organization`,
         },
-      })),
-      publisher: {
+      },
+      {
+        '@context': 'https://schema.org',
         '@type': 'Organization',
         '@id': `${site.websiteUrl}/#organization`,
+        name: site.brand,
+        legalName: site.brand,
+        alternateName: site.brandAliases,
       },
-    }),
+    ],
     [faqEntries],
   )
 
@@ -44,6 +55,9 @@ const About = () => {
               Transistor&CIE accompagne particuliers et entreprises avec une approche pédagogique, amicale et efficace.
               L'objectif est de vous simplifier la tech, améliorer votre quotidien et/ou vos performances et réduire
               votre empreinte numérique.
+            </p>
+            <p className="text-xs text-slate-500">
+              Pour la recherche Google, notre marque peut aussi être écrite : {brandAliasesText}.
             </p>
             <div className="grid gap-3 sm:grid-cols-2">
               {[
