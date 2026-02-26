@@ -135,6 +135,11 @@ service cloud.firestore {
       && hasValidNonNegativeMetricValue(data, "poleEntrepriseClicks");
     }
 
+    function isValidSiteOpeningShape(data) {
+      return data.keys().hasOnly(["openedAt"])
+        && data.openedAt == request.time;
+    }
+
     match /devis/{docId} {
       allow get, list, read: if isAdmin();
 
@@ -203,6 +208,16 @@ service cloud.firestore {
         && isValidSiteMetricsShape(request.resource.data);
 
       allow delete: if isAdmin();
+    }
+
+    match /site_metrics/{docId}/openings/{openingId} {
+      allow get, list, read: if isAdmin();
+
+      allow create: if
+        docId == "global"
+        && isValidSiteOpeningShape(request.resource.data);
+
+      allow update, delete: if isAdmin();
     }
   }
 }

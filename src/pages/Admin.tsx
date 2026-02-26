@@ -110,6 +110,11 @@ const createEmptySiteMetricsState = (): SiteMetricsState => ({
 const toMetricCounter = (value: unknown) =>
   typeof value === 'number' && Number.isFinite(value) && value >= 0 ? Math.floor(value) : 0
 
+type SiteOpeningEvent = {
+  id: string
+  openedAt?: Timestamp | null
+}
+
 type ContactChannel = 'mail' | 'appel' | 'sms' | 'whatsapp'
 
 const contactChannelLabelMap: Record<ContactChannel, string> = {
@@ -145,6 +150,8 @@ const Admin = () => {
   const [siteMetrics, setSiteMetrics] = useState<SiteMetricsState>(() => createEmptySiteMetricsState())
   const [metricsError, setMetricsError] = useState<string | null>(null)
   const [resettingMetric, setResettingMetric] = useState<SiteMetricField | 'all' | null>(null)
+  const [siteOpenings, setSiteOpenings] = useState<SiteOpeningEvent[]>([])
+  const [siteOpeningsError, setSiteOpeningsError] = useState<string | null>(null)
 
   const counts = useMemo(() => {
     return items.reduce(
@@ -310,6 +317,45 @@ const Admin = () => {
       (error) => {
         console.error('Site metrics subscription failed', error)
         setMetricsError('Impossible de charger les compteurs du site.')
+      },
+    )
+
+    return () => {
+      unsubscribe()
+    }
+  }, [hasAdminClaim, user])
+
+  useEffect(() => {
+    if (!user || hasAdminClaim !== true) {
+      setSiteOpenings([])
+      setSiteOpeningsError(null)
+      return
+    }
+
+    const openingsQuery = query(
+      collection(db, 'site_metrics', 'global', 'openings'),
+      orderBy('openedAt', 'desc'),
+      limit(50),
+    )
+
+    const unsubscribe = onSnapshot(
+      openingsQuery,
+      (snapshot) => {
+        const nextOpenings: SiteOpeningEvent[] = []
+        snapshot.forEach((entry) => {
+          const data = entry.data()
+          nextOpenings.push({
+            id: entry.id,
+            openedAt: (data.openedAt as Timestamp | undefined) ?? null,
+          })
+        })
+        setSiteOpenings(nextOpenings)
+        setSiteOpeningsError(null)
+      },
+      (error) => {
+        console.error('Site openings subscription failed', error)
+        setSiteOpenings([])
+        setSiteOpeningsError("Impossible de charger l'historique des ouvertures du site.")
       },
     )
 
@@ -596,6 +642,12 @@ const Admin = () => {
                     <p className="mt-2 text-2xl font-semibold text-slate-900">
                       {siteMetrics[field].toLocaleString('fr-FR')}
                     </p>
+                    {field === 'siteOpens' && (
+                      <p className="mt-2 text-xs text-slate-500">
+                        Dernière ouverture :{' '}
+                        {siteOpenings[0]?.openedAt ? formatDate(siteOpenings[0].openedAt) : 'aucune donnée'}
+                      </p>
+                    )}
                     <button
                       type="button"
                       onClick={() => handleResetMetric(field)}
@@ -612,6 +664,27 @@ const Admin = () => {
                 Dernière mise à jour : {siteMetrics.updatedAt ? formatDate(siteMetrics.updatedAt) : 'aucune donnée'}
               </div>
               {metricsError && <p className="mt-2 text-sm text-rose-600">{metricsError}</p>}
+
+              <details className="mt-4 rounded-2xl border border-slate-200 bg-white p-4">
+                <summary className="cursor-pointer text-sm font-semibold text-slate-800">
+                  Voir date/heure des 50 dernières ouvertures du site
+                </summary>
+                {siteOpenings.length === 0 ? (
+                  <p className="mt-3 text-sm text-slate-500">Aucune ouverture enregistrée.</p>
+                ) : (
+                  <div className="mt-3 max-h-64 overflow-auto rounded-xl border border-slate-100">
+                    <ul className="divide-y divide-slate-100">
+                      {siteOpenings.map((opening, index) => (
+                        <li key={opening.id} className="flex items-center justify-between px-3 py-2 text-sm text-slate-700">
+                          <span className="text-slate-500">#{index + 1}</span>
+                          <span>{opening.openedAt ? formatDate(opening.openedAt) : 'Date indisponible'}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </details>
+              {siteOpeningsError && <p className="mt-2 text-sm text-rose-600">{siteOpeningsError}</p>}
             </div>
 
             <div className="flex flex-wrap items-center gap-3">

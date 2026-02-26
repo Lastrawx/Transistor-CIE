@@ -1,4 +1,4 @@
-import { doc, increment, serverTimestamp, setDoc } from 'firebase/firestore'
+import { addDoc, collection, doc, increment, serverTimestamp, setDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 
 export type SiteMetricField =
@@ -35,6 +35,7 @@ export const createEmptySiteMetricCounters = (): SiteMetricCounters => ({
 })
 
 const SITE_METRICS_DOC = doc(db, 'site_metrics', 'global')
+const SITE_OPENINGS_COLLECTION = collection(db, 'site_metrics', 'global', 'openings')
 const FLUSH_INTERVAL_MS = 8000
 const HOME_OPEN_LAST_AT_KEY = 'tc_home_open_last_at_v1'
 const HOME_OPEN_THROTTLE_MS = 1500
@@ -185,6 +186,12 @@ export const trackHomePageOpen = () => {
 
   trackSiteMetric('siteOpens')
   void flushPendingSiteMetrics()
+
+  void addDoc(SITE_OPENINGS_COLLECTION, {
+    openedAt: serverTimestamp(),
+  }).catch((error) => {
+    console.warn('Site opening tracking failed', error)
+  })
 }
 
 export const initSiteMetricsTracking = () => {
