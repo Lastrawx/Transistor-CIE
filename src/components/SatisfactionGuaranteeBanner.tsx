@@ -4,7 +4,7 @@ import GuaranteeDetailsModal from './GuaranteeDetailsModal'
 
 const DISMISS_STORAGE_KEY = 'satisfactionGuaranteeBannerDismissedAt'
 const DISMISS_DURATION_MS = 7 * 24 * 60 * 60 * 1000
-const HIDDEN_PATHS = new Set(['/cgv-cgu', '/cgv', '/cgu', '/contact', '/depannage-pc', '/merci'])
+const HIDDEN_PATHS = new Set(['/', '/cgv-cgu', '/cgv', '/cgu', '/contact', '/depannage-pc', '/merci'])
 type SatisfactionGuaranteeBannerProps = {
   onVisibilityChange?: (visible: boolean) => void
 }

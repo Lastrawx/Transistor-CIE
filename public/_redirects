@@ -1,4 +1,5 @@
 /particulier /index.html 200
+/depannage-pc /index.html 200
 /particulier/* /index.html 200
 /entreprise /index.html 200
 /entreprise/* /index.html 200

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import Hero from '../components/Hero'
 import PillBanner from '../components/PillBanner'
 import ServiceGrid from '../components/ServiceGrid'
@@ -60,6 +61,20 @@ const Particulier = () => {
         image={heroParticulier}
         imageAlt="Pôle Particuliers"
       />
+
+      <section className="container-page">
+        <div className="section-card flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="text-sm font-semibold text-slate-900">🔧 Besoin d’un dépannage rapide ?</p>
+            <p className="mt-1 text-sm text-slate-600">
+              PC lent, virus, plantages : décrivez votre problème en 1 minute, devis gratuit.
+            </p>
+          </div>
+          <Link to="/depannage-pc" className="btn-primary shrink-0">
+            Dépannage express
+          </Link>
+        </div>
+      </section>
 
       <section className="container-page space-y-6">
         <PillBanner />

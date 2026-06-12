@@ -10,9 +10,28 @@ import heroParticulier from '../assets/hero-particulier.webp'
 import heroEntreprise from '../assets/hero-entreprise.webp'
 import { site } from '../content/site'
 
+const trustBadges = [
+  {
+    title: 'Devis gratuit',
+    text: 'Diagnostic clair avant toute intervention. Vous validez le prix d’abord, sans engagement.',
+  },
+  {
+    title: '100% à distance',
+    text: 'Visio ou prise en main sécurisée, partout en France. Aucun déplacement à prévoir.',
+  },
+  {
+    title: 'Expert systèmes & réseaux',
+    text: 'Ex-administrateur réseaux & systèmes, formé à l’École nationale des transmissions.',
+  },
+  {
+    title: 'Garantie satisfaction',
+    text: 'Si le résultat défini au devis n’est pas atteint, la garantie s’applique.',
+  },
+]
+
 const Home = () => {
   const ctaLink = '/contact'
-  const ctaLabel = 'Demander un devis'
+  const ctaLabel = 'Demander un devis gratuit'
 
   return (
     <div className="space-y-20 pt-3 sm:pt-4">
@@ -23,26 +42,9 @@ const Home = () => {
       />
 
       <div className="space-y-8">
-        <section className="container-page pt-2">
-          <div className="section-card flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
-            <div>
-              <p className="text-xs font-semibold uppercase text-slate-500">Contact rapide</p>
-              <p className="mt-1 text-sm text-slate-600">Besoin d&apos;une réponse immédiate ? Appelez-nous ou écrivez sur WhatsApp.</p>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <a href={`tel:${site.phoneHref}`} className="btn-ghost px-4 py-2 text-xs sm:text-sm">
-                Appeler {site.phoneDisplay}
-              </a>
-              <a href={site.whatsappUrl} target="_blank" rel="noreferrer" className="btn-whatsapp-soft px-4 py-2 text-xs sm:text-sm">
-                WhatsApp
-              </a>
-            </div>
-          </div>
-        </section>
-
         <Hero
           title="La tech au quotidien, simplifiée"
-          subtitle="Performance & Responsabilité"
+          subtitle="Dépannage informatique, cybersécurité, sites web et Green IT — pour les particuliers et les TPE/PME. 100% à distance, partout en France."
           kicker="Transistor&CIE"
           ctaLabel={ctaLabel}
           ctaLink={ctaLink}
@@ -51,10 +53,46 @@ const Home = () => {
           image={heroHome}
           imageAlt="Bienvenue chez Transistor&CIE"
         >
-          <div className="pt-4">
+          <div className="space-y-4 pt-2">
+            <div className="flex flex-wrap items-center gap-2">
+              <a href={`tel:${site.phoneHref}`} className="btn-ghost px-4 py-2 text-xs sm:text-sm">
+                Appeler {site.phoneDisplay}
+              </a>
+              <a href={site.whatsappUrl} target="_blank" rel="noreferrer" className="btn-whatsapp-soft px-4 py-2 text-xs sm:text-sm">
+                WhatsApp
+              </a>
+            </div>
+            <p className="text-xs font-medium text-slate-500">
+              Devis gratuit · Réponse sous 24–48h ouvrées · Garantie satisfaction
+            </p>
             <ProfileChoice />
           </div>
         </Hero>
+
+        <section className="container-page">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {trustBadges.map((badge) => (
+              <div key={badge.title} className="section-card h-full p-5">
+                <h2 className="text-base font-semibold text-slate-900">{badge.title}</h2>
+                <p className="mt-2 text-sm text-slate-600">{badge.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="container-page">
+          <div className="section-card flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm font-semibold text-slate-900">🔧 PC lent, virus, plantages ?</p>
+              <p className="mt-1 text-sm text-slate-600">
+                Dépannage à distance, souvent en moins de 24h. Décrivez votre problème en 1 minute.
+              </p>
+            </div>
+            <Link to="/depannage-pc" className="btn-primary shrink-0">
+              Dépannage express
+            </Link>
+          </div>
+        </section>
       </div>
 
       <section id="poles" className="container-page space-y-8">
