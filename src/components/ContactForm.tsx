@@ -27,6 +27,12 @@ type ContactFormProps = {
   prefillSubject?: string
   prefillMessage?: string
   compact?: boolean
+  /** Mode allégé : message optionnel, en-têtes masqués, libellé d'envoi orienté contact. */
+  express?: boolean
+  /** Boutons "symptôme" rapides (mode express) qui pré-remplissent le message en un clic. */
+  quickReasons?: string[]
+  /** Libellé personnalisé du bouton d'envoi. */
+  submitLabel?: string
 }
 
 const MIN_EMAIL_LENGTH = 5
@@ -46,6 +52,9 @@ const ContactForm = ({
   prefillSubject,
   prefillMessage,
   compact,
+  express = false,
+  quickReasons,
+  submitLabel,
 }: ContactFormProps) => {
   const navigate = useNavigate()
   const { profile: storedProfile } = useProfile()
@@ -56,6 +65,9 @@ const ContactForm = ({
   const [contactPreference, setContactPreference] = useState<ContactPreference>('mail')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
+  const [messageText, setMessageText] = useState(() =>
+    prefillMessage ? prefillMessage.slice(0, MAX_MESSAGE_LENGTH) : '',
+  )
 
   const profileLocked = Boolean(prefillProfile)
   const serviceLocked = Boolean(prefillService)
@@ -89,7 +101,7 @@ const ContactForm = ({
     const serviceValue = (formData.get('service') ?? '').toString().trim()
     const phone = (formData.get('telephone') ?? '').toString().trim()
     const contactPreferenceValue = (formData.get('preferenceRecontact') ?? '').toString().trim()
-    const message = (formData.get('message') ?? '').toString().trim()
+    const message = messageText.trim()
 
     if (email.length < MIN_EMAIL_LENGTH || email.length > MAX_EMAIL_LENGTH) {
       setSubmitError('Merci de renseigner un email valide.')
@@ -127,11 +139,23 @@ const ContactForm = ({
       return
     }
 
-    if (message.length < MIN_MESSAGE_LENGTH || message.length > MAX_MESSAGE_LENGTH) {
+    if (message.length > MAX_MESSAGE_LENGTH) {
+      setSubmitError('Votre message est trop long (3000 caractères max).')
+      setIsSubmitting(false)
+      return
+    }
+
+    if (!express && message.length < MIN_MESSAGE_LENGTH) {
       setSubmitError('Merci de renseigner un message entre 20 et 3000 caractères.')
       setIsSubmitting(false)
       return
     }
+
+    // En mode express le message est optionnel : si l'utilisateur n'écrit rien
+    // (ou trop court), on compose un message valide à partir de l'objet/service
+    // pour respecter la contrainte serveur (message >= 20 caractères).
+    const messageToSend =
+      message.length >= MIN_MESSAGE_LENGTH ? message : `${subject}${message ? ` — ${message}` : ''}`
 
     const preferredContactMethod: ContactPreference =
       phone.length > 0 && contactPreferenceOptions.some((option) => option.value === contactPreferenceValue)
@@ -151,7 +175,7 @@ const ContactForm = ({
       email,
       telephone: phone,
       preferenceRecontact: preferredContactMethod,
-      message,
+      message: messageToSend,
       statut: 'nouveau',
       consentement: Boolean(formData.get('consentement')),
       website: '',
@@ -161,6 +185,7 @@ const ContactForm = ({
       await addDoc(collection(db, 'devis'), payload)
       markQuoteConversionPending()
       form.reset()
+      setMessageText('')
       navigate('/merci')
     } catch (error) {
       console.error('Firestore submission failed', error)
@@ -168,11 +193,6 @@ const ContactForm = ({
       setIsSubmitting(false)
     }
   }
-
-  const messagePrefill = useMemo(() => {
-    if (!prefillMessage) return ''
-    return prefillMessage.slice(0, MAX_MESSAGE_LENGTH)
-  }, [prefillMessage])
 
   return (
     <form
@@ -193,10 +213,14 @@ const ContactForm = ({
       />
 
       {profileLocked ? (
-        <div className="rounded-xl bg-slate-100 px-4 py-3 text-sm font-semibold text-slate-700">
-          Profil : {profileLabel(profile)}
+        express ? (
           <input type="hidden" name="profil" value={profile} />
-        </div>
+        ) : (
+          <div className="rounded-xl bg-slate-100 px-4 py-3 text-sm font-semibold text-slate-700">
+            Profil : {profileLabel(profile)}
+            <input type="hidden" name="profil" value={profile} />
+          </div>
+        )
       ) : (
         <label className="space-y-2">
           <span className="text-sm font-semibold text-slate-700">Profil *</span>
@@ -220,11 +244,13 @@ const ContactForm = ({
       {hasObjectPrefill ? (
         <>
           <input type="hidden" name="objet" value={subjectValue} />
-          <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
-            {serviceLocked
-              ? `Service sélectionné : ${service}`
-              : 'Objet prérempli automatiquement pour accélérer votre demande.'}
-          </div>
+          {!express && (
+            <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
+              {serviceLocked
+                ? `Service sélectionné : ${service}`
+                : 'Objet prérempli automatiquement pour accélérer votre demande.'}
+            </div>
+          )}
         </>
       ) : (
         <label className="space-y-2">
@@ -304,17 +330,50 @@ const ContactForm = ({
         </label>
       )}
 
+      {express && quickReasons && quickReasons.length > 0 && (
+        <div className="space-y-2">
+          <span className="text-sm font-semibold text-slate-700">Quel est votre souci ? (1 clic)</span>
+          <div className="flex flex-wrap gap-2">
+            {quickReasons.map((reason) => {
+              const isActive = messageText.trim() === reason
+              return (
+                <button
+                  type="button"
+                  key={reason}
+                  onClick={() => setMessageText(reason)}
+                  aria-pressed={isActive}
+                  className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition ${
+                    isActive
+                      ? 'border-brand-cyan bg-brand-cyan/10 text-brand-ink'
+                      : 'border-slate-200 bg-white text-slate-600 hover:border-brand-cyan hover:text-slate-900'
+                  }`}
+                >
+                  {reason}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
       <label className="space-y-2">
-        <span className="text-sm font-semibold text-slate-700">Message *</span>
+        <span className="text-sm font-semibold text-slate-700">
+          {express ? 'Détails (optionnel)' : 'Message *'}
+        </span>
         <textarea
           name="message"
-          required
-          minLength={MIN_MESSAGE_LENGTH}
+          required={!express}
+          minLength={express ? undefined : MIN_MESSAGE_LENGTH}
           maxLength={MAX_MESSAGE_LENGTH}
-          defaultValue={messagePrefill}
+          value={messageText}
+          onChange={(event) => setMessageText(event.target.value)}
           rows={compact ? 4 : 6}
           className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3"
-          placeholder="Décrivez votre besoin en quelques lignes."
+          placeholder={
+            express
+              ? 'Ajoutez un détail si besoin (marque du PC, message d’erreur…). Facultatif.'
+              : 'Décrivez votre besoin en quelques lignes.'
+          }
         ></textarea>
       </label>
 
@@ -334,7 +393,7 @@ const ContactForm = ({
       </label>
 
       <button type="submit" data-track-metric="quoteClicks" className="btn-primary" disabled={isSubmitting}>
-        {isSubmitting ? 'Envoi en cours...' : 'Demander mon devis'}
+        {isSubmitting ? 'Envoi en cours...' : submitLabel ?? 'Demander mon devis'}
       </button>
       {submitError && <p className="text-sm text-rose-600">{submitError}</p>}
     </form>

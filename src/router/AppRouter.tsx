@@ -12,6 +12,7 @@ const MentionsLegales = lazy(() => import('../pages/MentionsLegales'))
 const Confidentialite = lazy(() => import('../pages/Confidentialite'))
 const CgvCgu = lazy(() => import('../pages/CgvCgu'))
 const ServiceOffer = lazy(() => import('../pages/ServiceOffer'))
+const DepannagePc = lazy(() => import('../pages/DepannagePc'))
 const NotFound = lazy(() => import('../pages/NotFound'))
 
 const ScrollToTop = () => {
@@ -37,6 +38,7 @@ const AppRouter = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/particulier" element={<Particulier />} />
+          <Route path="/depannage-pc" element={<DepannagePc />} />
           <Route path="/particulier/:serviceId" element={<ServiceOffer profile="particulier" />} />
           <Route path="/entreprise" element={<Entreprise />} />
           <Route path="/entreprise/:serviceId" element={<ServiceOffer profile="entreprise" />} />
