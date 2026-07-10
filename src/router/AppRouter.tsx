@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation, useParams } from 'react-router-dom'
 import { Suspense, lazy, useEffect } from 'react'
 
 const Home = lazy(() => import('../pages/Home'))
@@ -11,9 +11,34 @@ const Merci = lazy(() => import('../pages/Merci'))
 const MentionsLegales = lazy(() => import('../pages/MentionsLegales'))
 const Confidentialite = lazy(() => import('../pages/Confidentialite'))
 const CgvCgu = lazy(() => import('../pages/CgvCgu'))
-const ServiceOffer = lazy(() => import('../pages/ServiceOffer'))
 const DepannagePc = lazy(() => import('../pages/DepannagePc'))
+const AbonnementFamille = lazy(() => import('../pages/AbonnementFamille'))
+const CybersecuritePme = lazy(() => import('../pages/CybersecuritePme'))
+const SiteWebPro = lazy(() => import('../pages/SiteWebPro'))
 const NotFound = lazy(() => import('../pages/NotFound'))
+
+// Anciennes pages services (12 URLs) redirigées vers les offres phares.
+// Les redirections 301 côté serveur sont dans public/_redirects ; cette map
+// couvre les navigations internes côté client.
+const legacyServiceRedirects: Record<string, string> = {
+  'assistance-depannage': '/depannage-pc',
+  'support-connectes-mobiles': '/depannage-pc',
+  'optimisation-budget-reseau': '/particulier',
+  'support-digital-familial-abonnement': '/abonnement-famille',
+  'coaching-montage-pc': '/particulier',
+  'formation-culture-numerique': '/particulier',
+  'conseil-energie-green-it': '/particulier',
+  'cybersecurite-essentielle': '/cybersecurite-pme',
+  'abonnement-cybersecurite-pme': '/cybersecurite-pme',
+  'creation-site-web': '/site-web-pro',
+  'conseil-infrastructure-it': '/entreprise',
+  'transition-numerique-verte': '/entreprise',
+}
+
+const LegacyServiceRedirect = ({ fallback }: { fallback: string }) => {
+  const { serviceId } = useParams<{ serviceId: string }>()
+  return <Navigate to={legacyServiceRedirects[serviceId ?? ''] ?? fallback} replace />
+}
 
 const ScrollToTop = () => {
   const { pathname, hash } = useLocation()
@@ -39,9 +64,12 @@ const AppRouter = () => {
           <Route path="/" element={<Home />} />
           <Route path="/particulier" element={<Particulier />} />
           <Route path="/depannage-pc" element={<DepannagePc />} />
-          <Route path="/particulier/:serviceId" element={<ServiceOffer profile="particulier" />} />
+          <Route path="/abonnement-famille" element={<AbonnementFamille />} />
+          <Route path="/cybersecurite-pme" element={<CybersecuritePme />} />
+          <Route path="/site-web-pro" element={<SiteWebPro />} />
+          <Route path="/particulier/:serviceId" element={<LegacyServiceRedirect fallback="/particulier" />} />
           <Route path="/entreprise" element={<Entreprise />} />
-          <Route path="/entreprise/:serviceId" element={<ServiceOffer profile="entreprise" />} />
+          <Route path="/entreprise/:serviceId" element={<LegacyServiceRedirect fallback="/entreprise" />} />
           <Route path="/a-propos" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/admin-cagnat" element={<Admin />} />

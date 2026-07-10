@@ -34,8 +34,12 @@ const Footer = () => {
         <div className="space-y-3 text-sm">
           <p className="font-semibold text-slate-900">Navigation</p>
           <div className="flex flex-col gap-2 text-slate-600">
-            <Link to="/particulier">Pôle Particuliers</Link>
-            <Link to="/entreprise">Pôle Entreprises</Link>
+            <Link to="/depannage-pc">Dépannage & Assistance</Link>
+            <Link to="/abonnement-famille">Abonnement Sérénité Famille</Link>
+            <Link to="/cybersecurite-pme">Cybersécurité TPE/PME</Link>
+            <Link to="/site-web-pro">Site Web Essentiel</Link>
+            <Link to="/particulier">Particuliers</Link>
+            <Link to="/entreprise">Entreprises</Link>
             <Link to="/a-propos">À propos</Link>
             <Link to="/contact">Contact</Link>
           </div>

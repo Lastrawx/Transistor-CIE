@@ -7,9 +7,9 @@ import { instagram } from '../content/instagram'
 
 const navItems = [
   { label: 'Accueil', to: '/' },
-  { label: 'Particuliers', to: '/particulier' },
+  { label: 'Dépannage', to: '/depannage-pc' },
+  { label: 'Abonnement famille', to: '/abonnement-famille' },
   { label: 'Entreprises', to: '/entreprise' },
-  { label: 'À propos', to: '/a-propos' },
   { label: 'Contact', to: '/contact' },
 ]
 

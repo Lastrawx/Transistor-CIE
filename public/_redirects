@@ -1,5 +1,25 @@
-/particulier /index.html 200
+# Landing pages (SPA)
 /depannage-pc /index.html 200
+/abonnement-famille /index.html 200
+/cybersecurite-pme /index.html 200
+/site-web-pro /index.html 200
+
+# Anciennes pages services -> offres phares (301, avant les wildcards)
+/particulier/assistance-depannage /depannage-pc 301
+/particulier/support-connectes-mobiles /depannage-pc 301
+/particulier/support-digital-familial-abonnement /abonnement-famille 301
+/particulier/optimisation-budget-reseau /particulier 301
+/particulier/coaching-montage-pc /particulier 301
+/particulier/formation-culture-numerique /particulier 301
+/particulier/conseil-energie-green-it /particulier 301
+/entreprise/cybersecurite-essentielle /cybersecurite-pme 301
+/entreprise/abonnement-cybersecurite-pme /cybersecurite-pme 301
+/entreprise/creation-site-web /site-web-pro 301
+/entreprise/conseil-infrastructure-it /entreprise 301
+/entreprise/transition-numerique-verte /entreprise 301
+
+# Pages du site (SPA)
+/particulier /index.html 200
 /particulier/* /index.html 200
 /entreprise /index.html 200
 /entreprise/* /index.html 200

@@ -1,14 +1,48 @@
 import { Link } from 'react-router-dom'
 import Hero from '../components/Hero'
 import ProfileChoice from '../components/ProfileChoice'
-import PillBanner from '../components/PillBanner'
 import GuaranteeHighlight from '../components/GuaranteeHighlight'
+import ContactForm from '../components/ContactForm'
+import FounderNote from '../components/FounderNote'
 import SEO from '../components/SEO'
 import { instagram } from '../content/instagram'
 import heroHome from '../assets/hero-home.webp'
-import heroParticulier from '../assets/hero-particulier.webp'
-import heroEntreprise from '../assets/hero-entreprise.webp'
 import { site } from '../content/site'
+
+const offresPhares = [
+  {
+    badge: 'Particuliers',
+    title: 'Dépannage & Assistance',
+    text: 'PC lent, virus, Wi-Fi, imprimante, smartphone : diagnostic et réparation à distance, souvent sous 24h.',
+    price: 'Diagnostic dès 45 € · 35 €/h',
+    to: '/depannage-pc',
+    cta: 'Décrire mon problème',
+  },
+  {
+    badge: 'Particuliers',
+    title: 'Abonnement Sérénité Famille',
+    text: 'Assistance toute l’année pour tout le foyer, seniors inclus. Un interlocuteur unique pour toute la tech.',
+    price: 'À partir de 60 €/mois',
+    to: '/abonnement-famille',
+    cta: 'Découvrir la formule',
+  },
+  {
+    badge: 'Entreprises',
+    title: 'Cybersécurité TPE/PME',
+    text: 'Mise à niveau complète en 1 mois, puis suivi continu si besoin. Sans équipe informatique interne.',
+    price: 'À partir de 530 €',
+    to: '/cybersecurite-pme',
+    cta: 'Sécuriser mon entreprise',
+  },
+  {
+    badge: 'Entreprises',
+    title: 'Site Web Essentiel',
+    text: 'Un site clair, professionnel et orienté demandes de devis, prêt à convertir dès la mise en ligne.',
+    price: 'À partir de 800 €',
+    to: '/site-web-pro',
+    cta: 'Décrire mon projet',
+  },
+]
 
 const trustBadges = [
   {
@@ -80,85 +114,36 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="container-page">
-          <div className="section-card flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="text-sm font-semibold text-slate-900">🔧 PC lent, virus, plantages ?</p>
-              <p className="mt-1 text-sm text-slate-600">
-                Dépannage à distance, souvent en moins de 24h. Décrivez votre problème en 1 minute.
-              </p>
-            </div>
-            <Link to="/depannage-pc" className="btn-primary shrink-0">
-              Dépannage express
-            </Link>
-          </div>
-        </section>
       </div>
 
-      <section id="poles" className="container-page space-y-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-xs font-semibold uppercase text-slate-500">Deux pôles</p>
-            <h2 className="text-3xl font-semibold text-slate-900">Choisissez votre accompagnement</h2>
-          </div>
-          <PillBanner />
+      <section id="poles" className="container-page space-y-6">
+        <div>
+          <p className="text-xs font-semibold uppercase text-slate-500">Nos offres phares</p>
+          <h2 className="text-3xl font-semibold text-slate-900">Quel est votre besoin ?</h2>
         </div>
-        <div className="grid items-stretch gap-6 lg:grid-cols-2">
-          <article className="section-card h-full overflow-hidden p-6">
-            <div className="grid h-full gap-6 md:grid-cols-[1.1fr_0.9fr] md:items-stretch">
-              <div className="flex h-full flex-col gap-3">
-                <h3 className="text-xl font-semibold text-slate-900">Particuliers</h3>
-                <p className="text-sm text-slate-600">
-                  Assistance, optimisation, formation et Green IT pour la maison. Simple, rapide, sans déplacement.
-                </p>
-                <div className="mt-auto flex flex-wrap gap-2 pt-2">
-                  <Link to="/particulier" className="btn-secondary">
-                    Voir les services
-                  </Link>
-                  <Link to="/contact?profile=particulier" className="btn-primary">
-                    Demander un devis
-                  </Link>
-                </div>
+        <div className="grid items-stretch gap-4 sm:grid-cols-2">
+          {offresPhares.map((offre) => (
+            <article key={offre.title} className="section-card flex h-full flex-col p-6">
+              <span className="chip w-fit">{offre.badge}</span>
+              <h3 className="mt-3 text-xl font-semibold text-slate-900">{offre.title}</h3>
+              <p className="mt-2 text-sm text-slate-600">{offre.text}</p>
+              <p className="mt-3 text-sm font-semibold text-sky-800">{offre.price}</p>
+              <div className="mt-auto pt-4">
+                <Link to={offre.to} className="btn-primary">
+                  {offre.cta}
+                </Link>
               </div>
-              <div className="flex h-full items-center">
-                <img
-                  src={heroParticulier}
-                  alt="Pôle Particuliers"
-                  loading="lazy"
-                  decoding="async"
-                  className="aspect-square h-full w-full rounded-2xl border border-slate-100 object-cover object-center"
-                />
-              </div>
-            </div>
-          </article>
-          <article className="section-card h-full overflow-hidden p-6">
-            <div className="grid h-full gap-6 md:grid-cols-[1.1fr_0.9fr] md:items-stretch">
-              <div className="flex h-full flex-col gap-3">
-                <h3 className="text-xl font-semibold text-slate-900">Entreprises</h3>
-                <p className="text-sm text-slate-600">
-                  Création de sites web essentiels, performance, RSE, cybersécurité et infrastructure IT pour sécuriser et accélérer votre activité.
-                </p>
-                <div className="mt-auto flex flex-wrap gap-2 pt-2">
-                  <Link to="/entreprise" className="btn-secondary">
-                    Voir les services
-                  </Link>
-                  <Link to="/contact?profile=entreprise" className="btn-primary">
-                    Demander un devis
-                  </Link>
-                </div>
-              </div>
-              <div className="flex h-full items-center">
-                <img
-                  src={heroEntreprise}
-                  alt="Pôle Entreprises"
-                  loading="lazy"
-                  decoding="async"
-                  className="aspect-square h-full w-full rounded-2xl border border-slate-100 object-cover object-center"
-                />
-              </div>
-            </div>
-          </article>
+            </article>
+          ))}
         </div>
+        <p className="text-xs text-slate-500">
+          Tarifs indicatifs — devis gratuit personnalisé. TVA non applicable, art. 293 B du CGI. On fait aussi :
+          montage PC sur-mesure, formation numérique, Green IT, infrastructure IT —{' '}
+          <Link to="/contact" className="font-medium text-sky-700 underline underline-offset-2 hover:text-sky-800">
+            parlez-nous de votre besoin
+          </Link>
+          .
+        </p>
       </section>
 
       <section className="container-page section-card p-8">
@@ -234,109 +219,59 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="section-card space-y-6 p-8">
-          <div>
-            <p className="text-xs font-semibold uppercase text-slate-500">Qualification & expérience</p>
-            <h3 className="text-2xl font-semibold text-slate-900">Détails & références</h3>
+        <FounderNote />
+      </section>
+
+      <section id="devis" className="container-page section-card p-6 sm:p-8">
+        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="space-y-4">
+            <div>
+              <p className="text-xs font-semibold uppercase text-slate-500">Devis gratuit</p>
+              <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
+                Décrivez votre besoin, réponse sous 24–48h
+              </h2>
+              <p className="mt-2 text-sm text-slate-600">
+                Un clic sur votre situation, vos coordonnées, et c’est parti. Gratuit et sans engagement.
+              </p>
+            </div>
+            <ContactForm
+              express
+              prefillSubject="Demande de devis — Formulaire accueil"
+              quickReasons={[
+                'Besoin d’un dépannage informatique',
+                'Intéressé par l’abonnement famille',
+                'Cybersécurité de mon entreprise',
+                'Création d’un site web professionnel',
+                'Autre besoin / question',
+              ]}
+              submitLabel="Recevoir mon devis gratuit"
+            />
           </div>
-
-          <div className="grid gap-4">
-            <details className="group rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
-              <summary className="flex cursor-pointer items-center justify-between text-sm font-semibold text-slate-800">
-                Diplômes & formation
-                <span className="text-brand-cyan transition group-open:rotate-180">▾</span>
-              </summary>
-              <div className="mt-4 grid gap-3 text-sm text-slate-600">
-                <div className="rounded-xl border border-slate-100 bg-white p-4">
-                  <p className="font-medium text-slate-800">
-                    Licence sciences et technologies de la défense — Académie militaire de Saint-Cyr Coëtquidan
-                  </p>
-                </div>
-                <div className="rounded-xl border border-slate-100 bg-white p-4">
-                  <p className="font-medium text-slate-800">
-                    Diplôme de spécialité, emplois des systèmes réseaux — École nationale des transmissions
-                  </p>
-                </div>
-                <div className="rounded-xl border border-slate-100 bg-white p-4">
-                  <p className="font-medium text-slate-800">
-                    Formation technique en administration de routeurs — Allied Telesis
-                  </p>
-                </div>
-                <div className="rounded-xl border border-slate-100 bg-white p-4">
-                  <p className="font-medium text-slate-800">
-                    Formation en administration de serveurs Windows (Windows Server)
-                  </p>
-                </div>
-                <div className="rounded-xl border border-slate-100 bg-white p-4">
-                  <p className="font-medium text-slate-800">
-                    Formation technique chiffreurs et mise en oeuvre de liaisons chiffrées — Crypsis
-                  </p>
-                </div>
-                <div className="rounded-xl border border-slate-100 bg-white p-4">
-                  <p className="font-medium text-slate-800">Formation Java orientée objet</p>
-                </div>
-                <div className="rounded-xl border border-slate-100 bg-white p-4">
-                  <p className="font-medium text-slate-800">Formation développement web — HTML / CSS</p>
-                </div>
-                <div className="rounded-xl border border-slate-100 bg-white p-4">
-                  <p className="font-medium text-slate-800">Formation aux fondamentaux des bases de données</p>
-                </div>
+          <aside className="space-y-4">
+            <div className="rounded-2xl border border-slate-100 bg-white p-5">
+              <p className="text-sm font-semibold text-slate-800">Vous préférez parler de vive voix ?</p>
+              <div className="mt-4 flex flex-col gap-2">
+                <a href={`tel:${site.phoneHref}`} className="btn-primary justify-center">
+                  Appeler {site.phoneDisplay}
+                </a>
+                <a href={site.whatsappUrl} target="_blank" rel="noreferrer" className="btn-whatsapp-soft justify-center">
+                  Écrire sur WhatsApp
+                </a>
+                <a href={`mailto:${site.contactEmail}`} className="btn-ghost justify-center">
+                  {site.contactEmail}
+                </a>
               </div>
-            </details>
-
-            <details className="group rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
-              <summary className="flex cursor-pointer items-center justify-between text-sm font-semibold text-slate-800">
-                Expériences professionnelles
-                <span className="text-brand-cyan transition group-open:rotate-180">▾</span>
-              </summary>
-              <div className="mt-4 grid gap-3 text-sm text-slate-600">
-                <div className="rounded-xl border border-slate-100 bg-white p-4">
-                  <p className="font-medium text-slate-800">Administrateur de réseaux informatiques</p>
-                  <p className="mt-2">
-                    Administration, sécurisation et maintenance de réseaux ; conception d’infrastructures ; gestion de
-                    projets de déploiement de nouveaux réseaux.
-                  </p>
-                </div>
-                <div className="rounded-xl border border-slate-100 bg-white p-4">
-                  <p className="font-medium text-slate-800">
-                    Administrateur des systèmes d’informations
-                  </p>
-                  <p className="mt-2">
-                    Gestion de serveurs et systèmes d’exploitation ; sécurité et sauvegarde des données utilisateur ;
-                    optimisation et évolution des infrastructures.
-                  </p>
-                </div>
-                <div className="rounded-xl border border-slate-100 bg-white p-4">
-                  <p className="font-medium text-slate-800">Pilotage & coordination opérationnelle</p>
-                  <p className="mt-2">
-                    Management opérationnel, suivi de compétences, mises en formation, planification et gestion de
-                    projets, garant de la sécurité des personnes et des biens.
-                  </p>
-                  <p className="mt-2">Volume en gestion : 30 à 50 personnes</p>
-                </div>
-              </div>
-            </details>
-
-            <details className="group rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
-              <summary className="flex cursor-pointer items-center justify-between text-sm font-semibold text-slate-800">
-                Méthode d’intervention (comment l’entreprise travaille)
-                <span className="text-brand-cyan transition group-open:rotate-180">▾</span>
-              </summary>
-              <div className="mt-4 grid gap-3 text-sm text-slate-600 md:grid-cols-2">
-                {[
-                  { title: 'Diagnostic', text: 'Symptômes, contexte, priorités.' },
-                  { title: 'Résolution', text: 'Actions ciblées, explication simple.' },
-                  { title: 'Sécurisation', text: 'Mises à jour, sauvegarde, bonnes pratiques.' },
-                  { title: 'Prévention', text: 'Conseils et plan d’entretien.' },
-                ].map((step) => (
-                  <div key={step.title} className="rounded-xl border border-slate-100 bg-white p-4">
-                    <p className="font-medium text-slate-800">{step.title}</p>
-                    <p className="mt-2">{step.text}</p>
-                  </div>
-                ))}
-              </div>
-            </details>
-          </div>
+            </div>
+            <div className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-5">
+              <p className="text-xs font-semibold uppercase text-emerald-700">Ce qui est toujours inclus</p>
+              <ul className="mt-3 space-y-2 text-sm text-slate-700">
+                <li>✅ Devis gratuit avant toute intervention</li>
+                <li>✅ 100% à distance, partout en France</li>
+                <li>✅ Garantie satisfaction selon conditions</li>
+                <li>✅ Explications claires, sans jargon</li>
+              </ul>
+            </div>
+          </aside>
         </div>
       </section>
 

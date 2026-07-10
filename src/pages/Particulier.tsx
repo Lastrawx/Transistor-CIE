@@ -1,99 +1,129 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Hero from '../components/Hero'
-import PillBanner from '../components/PillBanner'
-import ServiceGrid from '../components/ServiceGrid'
-import ContactModal from '../components/ContactModal'
-import GuaranteeHighlight from '../components/GuaranteeHighlight'
+import FounderNote from '../components/FounderNote'
 import SEO from '../components/SEO'
-import { particulierServices, type Service } from '../content/services'
+import { buildServiceQuoteLink } from '../content/services'
 import { site } from '../content/site'
 import heroParticulier from '../assets/hero-particulier.webp'
 import { useProfile } from '../utils/useProfile'
 
+const offres = [
+  {
+    title: '🔧 Dépannage & Assistance',
+    text: 'PC lent, virus, Wi-Fi, imprimante, smartphone : diagnostic et réparation à distance, souvent sous 24h.',
+    price: 'Diagnostic dès 45 € · 35 €/h',
+    to: '/depannage-pc',
+    cta: 'Décrire mon problème',
+  },
+  {
+    title: '🏠 Abonnement Sérénité Famille',
+    text: 'Assistance toute l’année pour tout le foyer, seniors inclus. Audit, sécurisation, hotline dédiée.',
+    price: 'À partir de 60 €/mois',
+    to: '/abonnement-famille',
+    cta: 'Découvrir la formule',
+  },
+]
+
+const autresPrestations = [
+  {
+    title: 'Coaching montage PC sur-mesure',
+    link: buildServiceQuoteLink('particulier', 'coaching-montage-pc'),
+  },
+  {
+    title: 'Formation & culture numérique (IA, cybersécurité, outils)',
+    link: buildServiceQuoteLink('particulier', 'formation-culture-numerique'),
+  },
+  {
+    title: 'Optimisation budget Internet & réseau',
+    link: buildServiceQuoteLink('particulier', 'optimisation-budget-reseau'),
+  },
+  {
+    title: 'Conseil énergie & Green IT pour la maison',
+    link: buildServiceQuoteLink('particulier', 'conseil-energie-green-it'),
+  },
+]
+
 const Particulier = () => {
   const { setProfile } = useProfile()
-  const [modalOpen, setModalOpen] = useState(false)
-  const [selectedService, setSelectedService] = useState<Service | null>(null)
 
   useEffect(() => {
     setProfile('particulier')
   }, [setProfile])
 
-  const handleQuote = (service: Service) => {
-    setSelectedService(service)
-    setModalOpen(true)
-  }
-
-  const structuredData = useMemo(
-    () => ({
-      '@context': 'https://schema.org',
-      '@type': 'ItemList',
-      name: 'Services Particuliers Transistor&CIE',
-      numberOfItems: particulierServices.length,
-      itemListElement: particulierServices.map((service, index) => ({
-        '@type': 'ListItem',
-        position: index + 1,
-        url: `${site.websiteUrl}/particulier/${service.id}`,
-        name: service.title,
-      })),
-    }),
-    [],
-  )
-
   return (
-    <div className="space-y-16 pt-3 sm:pt-4">
+    <div className="space-y-14 pt-3 sm:pt-4">
       <SEO
         title="Transistor&CIE — Particuliers"
-        description="Assistance, optimisation, formation et Green IT pour la maison. 100% digital, partout en France. Devis gratuit."
+        description="Dépannage informatique à distance dès 45 € et abonnement d'assistance famille dès 60 €/mois. 100% digital, partout en France. Devis gratuit."
         image={heroParticulier}
-        structuredData={structuredData}
       />
 
       <Hero
-        title="La Tech au quotidien, simplifiée"
-        subtitle="Rapide, pédagogique et 100% digital, partout en France pour retrouver un usage sans stress."
-        kicker="Pôle Particuliers"
-        ctaLabel="Demander un devis"
-        ctaLink="/contact"
-        secondaryLabel="Voir les services"
-        secondaryLink="#services"
+        title="Votre tech qui marche, sans stress."
+        subtitle="Dépannage ponctuel ou accompagnement toute l’année : deux formules simples, 100% à distance, partout en France."
+        kicker="Particuliers"
+        ctaLabel="Dépannage express"
+        ctaLink="/depannage-pc"
+        secondaryLabel="Abonnement famille"
+        secondaryLink="/abonnement-famille"
         image={heroParticulier}
-        imageAlt="Pôle Particuliers"
+        imageAlt="Services particuliers Transistor&CIE"
       />
-
-      <section className="container-page">
-        <div className="section-card flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p className="text-sm font-semibold text-slate-900">🔧 Besoin d’un dépannage rapide ?</p>
-            <p className="mt-1 text-sm text-slate-600">
-              PC lent, virus, plantages : décrivez votre problème en 1 minute, devis gratuit.
-            </p>
-          </div>
-          <Link to="/depannage-pc" className="btn-primary shrink-0">
-            Dépannage express
-          </Link>
-        </div>
-      </section>
 
       <section className="container-page space-y-6">
-        <PillBanner />
-        <GuaranteeHighlight compact />
-        <div id="services" className="space-y-6">
-          <h2 className="text-3xl font-semibold text-slate-900">Services pour particuliers</h2>
-          <p className="text-sm text-slate-600">
-            Un accompagnement clair, accessible et sans déplacement. Choisissez votre service et demandez un devis gratuit.
-          </p>
-          <ServiceGrid services={particulierServices} onQuote={handleQuote} profile="particulier" />
+        <div className="grid items-stretch gap-4 sm:grid-cols-2">
+          {offres.map((offre) => (
+            <article key={offre.title} className="section-card flex h-full flex-col p-6">
+              <h2 className="text-xl font-semibold text-slate-900">{offre.title}</h2>
+              <p className="mt-2 text-sm text-slate-600">{offre.text}</p>
+              <p className="mt-3 text-sm font-semibold text-sky-800">{offre.price}</p>
+              <div className="mt-auto pt-4">
+                <Link to={offre.to} className="btn-primary">
+                  {offre.cta}
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+        <p className="text-xs text-slate-500">
+          Tarifs indicatifs — devis gratuit personnalisé. TVA non applicable, art. 293 B du CGI.
+        </p>
+      </section>
+
+      <section className="container-page section-card p-6 sm:p-8">
+        <h2 className="text-2xl font-semibold text-slate-900">On fait aussi</h2>
+        <p className="mt-2 text-sm text-slate-600">
+          Des prestations à la demande, chiffrées gratuitement selon votre besoin :
+        </p>
+        <div className="mt-4 grid gap-3 sm:grid-cols-2">
+          {autresPrestations.map((prestation) => (
+            <Link
+              key={prestation.title}
+              to={prestation.link}
+              className="rounded-2xl border border-slate-100 bg-white p-4 text-sm font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-brand-cyan hover:text-slate-900"
+            >
+              {prestation.title} →
+            </Link>
+          ))}
         </div>
       </section>
 
-      <ContactModal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        service={selectedService}
-        profile="particulier"
-      />
+      <section className="container-page grid gap-4 lg:grid-cols-2">
+        <FounderNote />
+        <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+          <p className="text-xs font-semibold uppercase text-slate-500">Une question avant de vous lancer ?</p>
+          <p className="mt-2 text-sm text-slate-700">Appelez ou écrivez sur WhatsApp, on vous oriente gratuitement.</p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <a href={`tel:${site.phoneHref}`} className="btn-primary">
+              Appeler {site.phoneDisplay}
+            </a>
+            <a href={site.whatsappUrl} target="_blank" rel="noreferrer" className="btn-whatsapp-soft">
+              WhatsApp
+            </a>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }

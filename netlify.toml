@@ -11,8 +11,24 @@
   to = "/index.html"
   status = 200
 
+# NB : public/_redirects prime sur ces règles ; les deux fichiers sont gardés en cohérence.
 [[redirects]]
   from = "/depannage-pc"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/abonnement-famille"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/cybersecurite-pme"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/site-web-pro"
   to = "/index.html"
   status = 200
 

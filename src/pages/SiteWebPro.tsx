@@ -2,70 +2,68 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
 import ContactForm from '../components/ContactForm'
+import FounderNote from '../components/FounderNote'
 import { site } from '../content/site'
 import { getServiceByProfileAndId } from '../content/services'
 import { useProfile } from '../utils/useProfile'
-import heroAssistance from '../assets/service-assistance.webp'
+import heroWeb from '../assets/service-web-essentiels.jpg'
 
-const SERVICE_TITLE = 'Assistance & Dépannage Informatique'
+const SERVICE_TITLE = 'Création de sites Web Essentiels'
 
-// Symptômes : servent à la fois de cartes "ce qu'on répare" et de boutons
-// rapides dans le formulaire. Chaque libellé fait > 20 caractères pour être
-// utilisé tel quel comme message (contrainte serveur Firestore).
-const symptoms = [
-  'Mon PC est lent ou se fige',
-  'Écran bleu / plantages au démarrage',
-  'Virus, pubs ou pop-ups suspects',
-  'Wi-Fi ou connexion instable',
-  'Impossible de me connecter (mots de passe)',
-  'Mises à jour ou logiciels qui bloquent',
-  'Imprimante ou périphérique introuvable',
-  'Autre problème informatique',
+// Chaque libellé fait > 20 caractères pour être utilisé tel quel comme
+// message (contrainte serveur Firestore).
+const quickReasons = [
+  'Je lance mon activité, il me faut un site',
+  'Moderniser mon site vitrine actuel',
+  'Obtenir des demandes de devis en ligne',
+  'Améliorer mon image professionnelle',
+  'Être visible sur Google localement',
+  'Autre projet web',
 ]
 
 const trustPoints = [
   {
-    title: 'Expert systèmes & réseaux',
-    text: 'Ancien administrateur réseaux & systèmes, formé à l’École des transmissions. Un vrai pro, pas un standard.',
+    title: 'Orienté conversion',
+    text: 'Un site pensé pour générer des demandes de devis, pas seulement pour faire joli.',
   },
   {
-    title: '100% à distance',
-    text: 'Partout en France, par visio ou prise en main sécurisée (TeamViewer ou équivalent). Aucun déplacement.',
+    title: 'La preuve : ce site',
+    text: 'Le site que vous êtes en train de lire a été conçu et développé par Transistor&CIE.',
   },
   {
-    title: 'Devis gratuit',
-    text: 'Diagnostic clair avant toute intervention. Vous validez le prix d’abord, sans engagement.',
+    title: 'SEO de base inclus',
+    text: 'Structure, balises, sitemap et performances : les fondations pour être trouvé sur Google.',
   },
   {
-    title: 'Garantie satisfaction',
-    text: 'Si le résultat défini n’est pas atteint, on applique la garantie selon les conditions prévues.',
+    title: 'Simple à faire évoluer',
+    text: 'Contenus centralisés et structure claire : votre site reste modifiable sans tout casser.',
   },
 ]
 
 const steps = [
-  { title: 'Diagnostic', text: 'Vous décrivez la panne, on identifie la cause rapidement et clairement.' },
-  { title: 'Correction', text: 'Réparation à distance, en visio ou prise en main sécurisée, expliquée simplement.' },
-  { title: 'Conseils + sécurisation', text: 'Bonnes pratiques, sauvegarde et prévention pour éviter que ça recommence.' },
+  { title: 'Cadrage', text: 'Objectifs, cibles, pages nécessaires et messages clés. On définit ce qui doit convertir.' },
+  { title: 'Design & développement', text: 'Maquette moderne et responsive, intégration technique, formulaires et suivi.' },
+  { title: 'Mise en ligne & prise en main', text: 'Déploiement, SEO de base, et accompagnement pour que vous soyez autonome.' },
 ]
 
-const DepannagePc = () => {
+const SiteWebPro = () => {
   const { setProfile } = useProfile()
-  const service = getServiceByProfileAndId('particulier', 'assistance-depannage')
+  const service = getServiceByProfileAndId('entreprise', 'creation-site-web')
   const faq = service?.landing.faq ?? []
 
   useEffect(() => {
-    setProfile('particulier')
+    setProfile('entreprise')
   }, [setProfile])
 
   const structuredData = [
     {
       '@context': 'https://schema.org',
       '@type': 'Service',
-      name: 'Dépannage informatique à distance',
+      name: 'Création de site web professionnel',
       serviceType: SERVICE_TITLE,
       description:
-        'Diagnostic et réparation à distance des pannes logicielles : PC lent, virus, écran bleu, Wi-Fi, connexion. 100% digital, partout en France. Devis gratuit.',
-      url: `${site.websiteUrl}/depannage-pc`,
+        'Création de sites web clairs, professionnels et orientés conversion pour TPE/PME et indépendants. À partir de 800 €. 100% à distance, partout en France.',
+      url: `${site.websiteUrl}/site-web-pro`,
       areaServed: 'FR',
       provider: {
         '@type': 'Organization',
@@ -89,9 +87,9 @@ const DepannagePc = () => {
   return (
     <div className="space-y-14 pt-3 sm:pt-4">
       <SEO
-        title="Dépannage informatique à distance — Transistor&CIE"
-        description="PC lent, virus, écran bleu, Wi-Fi qui décroche ? Diagnostic et réparation à distance, souvent en moins de 24h. Devis gratuit, partout en France."
-        image={heroAssistance}
+        title="Création de site web professionnel — à partir de 800 € | Transistor&CIE"
+        description="Un site clair, professionnel et orienté demandes de devis pour lancer ou moderniser votre présence en ligne. À partir de 800 €, devis gratuit, partout en France."
+        image={heroWeb}
         structuredData={structuredData}
       />
 
@@ -100,37 +98,33 @@ const DepannagePc = () => {
         <div className="absolute inset-0 soft-grid" aria-hidden="true" />
         <div className="container-page relative grid items-center gap-10 py-10 sm:py-14 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="space-y-6">
-            <span className="chip bg-brand-cloud text-brand-ink">Dépannage informatique · 100% à distance</span>
+            <span className="chip bg-brand-cloud text-brand-ink">Site Web Essentiel · 100% à distance</span>
             <h1 className="text-3xl font-semibold leading-tight text-slate-900 sm:text-4xl md:text-5xl">
-              Votre PC rame, plante ou affiche des erreurs ?
+              Un site web professionnel qui vous ramène des clients.
             </h1>
             <p className="text-base text-slate-600 sm:text-lg">
-              On diagnostique et on répare <strong className="font-semibold text-slate-800">à distance</strong>, sans
-              déplacement — souvent en moins de 24h. Devis gratuit : vous ne payez rien tant que vous n’avez pas validé.
+              Conception, design responsive, SEO de base et mise en ligne : une vitrine crédible et
+              <strong className="font-semibold text-slate-800"> orientée demandes de devis</strong>, exploitable dès le
+              premier jour.
             </p>
             <div className="flex flex-wrap items-center gap-3">
               <a href="#form" className="btn-primary">
-                Décrire mon problème
+                Décrire mon projet
               </a>
               <a href={`tel:${site.phoneHref}`} className="btn-secondary">
                 Appeler {site.phoneDisplay}
               </a>
-              <a href={site.whatsappUrl} target="_blank" rel="noreferrer" className="btn-whatsapp-soft">
-                WhatsApp
-              </a>
             </div>
-            <p className="text-sm font-semibold text-slate-800">
-              Diagnostic à partir de 45 € · Intervention 35 €/h
-            </p>
+            <p className="text-sm font-semibold text-slate-800">À partir de 800 €</p>
             <p className="text-xs font-medium text-slate-500">
-              Tarifs indicatifs, devis gratuit personnalisé · Réponse sous 24–48h ouvrées · Garantie satisfaction
+              Tarif indicatif selon pages et fonctionnalités · Devis gratuit · TVA non applicable
             </p>
           </div>
           <div className="relative">
             <div className="hero-panel rounded-3xl p-3 shadow-lift">
               <img
-                src={heroAssistance}
-                alt="Dépannage informatique à distance Transistor&CIE"
+                src={heroWeb}
+                alt="Création de site web professionnel Transistor&CIE"
                 className="w-full rounded-2xl"
                 loading="eager"
               />
@@ -147,25 +141,6 @@ const DepannagePc = () => {
               <h2 className="text-base font-semibold text-slate-900">{point.title}</h2>
               <p className="mt-2 text-sm text-slate-600">{point.text}</p>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* CE QU'ON RÉPARE */}
-      <section className="container-page space-y-5">
-        <div>
-          <p className="text-xs font-semibold uppercase text-slate-500">Pannes les plus fréquentes</p>
-          <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">Ce qu’on répare au quotidien</h2>
-        </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {symptoms.map((item) => (
-            <a
-              key={item}
-              href="#form"
-              className="rounded-2xl border border-slate-100 bg-white p-4 text-sm font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-brand-cyan hover:text-slate-900"
-            >
-              {item}
-            </a>
           ))}
         </div>
       </section>
@@ -197,25 +172,24 @@ const DepannagePc = () => {
             <div>
               <p className="text-xs font-semibold uppercase text-slate-500">Demande rapide</p>
               <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-                Décrivez votre problème, on vous répond vite
+                Décrivez votre projet, on chiffre gratuitement
               </h2>
               <p className="mt-2 text-sm text-slate-600">
-                Choisissez votre souci en un clic et laissez vos coordonnées. C’est gratuit et sans engagement.
+                Choisissez votre situation en un clic et laissez vos coordonnées. Devis gratuit, sans engagement.
               </p>
             </div>
             <ContactForm
               express
-              prefillProfile="particulier"
+              prefillProfile="entreprise"
               prefillService={SERVICE_TITLE}
-              quickReasons={symptoms}
-              submitLabel="Être recontacté gratuitement"
+              quickReasons={quickReasons}
+              submitLabel="Recevoir mon devis web"
             />
           </div>
 
           <aside className="space-y-4">
             <div className="rounded-2xl border border-slate-100 bg-white p-5">
-              <p className="text-sm font-semibold text-slate-800">Vous préférez parler de vive voix ?</p>
-              <p className="mt-1 text-sm text-slate-600">Appelez ou écrivez sur WhatsApp, on vous répond directement.</p>
+              <p className="text-sm font-semibold text-slate-800">Vous préférez en parler de vive voix ?</p>
               <div className="mt-4 flex flex-col gap-2">
                 <a href={`tel:${site.phoneHref}`} className="btn-primary justify-center">
                   Appeler {site.phoneDisplay}
@@ -223,20 +197,9 @@ const DepannagePc = () => {
                 <a href={site.whatsappUrl} target="_blank" rel="noreferrer" className="btn-whatsapp-soft justify-center">
                   Écrire sur WhatsApp
                 </a>
-                <a href={`mailto:${site.contactEmail}`} className="btn-ghost justify-center">
-                  {site.contactEmail}
-                </a>
               </div>
             </div>
-            <div className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-5">
-              <p className="text-xs font-semibold uppercase text-emerald-700">Pourquoi nous faire confiance</p>
-              <ul className="mt-3 space-y-2 text-sm text-slate-700">
-                <li>✅ Diagnostic et devis gratuits, avant toute intervention</li>
-                <li>✅ Réparation à distance, sans déplacement</li>
-                <li>✅ Garantie satisfaction selon conditions</li>
-                <li>✅ Explications claires, sans jargon</li>
-              </ul>
-            </div>
+            <FounderNote />
           </aside>
         </div>
       </section>
@@ -261,16 +224,14 @@ const DepannagePc = () => {
 
       {/* CTA FINAL */}
       <section className="container-page section-card p-6 text-center sm:p-8">
-        <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">Un problème à régler maintenant ?</h2>
-        <p className="mt-2 text-sm text-slate-600">
-          Décrivez-le en quelques secondes, la réponse est rapide et le devis gratuit.
-        </p>
+        <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">Et la sécurité de votre entreprise ?</h2>
+        <p className="mt-2 text-sm text-slate-600">Site web + cybersécurité : les deux fondations de votre présence numérique.</p>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
           <a href="#form" className="btn-primary">
-            Décrire mon problème
+            Décrire mon projet web
           </a>
-          <Link to="/particulier" className="btn-secondary">
-            Voir tous les services
+          <Link to="/cybersecurite-pme" className="btn-secondary">
+            Découvrir l’offre cybersécurité
           </Link>
         </div>
       </section>
@@ -278,4 +239,4 @@ const DepannagePc = () => {
   )
 }
 
-export default DepannagePc
+export default SiteWebPro
