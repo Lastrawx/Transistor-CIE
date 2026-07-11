@@ -8,7 +8,7 @@ import { instagram } from '../content/instagram'
 const navItems = [
   { label: 'Accueil', to: '/' },
   { label: 'Dépannage', to: '/depannage-pc' },
-  { label: 'Abonnement famille', to: '/abonnement-famille' },
+  { label: 'Famille', to: '/abonnement-famille' },
   { label: 'Entreprises', to: '/entreprise' },
   { label: 'Contact', to: '/contact' },
 ]
@@ -50,25 +50,22 @@ const Header = () => {
             alt="Transistor&CIE"
             width={240}
             height={58}
-            className="h-[26px] w-auto max-w-[110px] sm:h-[54px] sm:max-w-none md:h-[58px]"
+            className="h-[26px] w-auto max-w-[110px] shrink-0 sm:h-[48px] sm:max-w-[180px] md:h-[54px] md:max-w-none"
           />
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-600">
+        <nav className="hidden xl:flex items-center gap-5 text-sm font-medium text-slate-600">
           {navItems.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `transition hover:text-slate-900 ${isActive ? 'text-slate-900' : ''}`
+                `whitespace-nowrap transition hover:text-slate-900 ${isActive ? 'text-slate-900' : ''}`
               }
             >
               {item.label}
             </NavLink>
           ))}
-          <a href={instagram.url} target="_blank" rel="noreferrer" className="transition hover:text-slate-900">
-            Instagram
-          </a>
         </nav>
 
         <div className="flex items-center gap-2 shrink-0 sm:gap-3">
@@ -79,7 +76,7 @@ const Header = () => {
             <span className="sm:hidden">{ctaLabelShort}</span>
             <span className="hidden sm:inline">{ctaLabel}</span>
           </Link>
-          <details ref={menuRef} className="relative shrink-0 lg:hidden">
+          <details ref={menuRef} className="relative shrink-0 xl:hidden">
             <summary className="btn-ghost cursor-pointer whitespace-nowrap">Menu</summary>
             <div className="absolute right-0 top-16 w-56 rounded-2xl border border-slate-100 bg-white p-4 shadow-xl sm:right-5 sm:top-[4.5rem]">
               <div className="flex flex-col gap-3 text-sm font-medium">
