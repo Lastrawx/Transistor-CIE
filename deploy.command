@@ -6,10 +6,10 @@
 #     que chaque page du site a bien sa règle dans public/_redirects (le
 #     bug des 404 en production), puis BUILD complet en local (TypeScript
 #     + Vite) : si ça ne compile pas ici, rien ne part en ligne ;
-#   ➋ Firebase         — VEILLE sur firestore.rules : si les règles ont
-#     changé depuis la dernière publication (registre .firestore-rules.applied),
-#     rappel qu'elles se publient À LA MAIN dans la console Firebase
-#     (elles ne partent PAS avec le site) ;
+#   ➋ Firebase         — DÉPLOIEMENT AUTOMATIQUE de firestore.rules si le
+#     fichier a changé (registre .firestore-rules.applied), via le CLI
+#     Firebase qui valide la syntaxe avant publication — les règles
+#     partent toujours AVANT le site ;
 #   ➌ GitHub           — COMMIT AUTOMATIQUE de tout le travail, puis push
 #     (c'est le push qui déclenche le build Netlify) ;
 #   ➍ Netlify          — SUIT le build jusqu'à la mise en ligne effective
@@ -28,6 +28,7 @@
 # Pré-requis :
 #   • node / npm installés (node_modules réinstallé tout seul si absent)
 #   • GitHub connecté une fois (clé SSH) : le remote « origin » existe déjà
+#   • Firebase CLI connecté une fois :  npx firebase-tools login
 #   • Netlify relié au dépôt (auto-build sur push — déjà configuré)
 # =====================================================================
 
@@ -274,39 +275,43 @@ BUNDLE="$(grep -oE 'assets/index-[^"]+\.js' dist/index.html | head -1)"
 detail "bundle : ${BUNDLE:-?} · dist/ : $(du -sh dist 2>/dev/null | cut -f1)"
 
 # =====================================================================
-# Phase 2 · Firebase (veille sur les règles Firestore)
+# Phase 2 · Firebase (déploiement des règles Firestore)
 # =====================================================================
 # Les règles Firestore (formulaire de devis, page admin) ne partent PAS
-# avec le site : elles se publient À LA MAIN dans la console Firebase.
-# Registre .firestore-rules.applied : empreinte du fichier à la dernière
-# publication reconnue — si le fichier a changé depuis, on le signale à
-# CHAQUE déploiement tant que ce n'est pas fait (sinon le formulaire et
-# les nouvelles règles seraient désynchronisés).
+# avec le site : elles sont DÉPLOYÉES AUTOMATIQUEMENT ici via le CLI
+# Firebase (connexion faite une fois : npx firebase-tools login), qui
+# VALIDE aussi leur syntaxe côté serveur avant publication.
+# Registre .firestore-rules.applied : empreinte du fichier au dernier
+# déploiement réussi — inchangée = rien à faire. L'ordre compte : les
+# règles partent AVANT le site (un formulaire nouveau ne doit jamais
+# arriver en ligne avant les règles qui l'autorisent).
 phase 2 "Firebase (règles Firestore)"
 RULES_LEDGER=".firestore-rules.applied"
 RULES_HASH="$(shasum -a 256 firestore.rules 2>/dev/null | cut -d' ' -f1)"
-if [ ! -f "$RULES_LEDGER" ]; then
-  # Premier passage : l'état actuel est considéré comme déjà publié.
-  printf '%s' "$RULES_HASH" > "$RULES_LEDGER"
-  echo "   ${GRN}✔${R} Veille initialisée ${D}— règles actuelles considérées publiées.${R}"
-elif [ "$RULES_HASH" = "$(cat "$RULES_LEDGER")" ]; then
-  echo "   ${GRN}✔${R} Règles Firestore inchangées ${D}— rien à publier côté Firebase.${R}"
+if [ -f "$RULES_LEDGER" ] && [ "$RULES_HASH" = "$(cat "$RULES_LEDGER")" ]; then
+  echo "   ${GRN}✔${R} Règles Firestore inchangées ${D}— rien à déployer côté Firebase.${R}"
 else
-  echo "   ${RED}⚠️  firestore.rules a CHANGÉ${R} ${D}depuis la dernière publication.${R}"
-  echo "      ${D}Elles se publient à la main : console Firebase → Firestore →"
-  echo "      Règles → coller le contenu de firestore.rules → Publier.${R}"
-  printf "   ${SKY}?${R} Déjà publiées dans la console Firebase ? [o/${B}N${R}] "
-  if tty_ok; then read -r REP_RULES </dev/tty; else read -r REP_RULES; fi
-  case "$REP_RULES" in
-    o|O|y|Y)
-      printf '%s' "$RULES_HASH" > "$RULES_LEDGER"
-      echo "   ${GRN}→${R} ${D}Noté — la veille repart de cette version.${R}"
-      ;;
-    *)
-      RULES_ALERTE=1
-      echo "   ${SKY}→${R} ${D}On continue — RAPPEL à chaque déploiement tant que ce n'est pas fait.${R}"
-      ;;
-  esac
+  if step "Déploiement des règles Firestore (Firebase CLI)" \
+       npx --yes firebase-tools deploy --only firestore:rules --project transistor-cie --non-interactive; then
+    printf '%s' "$RULES_HASH" > "$RULES_LEDGER"
+    detail "règles validées et publiées sur le projet transistor-cie"
+  else
+    log_tail 5
+    echo "   ${RED}⚠️  Déploiement des règles impossible.${R}"
+    echo "      ${D}Soit reconnecte le CLI (une fois) :  npx firebase-tools login --reauth"
+    echo "      Soit publie à la main : console Firebase → Firestore → Règles.${R}"
+    printf "   ${SKY}?${R} Continuer SANS les nouvelles règles ? [o/${B}N${R}] "
+    if tty_ok; then read -r REP_RULES </dev/tty; else read -r REP_RULES; fi
+    case "$REP_RULES" in
+      o|O|y|Y)
+        RULES_ALERTE=1
+        echo "   ${SKY}→${R} ${D}On continue — publie les règles au plus vite (formulaire et règles désynchronisés).${R}"
+        ;;
+      *)
+        die "→ Arrêt : rien n'est parti en ligne (les règles doivent partir avant le site)."
+        ;;
+    esac
+  fi
 fi
 
 # =====================================================================
