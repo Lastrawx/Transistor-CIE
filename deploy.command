@@ -291,14 +291,21 @@ RULES_HASH="$(shasum -a 256 firestore.rules 2>/dev/null | cut -d' ' -f1)"
 if [ -f "$RULES_LEDGER" ] && [ "$RULES_HASH" = "$(cat "$RULES_LEDGER")" ]; then
   echo "   ${GRN}✔${R} Règles Firestore inchangées ${D}— rien à déployer côté Firebase.${R}"
 else
+  # Binaire Firebase : on privilégie l'install locale (node_modules) — aucun
+  # téléchargement, insensible au réseau. Repli sur npx si absent.
+  if [ -x "node_modules/.bin/firebase" ]; then
+    FIREBASE_BIN=(node_modules/.bin/firebase)
+  else
+    FIREBASE_BIN=(npx --yes firebase-tools)
+  fi
   if step "Déploiement des règles Firestore (Firebase CLI)" \
-       npx --yes firebase-tools deploy --only firestore:rules --project transistor-cie --non-interactive; then
+       "${FIREBASE_BIN[@]}" deploy --only firestore:rules --project transistor-cie --non-interactive; then
     printf '%s' "$RULES_HASH" > "$RULES_LEDGER"
     detail "règles validées et publiées sur le projet transistor-cie"
   else
     log_tail 5
     echo "   ${RED}⚠️  Déploiement des règles impossible.${R}"
-    echo "      ${D}Soit reconnecte le CLI (une fois) :  npx firebase-tools login --reauth"
+    echo "      ${D}Soit reconnecte le CLI (une fois) :  node_modules/.bin/firebase login --reauth"
     echo "      Soit publie à la main : console Firebase → Firestore → Règles.${R}"
     printf "   ${SKY}?${R} Continuer SANS les nouvelles règles ? [o/${B}N${R}] "
     if tty_ok; then read -r REP_RULES </dev/tty; else read -r REP_RULES; fi
