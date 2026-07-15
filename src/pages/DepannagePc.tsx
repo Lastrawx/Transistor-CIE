@@ -164,7 +164,7 @@ const DepannagePc = () => {
             gratuit : vous ne payez que ce que vous avez validé.
           </p>
         </div>
-        <PriceEstimator onQuoteRequest={setEstimateMessage} />
+        <PriceEstimator fixedOfferId="depannage" onQuoteRequest={setEstimateMessage} />
       </section>
 
       {/* COMMENT ÇA SE PASSE */}

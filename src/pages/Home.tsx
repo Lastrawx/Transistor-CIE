@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Hero from '../components/Hero'
 import GuaranteeHighlight from '../components/GuaranteeHighlight'
 import ContactForm from '../components/ContactForm'
+import PriceEstimator from '../components/PriceEstimator'
 import FounderNote from '../components/FounderNote'
 import SEO from '../components/SEO'
 import { instagram } from '../content/instagram'
@@ -65,6 +67,8 @@ const trustBadges = [
 const Home = () => {
   const ctaLink = '/#devis'
   const ctaLabel = 'Demander un devis gratuit'
+  // Message poussé par l'estimateur vers le formulaire (« Recevoir ce devis par écrit »).
+  const [estimateMessage, setEstimateMessage] = useState('')
 
   return (
     <div className="space-y-20 pt-3 sm:pt-4">
@@ -81,8 +85,8 @@ const Home = () => {
           kicker="Transistor&CIE"
           ctaLabel={ctaLabel}
           ctaLink={ctaLink}
-          secondaryLabel="Voir les offres & tarifs"
-          secondaryLink="/#poles"
+          secondaryLabel="⚡ Estimer mon prix en 2 clics"
+          secondaryLink="/#estimation"
           image={heroHome}
           imageAlt="Bienvenue chez Transistor&CIE"
         >
@@ -144,6 +148,19 @@ const Home = () => {
         </p>
       </section>
 
+      {/* ESTIMATEUR DE PRIX MULTI-OFFRES */}
+      <section id="estimation" className="container-page scroll-mt-24 space-y-5">
+        <div>
+          <p className="text-xs font-semibold uppercase text-slate-500">Estimation immédiate — sans coordonnées</p>
+          <h2 className="text-3xl font-semibold text-slate-900">Votre prix en 2 clics</h2>
+          <p className="mt-2 text-sm text-slate-600">
+            Dites-nous pour quoi c’est, touchez votre situation : le prix s’affiche aussitôt. Confirmé ensuite par
+            un devis gratuit — vous ne payez que ce que vous avez validé.
+          </p>
+        </div>
+        <PriceEstimator formAnchor="#devis" onQuoteRequest={setEstimateMessage} />
+      </section>
+
       <section id="devis" className="container-page section-card p-6 sm:p-8">
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="space-y-4">
@@ -166,6 +183,7 @@ const Home = () => {
                 'Création d’un site web professionnel',
                 'Autre besoin / question',
               ]}
+              externalMessage={estimateMessage || undefined}
               submitLabel="Recevoir mon devis gratuit"
             />
           </div>
