@@ -12,14 +12,14 @@ const offres = [
   {
     title: '🔧 Dépannage & Assistance',
     text: 'PC lent, virus, Wi-Fi, imprimante, smartphone : diagnostic et réparation à distance, souvent sous 24h.',
-    price: 'Diagnostic dès 45 € · 35 €/h',
+    price: 'Diagnostic 45 € — déduit si intervention · Forfaits dès 59 €',
     to: '/depannage-pc',
     cta: 'Décrire mon problème',
   },
   {
     title: '🏠 Abonnement Sérénité Famille',
     text: 'Assistance toute l’année pour tout le foyer, seniors inclus. Audit, sécurisation, hotline dédiée.',
-    price: 'À partir de 60 €/mois',
+    price: 'À partir de 39 €/mois',
     to: '/abonnement-famille',
     cta: 'Découvrir la formule',
   },
@@ -55,7 +55,7 @@ const Particulier = () => {
     <div className="space-y-14 pt-3 sm:pt-4">
       <SEO
         title="Transistor&CIE — Particuliers"
-        description="Dépannage informatique à distance dès 45 € et abonnement d'assistance famille dès 60 €/mois. 100% digital, partout en France. Devis gratuit."
+        description="Dépannage informatique à distance dès 45 € et abonnement d'assistance famille dès 39 €/mois. 100% digital, partout en France. Devis gratuit."
         image={heroParticulier}
       />
 

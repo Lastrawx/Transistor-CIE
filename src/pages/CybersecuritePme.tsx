@@ -27,13 +27,13 @@ const formules = [
   {
     name: 'Formule 1 — Mise à niveau Essentielle',
     price: 'À partir de 530 €',
-    text: 'Audit sécurité, MFA, gestion des comptes et des droits, accès distants, sauvegardes, sensibilisation phishing. Objectif : votre PME sécurisée en 1 mois (selon périmètre).',
+    text: 'Audit sécurité, MFA, gestion des comptes et des droits, sauvegardes, sensibilisation phishing, postes sécurisés. Objectif : votre PME sécurisée en 1 mois (selon périmètre). Version Avancée (VPN, segmentation réseau) au devis.',
     highlight: false,
   },
   {
     name: 'Formule 2 — Suivi continu',
-    price: 'Abonnement mensuel, sur devis selon taille',
-    text: 'Après la mise à niveau : contrôles réguliers, mises à jour des protections, simulations phishing, hotline 24/7 pour incidents critiques (SLA contractuel au devis).',
+    price: 'Dès 119 €/mois selon le nombre de postes',
+    text: 'Après la mise à niveau : contrôles réguliers, mises à jour des protections, simulations phishing, hotline prioritaire pour incidents critiques (SLA contractuel au devis).',
     highlight: true,
   },
 ]
@@ -128,7 +128,7 @@ const CybersecuritePme = () => {
               </a>
             </div>
             <p className="text-sm font-semibold text-slate-800">
-              Mise à niveau : à partir de 530 € · Suivi mensuel : sur devis selon taille
+              Mise à niveau : à partir de 530 € · Suivi mensuel : dès 119 €/mois selon le nombre de postes
             </p>
             <p className="text-xs font-medium text-slate-500">
               Tarifs indicatifs, devis gratuit personnalisé · TVA non applicable (art. 293 B du CGI) · Réponse sous 24–48h ouvrées

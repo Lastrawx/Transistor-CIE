@@ -12,7 +12,7 @@ const offres = [
   {
     title: '🛡️ Cybersécurité TPE/PME',
     text: 'Mise à niveau complète en 1 mois (audit, MFA, accès distants, sauvegardes, phishing), puis suivi continu si besoin.',
-    price: 'À partir de 530 €',
+    price: 'Mise à niveau dès 530 € · Suivi dès 119 €/mois',
     to: '/cybersecurite-pme',
     cta: 'Sécuriser mon entreprise',
   },
@@ -47,7 +47,7 @@ const Entreprise = () => {
     <div className="space-y-14 pt-3 sm:pt-4">
       <SEO
         title="Transistor&CIE — Entreprises"
-        description="Cybersécurité TPE/PME dès 530 € et création de site web professionnel dès 800 €. 100% digital, partout en France. Devis gratuit."
+        description="Cybersécurité TPE/PME dès 530 € (suivi dès 119 €/mois) et création de site web professionnel dès 800 €. 100% digital, partout en France. Devis gratuit."
         image={heroEntreprise}
       />
 

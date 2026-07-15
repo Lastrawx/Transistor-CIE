@@ -1,4 +1,4 @@
-import { type FormEvent, useMemo, useState } from 'react'
+import { type FormEvent, useEffect, useMemo, useState } from 'react'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { Link, useNavigate } from 'react-router-dom'
 import { db } from '../firebase'
@@ -31,6 +31,8 @@ type ContactFormProps = {
   express?: boolean
   /** Boutons "symptôme" rapides (mode express) qui pré-remplissent le message en un clic. */
   quickReasons?: string[]
+  /** Message poussé depuis l'extérieur (ex. estimateur de prix) : remplace le message courant à chaque changement. */
+  externalMessage?: string
   /** Libellé personnalisé du bouton d'envoi. */
   submitLabel?: string
 }
@@ -54,6 +56,7 @@ const ContactForm = ({
   compact,
   express = false,
   quickReasons,
+  externalMessage,
   submitLabel,
 }: ContactFormProps) => {
   const navigate = useNavigate()
@@ -68,6 +71,12 @@ const ContactForm = ({
   const [messageText, setMessageText] = useState(() =>
     prefillMessage ? prefillMessage.slice(0, MAX_MESSAGE_LENGTH) : '',
   )
+
+  useEffect(() => {
+    if (externalMessage) {
+      setMessageText(externalMessage.slice(0, MAX_MESSAGE_LENGTH))
+    }
+  }, [externalMessage])
 
   const profileLocked = Boolean(prefillProfile)
   const serviceLocked = Boolean(prefillService)

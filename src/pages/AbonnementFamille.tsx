@@ -88,7 +88,7 @@ const AbonnementFamille = () => {
     <div className="space-y-14 pt-3 sm:pt-4">
       <SEO
         title="Abonnement Sérénité Famille — assistance numérique du foyer | Transistor&CIE"
-        description="Toute la tech de votre famille prise en charge : assistance au quotidien, sécurisation, aide aux seniors, mini-formations. À partir de 60 €/mois, partout en France."
+        description="Toute la tech de votre famille prise en charge : assistance au quotidien, sécurisation, aide aux seniors, mini-formations. À partir de 39 €/mois, partout en France."
         image={heroFamille}
         structuredData={structuredData}
       />
@@ -117,7 +117,7 @@ const AbonnementFamille = () => {
                 WhatsApp
               </a>
             </div>
-            <p className="text-sm font-semibold text-slate-800">À partir de 60 €/mois — mise en place sur devis</p>
+            <p className="text-sm font-semibold text-slate-800">À partir de 39 €/mois — mise en place 99 €</p>
             <p className="text-xs font-medium text-slate-500">
               Tarif indicatif selon la composition du foyer · Devis gratuit · Garantie satisfaction
             </p>

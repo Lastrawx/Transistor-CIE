@@ -1,7 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
 import ContactForm from '../components/ContactForm'
+import PriceEstimator from '../components/PriceEstimator'
 import { site } from '../content/site'
 import { getServiceByProfileAndId } from '../content/services'
 import { useProfile } from '../utils/useProfile'
@@ -52,6 +53,8 @@ const DepannagePc = () => {
   const { setProfile } = useProfile()
   const service = getServiceByProfileAndId('particulier', 'assistance-depannage')
   const faq = service?.landing.faq ?? []
+  // Message poussé par l'estimateur vers le formulaire (« Recevoir ce devis par écrit »).
+  const [estimateMessage, setEstimateMessage] = useState('')
 
   useEffect(() => {
     setProfile('particulier')
@@ -90,7 +93,7 @@ const DepannagePc = () => {
     <div className="space-y-14 pt-3 sm:pt-4">
       <SEO
         title="Dépannage informatique à distance — Transistor&CIE"
-        description="PC lent, virus, écran bleu, Wi-Fi qui décroche ? Diagnostic et réparation à distance, souvent en moins de 24h. Devis gratuit, partout en France."
+        description="PC lent, virus, écran bleu, Wi-Fi qui décroche ? Estimez votre prix en 1 clic, puis réparation à distance, souvent en moins de 24h. Devis gratuit, partout en France."
         image={heroAssistance}
         structuredData={structuredData}
       />
@@ -109,8 +112,8 @@ const DepannagePc = () => {
               déplacement — souvent en moins de 24h. Devis gratuit : vous ne payez rien tant que vous n’avez pas validé.
             </p>
             <div className="flex flex-wrap items-center gap-3">
-              <a href="#form" className="btn-primary">
-                Décrire mon problème
+              <a href="#estimation" className="btn-primary">
+                ⚡ Estimer mon prix en 1 clic
               </a>
               <a href={`tel:${site.phoneHref}`} className="btn-secondary">
                 Appeler {site.phoneDisplay}
@@ -120,7 +123,7 @@ const DepannagePc = () => {
               </a>
             </div>
             <p className="text-sm font-semibold text-slate-800">
-              Diagnostic à partir de 45 € · Intervention 35 €/h
+              Diagnostic 45 € — déduit si intervention · Forfaits dès 59 €
             </p>
             <p className="text-xs font-medium text-slate-500">
               Tarifs indicatifs, devis gratuit personnalisé · TVA non applicable (art. 293 B du CGI) · Réponse sous 24–48h ouvrées · Garantie satisfaction
@@ -151,23 +154,17 @@ const DepannagePc = () => {
         </div>
       </section>
 
-      {/* CE QU'ON RÉPARE */}
-      <section className="container-page space-y-5">
+      {/* ESTIMATEUR DE PRIX */}
+      <section id="estimation" className="container-page scroll-mt-24 space-y-5">
         <div>
-          <p className="text-xs font-semibold uppercase text-slate-500">Pannes les plus fréquentes</p>
-          <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">Ce qu’on répare au quotidien</h2>
+          <p className="text-xs font-semibold uppercase text-slate-500">Estimation immédiate — sans coordonnées</p>
+          <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">Votre prix en 1 clic</h2>
+          <p className="mt-2 text-sm text-slate-600">
+            Touchez votre situation, le forfait s’affiche aussitôt. Le prix est ensuite confirmé par un devis
+            gratuit : vous ne payez que ce que vous avez validé.
+          </p>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {symptoms.map((item) => (
-            <a
-              key={item}
-              href="#form"
-              className="rounded-2xl border border-slate-100 bg-white p-4 text-sm font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-brand-cyan hover:text-slate-900"
-            >
-              {item}
-            </a>
-          ))}
-        </div>
+        <PriceEstimator onQuoteRequest={setEstimateMessage} />
       </section>
 
       {/* COMMENT ÇA SE PASSE */}
@@ -208,6 +205,7 @@ const DepannagePc = () => {
               prefillProfile="particulier"
               prefillService={SERVICE_TITLE}
               quickReasons={symptoms}
+              externalMessage={estimateMessage || undefined}
               submitLabel="Être recontacté gratuitement"
             />
           </div>
@@ -266,7 +264,10 @@ const DepannagePc = () => {
           Décrivez-le en quelques secondes, la réponse est rapide et le devis gratuit.
         </p>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-          <a href="#form" className="btn-primary">
+          <a href="#estimation" className="btn-primary">
+            ⚡ Estimer mon prix en 1 clic
+          </a>
+          <a href="#form" className="btn-ghost">
             Décrire mon problème
           </a>
           <Link to="/particulier" className="btn-secondary">
