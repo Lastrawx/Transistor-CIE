@@ -205,9 +205,14 @@ service cloud.firestore {
             : true
         )
         && request.resource.data.email is string
-        && request.resource.data.email.size() >= 5
         && request.resource.data.email.size() <= 200
-        && request.resource.data.email.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$')
+        && request.resource.data.email.matches('^$|^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$')
+        && (request.resource.data.email != "" || request.resource.data.telephone != "")
+        && (
+          request.resource.data.email == ""
+            ? request.resource.data.preferenceRecontact != "mail"
+            : true
+        )
         && request.resource.data.message is string
         && request.resource.data.message.size() >= 20
         && request.resource.data.message.size() <= 3000

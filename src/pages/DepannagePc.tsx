@@ -214,8 +214,8 @@ const DepannagePc = () => {
 
           <aside className="space-y-4">
             <div className="rounded-2xl border border-slate-100 bg-white p-5">
-              <p className="text-sm font-semibold text-slate-800">Vous préférez parler de vive voix ?</p>
-              <p className="mt-1 text-sm text-slate-600">Appelez ou écrivez sur WhatsApp, on vous répond directement.</p>
+              <p className="text-sm font-semibold text-slate-800">Vous préférez ne pas laisser vos coordonnées ici ?</p>
+              <p className="mt-1 text-sm text-slate-600">Appelez ou écrivez sur WhatsApp : réponse directe, et c’est vous qui gardez la main sur l’échange.</p>
               <div className="mt-4 flex flex-col gap-2">
                 <a href={`tel:${site.phoneHref}`} className="btn-primary justify-center">
                   Appeler {site.phoneDisplay}

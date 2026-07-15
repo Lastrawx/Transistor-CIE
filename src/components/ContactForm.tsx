@@ -103,7 +103,13 @@ const ContactForm = ({
     const contactPreferenceValue = (formData.get('preferenceRecontact') ?? '').toString().trim()
     const message = messageText.trim()
 
-    if (email.length < MIN_EMAIL_LENGTH || email.length > MAX_EMAIL_LENGTH) {
+    if (email.length === 0 && phone.length === 0) {
+      setSubmitError('Merci de laisser au moins un moyen de vous recontacter : email ou téléphone.')
+      setIsSubmitting(false)
+      return
+    }
+
+    if (email.length > 0 && (email.length < MIN_EMAIL_LENGTH || email.length > MAX_EMAIL_LENGTH)) {
       setSubmitError('Merci de renseigner un email valide.')
       setIsSubmitting(false)
       return
@@ -157,10 +163,14 @@ const ContactForm = ({
     const messageToSend =
       message.length >= MIN_MESSAGE_LENGTH ? message : `${subject}${message ? ` — ${message}` : ''}`
 
-    const preferredContactMethod: ContactPreference =
+    let preferredContactMethod: ContactPreference =
       phone.length > 0 && contactPreferenceOptions.some((option) => option.value === contactPreferenceValue)
         ? (contactPreferenceValue as ContactPreference)
         : 'mail'
+    // Sans email, le recontact ne peut pas être « mail » : on bascule sur l'appel.
+    if (email.length === 0 && preferredContactMethod === 'mail') {
+      preferredContactMethod = 'appel'
+    }
 
     const payload = {
       type: 'devis',
@@ -287,29 +297,39 @@ const ContactForm = ({
         </label>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        <label className="space-y-2">
-          <span className="text-sm font-semibold text-slate-700">Email *</span>
-          <input
-            type="email"
-            name="email"
-            required
-            maxLength={MAX_EMAIL_LENGTH}
-            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3"
-          />
-        </label>
-        <label className="space-y-2">
-          <span className="text-sm font-semibold text-slate-700">Téléphone</span>
-          <input
-            type="tel"
-            name="telephone"
-            value={phoneValue}
-            onChange={(event) => setPhoneValue(event.target.value)}
-            maxLength={MAX_PHONE_LENGTH}
-            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3"
-            placeholder="Optionnel mais recommandé"
-          />
-        </label>
+      <div className="space-y-2">
+        <p className="text-sm font-semibold text-slate-700">
+          Comment vous recontacter ? *{' '}
+          <span className="font-normal text-slate-500">Email ou téléphone — un seul suffit.</span>
+        </p>
+        <div className="grid gap-4 md:grid-cols-2">
+          <label className="space-y-2">
+            <span className="text-sm font-semibold text-slate-700">Email</span>
+            <input
+              type="email"
+              name="email"
+              required={phoneValue.trim().length === 0}
+              maxLength={MAX_EMAIL_LENGTH}
+              className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3"
+            />
+          </label>
+          <label className="space-y-2">
+            <span className="text-sm font-semibold text-slate-700">Téléphone</span>
+            <input
+              type="tel"
+              name="telephone"
+              value={phoneValue}
+              onChange={(event) => setPhoneValue(event.target.value)}
+              maxLength={MAX_PHONE_LENGTH}
+              className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3"
+              placeholder="Si vous préférez être appelé(e)"
+            />
+          </label>
+        </div>
+        <p className="text-xs text-slate-500">
+          🔒 Vos coordonnées servent uniquement à répondre à cette demande. Pas de newsletter, pas de
+          démarchage, jamais transmises à des tiers.
+        </p>
       </div>
 
       {phoneValue.trim().length > 0 && (
