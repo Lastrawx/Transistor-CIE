@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import Hero from '../components/Hero'
-import ProfileChoice from '../components/ProfileChoice'
 import GuaranteeHighlight from '../components/GuaranteeHighlight'
 import ContactForm from '../components/ContactForm'
 import FounderNote from '../components/FounderNote'
@@ -64,7 +63,7 @@ const trustBadges = [
 ]
 
 const Home = () => {
-  const ctaLink = '/contact'
+  const ctaLink = '/#devis'
   const ctaLabel = 'Demander un devis gratuit'
 
   return (
@@ -82,7 +81,7 @@ const Home = () => {
           kicker="Transistor&CIE"
           ctaLabel={ctaLabel}
           ctaLink={ctaLink}
-          secondaryLabel="Voir les pôles"
+          secondaryLabel="Voir les offres & tarifs"
           secondaryLink="/#poles"
           image={heroHome}
           imageAlt="Bienvenue chez Transistor&CIE"
@@ -99,7 +98,6 @@ const Home = () => {
             <p className="text-xs font-medium text-slate-500">
               Devis gratuit · Réponse sous 24–48h ouvrées · Garantie satisfaction
             </p>
-            <ProfileChoice />
           </div>
         </Hero>
 
@@ -144,6 +142,59 @@ const Home = () => {
           </Link>
           .
         </p>
+      </section>
+
+      <section id="devis" className="container-page section-card p-6 sm:p-8">
+        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="space-y-4">
+            <div>
+              <p className="text-xs font-semibold uppercase text-slate-500">Devis gratuit</p>
+              <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
+                Décrivez votre besoin, réponse sous 24–48h
+              </h2>
+              <p className="mt-2 text-sm text-slate-600">
+                Un clic sur votre situation, vos coordonnées, et c’est parti. Gratuit et sans engagement.
+              </p>
+            </div>
+            <ContactForm
+              express
+              prefillSubject="Demande de devis — Formulaire accueil"
+              quickReasons={[
+                'Besoin d’un dépannage informatique',
+                'Intéressé par l’abonnement famille',
+                'Cybersécurité de mon entreprise',
+                'Création d’un site web professionnel',
+                'Autre besoin / question',
+              ]}
+              submitLabel="Recevoir mon devis gratuit"
+            />
+          </div>
+          <aside className="space-y-4">
+            <div className="rounded-2xl border border-slate-100 bg-white p-5">
+              <p className="text-sm font-semibold text-slate-800">Vous préférez parler de vive voix ?</p>
+              <div className="mt-4 flex flex-col gap-2">
+                <a href={`tel:${site.phoneHref}`} className="btn-primary justify-center">
+                  Appeler {site.phoneDisplay}
+                </a>
+                <a href={site.whatsappUrl} target="_blank" rel="noreferrer" className="btn-whatsapp-soft justify-center">
+                  Écrire sur WhatsApp
+                </a>
+                <a href={`mailto:${site.contactEmail}`} className="btn-ghost justify-center">
+                  {site.contactEmail}
+                </a>
+              </div>
+            </div>
+            <div className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-5">
+              <p className="text-xs font-semibold uppercase text-emerald-700">Ce qui est toujours inclus</p>
+              <ul className="mt-3 space-y-2 text-sm text-slate-700">
+                <li>✅ Devis gratuit avant toute intervention</li>
+                <li>✅ 100% à distance, partout en France</li>
+                <li>✅ Garantie satisfaction selon conditions</li>
+                <li>✅ Explications claires, sans jargon</li>
+              </ul>
+            </div>
+          </aside>
+        </div>
       </section>
 
       <section className="container-page section-card p-8">
@@ -220,59 +271,6 @@ const Home = () => {
         </div>
 
         <FounderNote />
-      </section>
-
-      <section id="devis" className="container-page section-card p-6 sm:p-8">
-        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="space-y-4">
-            <div>
-              <p className="text-xs font-semibold uppercase text-slate-500">Devis gratuit</p>
-              <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-                Décrivez votre besoin, réponse sous 24–48h
-              </h2>
-              <p className="mt-2 text-sm text-slate-600">
-                Un clic sur votre situation, vos coordonnées, et c’est parti. Gratuit et sans engagement.
-              </p>
-            </div>
-            <ContactForm
-              express
-              prefillSubject="Demande de devis — Formulaire accueil"
-              quickReasons={[
-                'Besoin d’un dépannage informatique',
-                'Intéressé par l’abonnement famille',
-                'Cybersécurité de mon entreprise',
-                'Création d’un site web professionnel',
-                'Autre besoin / question',
-              ]}
-              submitLabel="Recevoir mon devis gratuit"
-            />
-          </div>
-          <aside className="space-y-4">
-            <div className="rounded-2xl border border-slate-100 bg-white p-5">
-              <p className="text-sm font-semibold text-slate-800">Vous préférez parler de vive voix ?</p>
-              <div className="mt-4 flex flex-col gap-2">
-                <a href={`tel:${site.phoneHref}`} className="btn-primary justify-center">
-                  Appeler {site.phoneDisplay}
-                </a>
-                <a href={site.whatsappUrl} target="_blank" rel="noreferrer" className="btn-whatsapp-soft justify-center">
-                  Écrire sur WhatsApp
-                </a>
-                <a href={`mailto:${site.contactEmail}`} className="btn-ghost justify-center">
-                  {site.contactEmail}
-                </a>
-              </div>
-            </div>
-            <div className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-5">
-              <p className="text-xs font-semibold uppercase text-emerald-700">Ce qui est toujours inclus</p>
-              <ul className="mt-3 space-y-2 text-sm text-slate-700">
-                <li>✅ Devis gratuit avant toute intervention</li>
-                <li>✅ 100% à distance, partout en France</li>
-                <li>✅ Garantie satisfaction selon conditions</li>
-                <li>✅ Explications claires, sans jargon</li>
-              </ul>
-            </div>
-          </aside>
-        </div>
       </section>
 
       <section className="container-page space-y-8">

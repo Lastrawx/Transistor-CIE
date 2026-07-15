@@ -123,7 +123,7 @@ const DepannagePc = () => {
               Diagnostic à partir de 45 € · Intervention 35 €/h
             </p>
             <p className="text-xs font-medium text-slate-500">
-              Tarifs indicatifs, devis gratuit personnalisé · Réponse sous 24–48h ouvrées · Garantie satisfaction
+              Tarifs indicatifs, devis gratuit personnalisé · TVA non applicable (art. 293 B du CGI) · Réponse sous 24–48h ouvrées · Garantie satisfaction
             </p>
           </div>
           <div className="relative">

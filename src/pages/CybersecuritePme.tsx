@@ -131,7 +131,7 @@ const CybersecuritePme = () => {
               Mise à niveau : à partir de 530 € · Suivi mensuel : sur devis selon taille
             </p>
             <p className="text-xs font-medium text-slate-500">
-              Tarifs indicatifs, devis gratuit personnalisé · Réponse sous 24–48h ouvrées
+              Tarifs indicatifs, devis gratuit personnalisé · TVA non applicable (art. 293 B du CGI) · Réponse sous 24–48h ouvrées
             </p>
           </div>
           <div className="relative">
